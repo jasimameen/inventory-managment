@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:invendory_managment/presentation/shop/screen_shop.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Invendory Managment App'),
+      home: SafeArea(
+        child: Scaffold(
+          body: ScreenShop(),
         ),
-        body: Somethingwidgets(),
       ),
     );
   }
