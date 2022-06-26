@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/constands.dart';
+import '../../core/constants.dart';
 import '../../core/styles.dart';
 
 class AddItemWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class AddItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -22,8 +22,8 @@ class AddItemWidget extends StatelessWidget {
           const Placeholder(
             color: Colors.grey,
             strokeWidth: 1,
-            fallbackHeight: 50,
-            fallbackWidth: 50,
+            fallbackHeight: 30,
+            fallbackWidth: 30,
           ),
 
           // Title

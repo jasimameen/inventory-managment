@@ -1,31 +1,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:invendory_managment/presentation/core/strings.dart';
-import 'package:invendory_managment/presentation/core/styles.dart';
 
-import '../core/constands.dart';
+import '../core/constants.dart';
+import '../core/styles.dart';
 import 'widgets/widgets.dart';
 
+String _shopName = '';
+String _shopId = '';
+String _shopAddress = '';
+
 class ScreenShop extends StatelessWidget {
-  const ScreenShop({Key? key}) : super(key: key);
+  final String shopName;
+  final String shopId;
+  final String shopAddress;
+
+  ScreenShop({Key? key, 
+    required this.shopName,
+    required this.shopId,
+    required this.shopAddress,
+  }) : super(key: key) {
+    _shopName = shopName;
+    _shopId = shopId;
+    _shopAddress = shopAddress;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: const [
-        // Header
-        _Header(),
-        Divider(thickness: 5),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: const [
+            // Header
+            _Header(),
+            Divider(thickness: 5),
 
-        // InvoiceCreation
-        Expanded(
-          child: _InvoiceCreation(),
+            // InvoiceCreation
+            Expanded(
+              child: _InvoiceCreation(),
+            ),
+
+            // Footer
+            Divider(thickness: 5),
+            _Footer(),
+          ],
         ),
-
-        // Footer
-        Divider(thickness: 5),
-        _Footer(),
-      ],
+      ),
     );
   }
 }
@@ -59,24 +78,24 @@ class _Header extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('Shop Name',
-                    style: TextStyle(
+              children: [
+                Text(_shopName,
+                    style: const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     )),
-                Text('shop_id',
-                    style: TextStyle(
+                Text(_shopId,
+                    style: const TextStyle(
                       color: AppColors.grey,
                       fontStyle: FontStyle.italic,
                     )),
                 kHeight,
                 Text(
-                  dummyAddres,
+                  _shopAddress,
                   // maxLines: 1,
                   softWrap: true,
                   overflow: TextOverflow.fade,
-                  style: TextStyle(fontStyle: FontStyle.italic),
+                  style: const TextStyle(fontStyle: FontStyle.italic),
                 ),
               ],
             ),
@@ -131,7 +150,7 @@ class _InvoiceCreation extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.separated(
       itemBuilder: (context, index) => AddItemWidget(),
-      separatorBuilder: (context, index) => kHeight,
+      separatorBuilder: (context, index) => kHeight3,
       itemCount: 10,
     );
   }
@@ -145,7 +164,7 @@ class _Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 80,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -162,14 +181,14 @@ class _Footer extends StatelessWidget {
               child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(
+              const Text(
                 'Subtotal : 1700 USD',
                 style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              // ElevatedButton(child: Text("Pay"), onPressed: () {})
+              ElevatedButton(child: const Text('Pay'), onPressed: () {}),
             ],
           )),
         ],
