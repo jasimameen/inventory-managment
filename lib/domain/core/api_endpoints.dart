@@ -1,23 +1,22 @@
+// ignore_for_file: constant_identifier_names
+
+
+import '../../core/strings.dart';
+
 class ApiEndpoints {
-  String district = 'district';
-  String category = 'category';
-  String town = 'town';
-  String warehouse = 'warehouse';
-  String sales = 'sales';
-  String vehicle = 'vehicle';
-  String errand = 'errand';
-  String shop = 'shop';
-  String stock = 'stock';
-  String item = 'item';
-  String route = 'route';
-  String driver = 'driver';
+  static const district = BASE_URL + 'viewsets/district/';
+  static const category = BASE_URL + 'viewsets/category/';
+  static const town = BASE_URL + 'viewsets/town/';
+  static const warehouse = BASE_URL + 'viewsets/warehouse/';
+  static const sales = BASE_URL + 'viewsets/sales/';
+  static const vehicle = BASE_URL + 'viewsets/vehicle/';
+  static const errand = BASE_URL + 'viewsets/errand/';
+  static const shop = BASE_URL + 'viewsets/shop/';
+  static const stock = BASE_URL + 'viewsets/stock/';
+  static const item = BASE_URL + 'viewsets/item/';
+  static const route = BASE_URL + 'viewsets/route/';
+  static const driver = BASE_URL + 'viewsets/driver/';
 
-// urlpatterns = [
-//     path('viewsets/',include(router.urls)),
-//     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-//     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-// ]
-
-  String apiToken = 'api/token/';
-  String refreashToken = 'api/token/refresh';
+  static const accessTokenPath = BASE_URL + 'api/token/';
+  static const refreshTokenPath = BASE_URL + 'api/token/refresh/';
 }

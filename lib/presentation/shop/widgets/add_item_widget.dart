@@ -50,7 +50,23 @@ class AddItemWidget extends StatelessWidget {
           ),
           // Base Price
           kWidth,
-          Text('20 USD'),
+          SizedBox(
+            width: 50,
+            height: 30,
+            child: TextField(
+              controller: TextEditingController(text: '20'),// price controller
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 20),
+              decoration: const InputDecoration(
+                  prefix: Icon(
+                Icons.currency_rupee,
+                color: AppColors.green,
+                size: 20,
+              )),
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.done,
+            ),
+          ),
 
           // Qty
           kWidth,

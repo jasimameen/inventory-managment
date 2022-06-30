@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ScreeVehcle extends StatelessWidget {
@@ -21,6 +22,10 @@ etc : etc""";
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      appBar: CupertinoNavigationBar(
+        previousPageTitle: 'Home',
+        middle: Text('Vehcle Details'),
+      ),
       body: SizedBox(
         child: Center(
           child: Text(dummyDetails),

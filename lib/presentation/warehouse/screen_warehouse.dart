@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:invendory_managment/presentation/stock/screen_stock.dart';
 
 import '../core/navigation.dart';
-import '../core/styles.dart';
 import '../widgets/square_card_widget.dart';
 
 class ScreenWareHouse extends StatelessWidget {
@@ -11,14 +11,9 @@ class ScreenWareHouse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigation.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: const Text('Vehcle Stocks'),
+      appBar: const CupertinoNavigationBar(
+        previousPageTitle: 'Home',
+        middle: Text('WareHouse'),
       ),
       body: Wrap(
         children: List.generate(
@@ -37,6 +32,7 @@ class ScreenWareHouse extends StatelessWidget {
                         context,
                         const ScreenStock(
                           title: 'WareHouse Stock Details',
+                          fromPage: 'Warehouse',
                         ));
                   },
                 )),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:invendory_managment/presentation/core/styles.dart';
 
@@ -6,22 +7,19 @@ import '../widgets/square_card_widget.dart';
 
 class ScreenStock extends StatelessWidget {
   final String title;
+  final String? fromPage;
   const ScreenStock({
     Key? key,
     required this.title,
+    this.fromPage,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigation.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: Text(title),
+      appBar: CupertinoNavigationBar(
+        previousPageTitle: fromPage,
+        middle: Text(title),
       ),
       body: Wrap(
         children: List.generate(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../all_shops/screen_all_shops.dart';
+import '../shop/screen_all_shops.dart';
 import '../analytics/screen_analytics.dart';
 import '../core/navigation.dart';
 import '../end_session/screen_end_session.dart';
@@ -27,7 +27,7 @@ List<Widget> dashCardNavTo = const [
   ScreenAnalytics(),
   ScreenAllShops(),
   ScreenWareHouse(),
-  ScreenStock(title: 'VehcleStock Details',),
+  ScreenStock(title: 'VehcleStock Details',fromPage: 'Home',),
   ScreenPrevBills(),
   ScreenEndSession(),
 ];
