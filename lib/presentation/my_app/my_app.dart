@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:invendory_managment/presentation/shop/screen_shop.dart';
+
+import '../login/screen_login.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -8,25 +9,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Inventory App',
       home: SafeArea(
         child: Scaffold(
-          body: ScreenShop(),
+          body: ScreenLogin(),
         ),
       ),
-    );
-  }
-}
-
-class Somethingwidgets extends StatelessWidget {
-  const Somethingwidgets({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Hello World'),
     );
   }
 }
