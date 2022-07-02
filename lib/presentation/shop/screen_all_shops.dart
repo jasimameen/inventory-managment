@@ -1,6 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/domain/models/shop.dart';
+import 'package:invendory_managment/presentation/core/styles.dart';
 import 'package:invendory_managment/presentation/shop/screen_register_shop.dart';
+import '../../application/bloc/shop_bloc.dart';
 import '../core/strings.dart';
 import '../widgets/square_card_widget.dart';
 
@@ -12,27 +18,41 @@ class ScreenAllShops extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read<ShopBloc>().add(const ShopEvent.getAllShops());
+    });
     return Scaffold(
       appBar: const CupertinoNavigationBar(
         previousPageTitle: 'Home',
         middle: Text('Shops'),
       ),
-      body: Wrap(
-        children: List.generate(
-            10,
-            (index) => SquareCardWidget(
-                title: 'Shop $index',
-                iconData: Icons.business_rounded,
-                iconColor: Colors.redAccent,
-                onTap: () {
-                  Navigation.push(
-                    context,
-                    ScreenShop(
-                        shopName: 'Shop $index',
-                        shopId: '000$index',
-                        shopAddress: dummyAddres),
-                  );
-                })),
+      body: BlocBuilder<ShopBloc, ShopState>(
+        builder: (context, state) {
+          final allShops = state.shopsList;
+        
+          return state.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(
+                      strokeWidth: 2, color: AppColors.green),
+                )
+              : Wrap(
+                  children: List.generate(
+                      allShops.length,
+                      (index) => SquareCardWidget(
+                          title: allShops[index].name,
+                          iconData: Icons.business_rounded,
+                          iconColor: Colors.redAccent,
+                          onTap: () {
+                            Navigation.push(
+                              context,
+                              ScreenShop(
+                                  shopName: allShops[index].name,
+                                  shopId: '000' + allShops[index].shop_id,
+                                  shopAddress: dummyAddres),
+                            );
+                          })),
+                );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,

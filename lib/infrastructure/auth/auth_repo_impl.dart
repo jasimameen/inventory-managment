@@ -33,7 +33,9 @@ class AuthRepoImpl implements IAuthRepo {
         REFRESH_TOKEN = response.data["refresh"];
       });
     } catch (e) {
-      log('Error in dio post regust -> ' + e.toString());
+      log('[POST]Error in dio sign In -> ' +
+          e.toString() +
+          '\n --------------\n refreshing access token ....');
 
       /// if any error occures call the refresh function to get new access Token
       refresh();
@@ -58,6 +60,8 @@ class AuthRepoImpl implements IAuthRepo {
   }
 
   /// refresh the current accesToken with new accessToken
+  int flag = 0; // this flag used to only refresh 5 failed attempts
+  @override
   Future<void> refresh() async {
     final oldAToken = ACCESS_TOKEN;
     try {
@@ -66,8 +70,6 @@ class AuthRepoImpl implements IAuthRepo {
         ApiEndpoints.refreshTokenPath,
         data: {"refresh": REFRESH_TOKEN},
       );
-
-      log('refresh resonce -> ${resp.data}');
       ACCESS_TOKEN = resp.data['access'];
     } on DioError catch (e) {
       log('refresh error ' + e.toString());
@@ -78,16 +80,22 @@ class AuthRepoImpl implements IAuthRepo {
         ? log('access token not changed')
         : log('acces token changed');
     if (oldAToken != ACCESS_TOKEN) {
-      log('Access Token Modified Successfully');
-      retry();
+      log('new accessToken generated');
+      var retryStatus = await retry();
+      if (retryStatus) {
+        flag = 0;
+      } 
     } else {
-      log('access token not changed calling refresh');
-      refresh();
-      log('refreash again');
+      log('no access token generated');
+      if (flag <= 5) {
+        refresh();
+        flag++;
+      }
     }
   }
 
   /// retry Authize and LogIn
+  @override
   Future<bool> retry() async {
     /// retrying after refreshing the token
     try {
@@ -99,6 +107,8 @@ class AuthRepoImpl implements IAuthRepo {
 
       if (responce.statusCode == 200) {
         return true;
+      } else {
+        return false;
       }
     } on DioError catch (e) {
       log('retry error : ${e.toString()})');
