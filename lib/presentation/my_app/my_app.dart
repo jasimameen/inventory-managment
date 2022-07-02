@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/application/bloc/shop_bloc.dart';
+import 'package:invendory_managment/domain/core/sl/injection.dart';
 
 import '../login/screen_login.dart';
 
@@ -7,12 +10,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Inventory App',
-      home: SafeArea(
-        child: Scaffold(
-          body: ScreenLogin(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<ShopBloc>(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Inventory App',
+        home: SafeArea(
+          child: Scaffold(
+            body: ScreenLogin(),
+          ),
         ),
       ),
     );

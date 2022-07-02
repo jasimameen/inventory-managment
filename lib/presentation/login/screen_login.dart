@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:invendory_managment/domain/auth/i_auth_repo.dart';
+import 'package:invendory_managment/infrastructure/auth/auth_repo_impl.dart';
 
 import '../core/constants.dart';
 import '../core/navigation.dart';
@@ -25,8 +29,11 @@ class ScreenLogin extends StatelessWidget {
               ),
               kHeight,
               ElevatedButton.icon(
-                onPressed: () {
+                onPressed: () async {
                   // bloc
+                  log('login button created');
+                  await AuthRepoImpl().signInWithErrendId('errendId');
+                  log('navigatting ...');
                   // Api integration
                   Navigation.pushAndRemoveUntil(
                       context, const ScreenDasboard());
