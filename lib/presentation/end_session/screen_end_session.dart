@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:invendory_managment/presentation/core/styles.dart';
+import '../core/styles.dart';
 
 class ScreenEndSession extends StatelessWidget {
   const ScreenEndSession({Key? key}) : super(key: key);

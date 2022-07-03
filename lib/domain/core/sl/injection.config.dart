@@ -7,7 +7,7 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../../application/bloc/shop_bloc.dart' as _i7;
+import '../../../application/shop/shop_bloc.dart' as _i7;
 import '../../../infrastructure/auth/auth_repo_impl.dart' as _i4;
 import '../../../infrastructure/shop/shop_repo_impl.dart' as _i6;
 import '../../auth/i_auth_repo.dart' as _i3;

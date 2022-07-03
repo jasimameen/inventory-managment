@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:invendory_managment/presentation/stock/screen_stock.dart';
+import '../stock/screen_stock.dart';
 
 import '../core/navigation.dart';
 import '../widgets/square_card_widget.dart';

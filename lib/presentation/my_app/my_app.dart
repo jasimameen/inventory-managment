@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/application/bloc/shop_bloc.dart';
-import 'package:invendory_managment/domain/core/sl/injection.dart';
+import '../../application/shop/shop_bloc.dart';
+import '../../domain/core/sl/injection.dart';
 
 import '../login/screen_login.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextFieldWidget extends StatefulWidget {
+class TextFieldWidget extends StatelessWidget {
+  final TextEditingController controller;
   final int maxLines;
   final String label;
   final ValueChanged<String> onChanged;
@@ -8,6 +9,7 @@ class TextFieldWidget extends StatefulWidget {
 
   const TextFieldWidget({
     Key? key,
+    required this.controller,
     this.keyboardType,
     this.maxLines = 1,
     required this.label,
@@ -15,43 +17,25 @@ class TextFieldWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _TextFieldWidgetState createState() => _TextFieldWidgetState();
-}
-
-class _TextFieldWidgetState extends State<TextFieldWidget> {
-  late final TextEditingController controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextField(
             controller: controller,
-            keyboardType: widget.keyboardType,
+            keyboardType: keyboardType,
             decoration: InputDecoration(
               label: Text(
-                widget.label,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                label,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            maxLines: widget.maxLines,
+            maxLines: maxLines,
           ),
         ],
       );

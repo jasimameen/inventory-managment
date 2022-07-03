@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/domain/models/shop.dart';
-import 'package:invendory_managment/presentation/core/styles.dart';
-import 'package:invendory_managment/presentation/shop/screen_register_shop.dart';
-import '../../application/bloc/shop_bloc.dart';
+import '../../domain/models/shop.dart';
+import '../core/styles.dart';
+import 'screen_register_shop.dart';
+import '../../application/shop/shop_bloc.dart';
 import '../core/strings.dart';
 import '../widgets/square_card_widget.dart';
 

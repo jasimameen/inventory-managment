@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../shop/screen_all_shops.dart';
 import '../analytics/screen_analytics.dart';
 import '../core/navigation.dart';
 import '../end_session/screen_end_session.dart';
 import '../prev_bills/screen_prev_bills.dart';
 import '../route/screen_route.dart';
+import '../shop/screen_all_shops.dart';
 import '../stock/screen_stock.dart';
 import '../vehcle/screen_vehcle.dart';
 import '../warehouse/screen_warehouse.dart';
