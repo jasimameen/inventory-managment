@@ -4,9 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/core/failure.dart';
-import 'package:invendory_managment/domain/models/shop.dart';
-import 'package:invendory_managment/domain/shop/i_shop_repo.dart';
+import 'package:invendory_managment/presentation/shop/screen_register_shop.dart';
+import '../../domain/core/failure.dart';
+import '../../domain/models/shop.dart';
+import '../../domain/shop/i_shop_repo.dart';
 
 part 'shop_bloc.freezed.dart';
 part 'shop_event.dart';
@@ -32,22 +33,7 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
         (results) {
           return state.copyWith(
             shopsFailureOrSuccessOption: some(right(results)),
-            shopsList: [
-              ShopModel(
-                  id: 0,
-                  name: 'shop 1`',
-                  shop_id: '1',
-                  contact_number: 0987654321,
-                  email: 'email@email.oc',
-                  town: 0),
-              ShopModel(
-                  id: 0,
-                  name: 'shop 2`',
-                  shop_id: '1',
-                  contact_number: 0987654321,
-                  email: 'email@email.oc',
-                  town: 0),
-            ],
+            shopsList: results,
             isLoading: false,
             isError: false,
           );
@@ -56,6 +42,12 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
 
       // update UI
       emit(_newSatate);
+    });
+
+    // Register New Shop
+    on<_RegisterNewShop>((event, emit) {
+      String name = RegShopControllers.shopName.text;
+      log('this is the shop name got from $name');
     });
   }
 }

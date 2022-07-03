@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:invendory_managment/domain/core/failure.dart';
-import 'package:invendory_managment/domain/models/shop.dart';
+import '../core/failure.dart';
+import '../models/shop.dart';
 
 abstract class IShopRepo {
   Future<Either<Failure, List<ShopModel>>> fetchAllShops();

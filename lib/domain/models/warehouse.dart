@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class Warehousemodel {
+class WareHouseModel {
   final int id;
   final String name;
   final String warehouse_id;
   final int town;
-  Warehousemodel({
+  WareHouseModel({
     required this.id,
     required this.name,
     required this.warehouse_id,
     required this.town,
   });
 
-  Warehousemodel copyWith({
+  WareHouseModel copyWith({
     int? id,
     String? name,
     String? warehouse_id,
     int? town,
   }) {
-    return Warehousemodel(
+    return WareHouseModel(
       id: id ?? this.id,
       name: name ?? this.name,
       warehouse_id: warehouse_id ?? this.warehouse_id,
@@ -35,8 +35,8 @@ class Warehousemodel {
     };
   }
 
-  factory Warehousemodel.fromMap(Map<String, dynamic> map) {
-    return Warehousemodel(
+  factory WareHouseModel.fromMap(Map<String, dynamic> map) {
+    return WareHouseModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       warehouse_id: map['warehouse_id'] ?? '',
@@ -46,7 +46,8 @@ class Warehousemodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Warehousemodel.fromJson(String source) => Warehousemodel.fromMap(json.decode(source));
+  factory WareHouseModel.fromJson(String source) =>
+      WareHouseModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -56,19 +57,16 @@ class Warehousemodel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Warehousemodel &&
-      other.id == id &&
-      other.name == name &&
-      other.warehouse_id == warehouse_id &&
-      other.town == town;
+
+    return other is WareHouseModel &&
+        other.id == id &&
+        other.name == name &&
+        other.warehouse_id == warehouse_id &&
+        other.town == town;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-      name.hashCode ^
-      warehouse_id.hashCode ^
-      town.hashCode;
+    return id.hashCode ^ name.hashCode ^ warehouse_id.hashCode ^ town.hashCode;
   }
 }

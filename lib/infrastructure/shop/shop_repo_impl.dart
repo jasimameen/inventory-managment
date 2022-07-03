@@ -5,8 +5,8 @@ import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/auth/i_auth_repo.dart';
-import 'package:invendory_managment/domain/models/shop.dart';
+import '../../domain/auth/i_auth_repo.dart';
+import '../../domain/models/shop.dart';
 
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';
@@ -22,21 +22,23 @@ class ShopRepoImpl implements IShopRepo {
   @override
   Future<Either<Failure, List<ShopModel>>> fetchAllShops() async {
     try {
+      log('started');
       dio.options.headers['Authorization'] = 'Bearer $ACCESS_TOKEN';
+
       final responce = await dio.get(ApiEndpoints.shop);
-      if (responce.statusCode == 200) {
-        List<Map<String, dynamic>> resp = jsonDecode(responce.data);
-        List<ShopModel> shops =
-            resp.map((map) => ShopModel.fromMap(map)).toList();
-        log('all shops from remote --> ${shops.toString()}');
-        return right(shops);
+      if (responce.statusCode == 200 || responce.statusCode == 201) {
+      final shopsList = (responce.data as List<dynamic>)
+          .map((e) => ShopModel.fromMap(e))
+          .toList();
+      log('all shops from remote --> ${shopsList.toString()}');
+        return right(shopsList);
       }
     } on DioError catch (e) {
       log(e.toString());
       await AuthRepoImpl().refresh();
       fetchAllShops();
     }
-    return left(const Failure.cliendFailure());
+    throw left(const Failure.serverFailure());
   }
 
   @override
@@ -48,19 +50,20 @@ class ShopRepoImpl implements IShopRepo {
       log('name ----->  ${shopData.name}');
       return right(shopData);
     }
-    return left(const Failure.cliendFailure());
+    throw left(const Failure.serverFailure());
   }
 
   @override
   Future<Either<Failure, ShopModel>> registerNewShop(
       Map<String, dynamic> shopData) async {
     final responce = await dio.put(ApiEndpoints.shop, data: shopData);
+    log(responce.data);
 
-    if (responce.statusCode == 200) {
+    if (responce.statusCode == 200 || responce.statusCode == 201) {
       var shopData = ShopModel.fromJson(responce.data);
       return right(shopData);
     }
-    return left(const Failure.cliendFailure());
+    throw left(const Failure.serverFailure());
   }
 
   @override
