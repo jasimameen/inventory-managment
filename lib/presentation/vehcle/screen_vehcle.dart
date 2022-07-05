@@ -1,34 +1,52 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../application/vehicle/vehicle_bloc.dart';
+import '../core/styles.dart';
 
 class ScreeVehcle extends StatelessWidget {
   const ScreeVehcle({Key? key}) : super(key: key);
 
-  static const dummyDetails = """
-Vehcle No : KL 10 BL XXXX
-\n
-Driver Name : John Dio
-\n
-Route : CCJ to DXB
-\n
-Items : 30 Types items
-\n
-total Stocks : 5000
-\n
-Data : Data
-\n
-etc : etc""";
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CupertinoNavigationBar(
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read<VehicleBloc>().add(const VehicleEvent.getVehicleInfo());
+    });
+    return Scaffold(
+      appBar: const CupertinoNavigationBar(
         previousPageTitle: 'Home',
         middle: Text('Vehcle Details'),
       ),
       body: SizedBox(
         child: Center(
-          child: Text(dummyDetails),
+          child: BlocBuilder<VehicleBloc, VehicleState>(
+            builder: (context, state) {
+              final data = state.vehicleInfo;
+              if (state.isLoading) {
+                return const CircularProgressIndicator(
+                  color: AppColors.green,
+                );
+              }
+              if (state.isError) {
+                return const Text('Error Occured');
+              }
+              return Text(
+                """
+Vehcle No : ${data.vehicle_number}
+\n
+Vehicle Type : ${data.vehicle_type}
+\n
+total Stocks : ${data.stock}
+""",
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.green,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
