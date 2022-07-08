@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-class Townmodel {
+class TownModel {
   final int id;
   final String name;
   final int district;
-  Townmodel({
+  TownModel({
     required this.id,
     required this.name,
     required this.district,
   });
 
-  Townmodel copyWith({
+  TownModel copyWith({
     int? id,
     String? name,
     int? district,
   }) {
-    return Townmodel(
+    return TownModel(
       id: id ?? this.id,
       name: name ?? this.name,
       district: district ?? this.district,
@@ -30,8 +30,8 @@ class Townmodel {
     };
   }
 
-  factory Townmodel.fromMap(Map<String, dynamic> map) {
-    return Townmodel(
+  factory TownModel.fromMap(Map<String, dynamic> map) {
+    return TownModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       district: map['district']?.toInt() ?? 0,
@@ -40,7 +40,8 @@ class Townmodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Townmodel.fromJson(String source) => Townmodel.fromMap(json.decode(source));
+  factory TownModel.fromJson(String source) =>
+      TownModel.fromMap(json.decode(source));
 
   @override
   String toString() => 'Townmodel(id: $id, name: $name, district: $district)';
@@ -48,11 +49,11 @@ class Townmodel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Townmodel &&
-      other.id == id &&
-      other.name == name &&
-      other.district == district;
+
+    return other is TownModel &&
+        other.id == id &&
+        other.name == name &&
+        other.district == district;
   }
 
   @override

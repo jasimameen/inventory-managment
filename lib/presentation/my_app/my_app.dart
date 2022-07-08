@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/errand/errand_bloc.dart';
+import '../../application/route/route_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
 import '../../application/warehouse/warehouse_bloc.dart';
 import '../../domain/core/sl/injection.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => sl<ShopBloc>()),
         BlocProvider(create: (context) => sl<WarehouseBloc>()),
         BlocProvider(create: (context) => sl<ErrandBloc>()),
+        BlocProvider(create: (context) => sl<RouteBloc>()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
