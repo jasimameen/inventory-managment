@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-class Routemodel {
+class RouteModel {
   final int id;
   final String name;
   final String route_id;
   final List<int> towns;
   final List<int> shops;
-  Routemodel({
+  RouteModel({
     required this.id,
     required this.name,
     required this.route_id,
@@ -16,14 +16,14 @@ class Routemodel {
     required this.shops,
   });
 
-  Routemodel copyWith({
+  RouteModel copyWith({
     int? id,
     String? name,
     String? route_id,
     List<int>? towns,
     List<int>? shops,
   }) {
-    return Routemodel(
+    return RouteModel(
       id: id ?? this.id,
       name: name ?? this.name,
       route_id: route_id ?? this.route_id,
@@ -42,8 +42,8 @@ class Routemodel {
     };
   }
 
-  factory Routemodel.fromMap(Map<String, dynamic> map) {
-    return Routemodel(
+  factory RouteModel.fromMap(Map<String, dynamic> map) {
+    return RouteModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       route_id: map['route_id'] ?? '',
@@ -54,7 +54,8 @@ class Routemodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Routemodel.fromJson(String source) => Routemodel.fromMap(json.decode(source));
+  factory RouteModel.fromJson(String source) =>
+      RouteModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -64,21 +65,21 @@ class Routemodel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Routemodel &&
-      other.id == id &&
-      other.name == name &&
-      other.route_id == route_id &&
-      listEquals(other.towns, towns) &&
-      listEquals(other.shops, shops);
+
+    return other is RouteModel &&
+        other.id == id &&
+        other.name == name &&
+        other.route_id == route_id &&
+        listEquals(other.towns, towns) &&
+        listEquals(other.shops, shops);
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      route_id.hashCode ^
-      towns.hashCode ^
-      shops.hashCode;
+        name.hashCode ^
+        route_id.hashCode ^
+        towns.hashCode ^
+        shops.hashCode;
   }
 }

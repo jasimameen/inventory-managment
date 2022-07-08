@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/application/warehouse/warehouse_bloc.dart';
+import '../../application/warehouse/warehouse_bloc.dart';
 import '../stock/screen_stock.dart';
 
 import '../core/navigation.dart';

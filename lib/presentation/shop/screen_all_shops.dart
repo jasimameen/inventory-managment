@@ -1,16 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/models/shop.dart';
-import '../core/styles.dart';
-import 'screen_register_shop.dart';
-import '../../application/shop/shop_bloc.dart';
-import '../core/strings.dart';
-import '../widgets/square_card_widget.dart';
 
+import '../../application/shop/shop_bloc.dart';
 import '../core/navigation.dart';
+import '../core/strings.dart';
+import '../core/styles.dart';
+import '../widgets/square_card_widget.dart';
+import 'screen_register_shop.dart';
 import 'screen_shop.dart';
 
 class ScreenAllShops extends StatelessWidget {

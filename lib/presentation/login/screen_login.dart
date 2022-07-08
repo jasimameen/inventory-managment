@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:invendory_managment/infrastructure/errand/errand_repo_impl.dart';
 import '../../domain/auth/i_auth_repo.dart';
 import '../../infrastructure/auth/auth_repo_impl.dart';
 
@@ -32,7 +33,8 @@ class ScreenLogin extends StatelessWidget {
                 onPressed: () async {
                   // bloc
                   log('login button created');
-                  await AuthRepoImpl().signInWithErrendId('errendId');
+                  await ErrandRepoImpl().initialiazeErrand();
+                  // await AuthRepoImpl().signInWithErrendId('errendId');
                   log('navigatting ...');
                   // Api integration
                   Navigation.pushAndRemoveUntil(

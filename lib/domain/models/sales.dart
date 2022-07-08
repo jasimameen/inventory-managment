@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class Salesmodel {
+class SalesModel {
   final int id;
   final String vehicle;
   final String route;
@@ -11,7 +11,8 @@ class Salesmodel {
   final int totalprice;
   final String date;
   final String errand;
-  Salesmodel({
+
+  SalesModel({
     required this.id,
     required this.vehicle,
     required this.route,
@@ -24,7 +25,7 @@ class Salesmodel {
     required this.errand,
   });
 
-  Salesmodel copyWith({
+  SalesModel copyWith({
     int? id,
     String? vehicle,
     String? route,
@@ -36,7 +37,7 @@ class Salesmodel {
     String? date,
     String? errand,
   }) {
-    return Salesmodel(
+    return SalesModel(
       id: id ?? this.id,
       vehicle: vehicle ?? this.vehicle,
       route: route ?? this.route,
@@ -65,8 +66,8 @@ class Salesmodel {
     };
   }
 
-  factory Salesmodel.fromMap(Map<String, dynamic> map) {
-    return Salesmodel(
+  factory SalesModel.fromMap(Map<String, dynamic> map) {
+    return SalesModel(
       id: map['id']?.toInt() ?? 0,
       vehicle: map['vehicle'] ?? '',
       route: map['route'] ?? '',
@@ -82,7 +83,8 @@ class Salesmodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Salesmodel.fromJson(String source) => Salesmodel.fromMap(json.decode(source));
+  factory SalesModel.fromJson(String source) =>
+      SalesModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -92,31 +94,31 @@ class Salesmodel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Salesmodel &&
-      other.id == id &&
-      other.vehicle == vehicle &&
-      other.route == route &&
-      other.shop == shop &&
-      other.stock == stock &&
-      other.qty == qty &&
-      other.unitprice == unitprice &&
-      other.totalprice == totalprice &&
-      other.date == date &&
-      other.errand == errand;
+
+    return other is SalesModel &&
+        other.id == id &&
+        other.vehicle == vehicle &&
+        other.route == route &&
+        other.shop == shop &&
+        other.stock == stock &&
+        other.qty == qty &&
+        other.unitprice == unitprice &&
+        other.totalprice == totalprice &&
+        other.date == date &&
+        other.errand == errand;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      vehicle.hashCode ^
-      route.hashCode ^
-      shop.hashCode ^
-      stock.hashCode ^
-      qty.hashCode ^
-      unitprice.hashCode ^
-      totalprice.hashCode ^
-      date.hashCode ^
-      errand.hashCode;
+        vehicle.hashCode ^
+        route.hashCode ^
+        shop.hashCode ^
+        stock.hashCode ^
+        qty.hashCode ^
+        unitprice.hashCode ^
+        totalprice.hashCode ^
+        date.hashCode ^
+        errand.hashCode;
   }
 }

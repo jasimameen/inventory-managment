@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../application/vehicle/vehicle_bloc.dart';
+import '../../application/errand/errand_bloc.dart';
 import '../core/styles.dart';
 
 class ScreeVehcle extends StatelessWidget {
@@ -11,7 +11,9 @@ class ScreeVehcle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read<VehicleBloc>().add(const VehicleEvent.getVehicleInfo());
+      context.read<ErrandBloc>().add(const ErrandEvent.getErrandInfo());
+      context.read<ErrandBloc>().add(const ErrandEvent.getDriverInfo());
+      context.read<ErrandBloc>().add(const ErrandEvent.getVehicleInfo());
     });
     return Scaffold(
       appBar: const CupertinoNavigationBar(
@@ -20,9 +22,10 @@ class ScreeVehcle extends StatelessWidget {
       ),
       body: SizedBox(
         child: Center(
-          child: BlocBuilder<VehicleBloc, VehicleState>(
+          child: BlocBuilder<ErrandBloc, ErrandState>(
             builder: (context, state) {
-              final data = state.vehicleInfo;
+              final driverInfo = state.driverInfo;
+              final vehicleInfo = state.vehicleInfo;
               if (state.isLoading) {
                 return const CircularProgressIndicator(
                   color: AppColors.green,
@@ -33,11 +36,11 @@ class ScreeVehcle extends StatelessWidget {
               }
               return Text(
                 """
-Vehcle No : ${data.vehicle_number}
+Vehcle No : ${vehicleInfo.vehicle_number}
 \n
-Vehicle Type : ${data.vehicle_type}
+Vehicle Type : ${vehicleInfo.vehicle_type}
 \n
-total Stocks : ${data.stock}
+Driver Name : ${driverInfo.name}
 """,
                 style: const TextStyle(
                   fontSize: 30,

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-class Stockmodel {
+class StockModel {
   final int id;
   final String stock_id;
   final int qty;
   final int warehouse;
   final int item;
-  Stockmodel({
+  StockModel({
     required this.id,
     required this.stock_id,
     required this.qty,
@@ -14,14 +14,14 @@ class Stockmodel {
     required this.item,
   });
 
-  Stockmodel copyWith({
+  StockModel copyWith({
     int? id,
     String? stock_id,
     int? qty,
     int? warehouse,
     int? item,
   }) {
-    return Stockmodel(
+    return StockModel(
       id: id ?? this.id,
       stock_id: stock_id ?? this.stock_id,
       qty: qty ?? this.qty,
@@ -40,8 +40,8 @@ class Stockmodel {
     };
   }
 
-  factory Stockmodel.fromMap(Map<String, dynamic> map) {
-    return Stockmodel(
+  factory StockModel.fromMap(Map<String, dynamic> map) {
+    return StockModel(
       id: map['id']?.toInt() ?? 0,
       stock_id: map['stock_id'] ?? '',
       qty: map['qty']?.toInt() ?? 0,
@@ -52,7 +52,8 @@ class Stockmodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Stockmodel.fromJson(String source) => Stockmodel.fromMap(json.decode(source));
+  factory StockModel.fromJson(String source) =>
+      StockModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -62,21 +63,21 @@ class Stockmodel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Stockmodel &&
-      other.id == id &&
-      other.stock_id == stock_id &&
-      other.qty == qty &&
-      other.warehouse == warehouse &&
-      other.item == item;
+
+    return other is StockModel &&
+        other.id == id &&
+        other.stock_id == stock_id &&
+        other.qty == qty &&
+        other.warehouse == warehouse &&
+        other.item == item;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      stock_id.hashCode ^
-      qty.hashCode ^
-      warehouse.hashCode ^
-      item.hashCode;
+        stock_id.hashCode ^
+        qty.hashCode ^
+        warehouse.hashCode ^
+        item.hashCode;
   }
 }

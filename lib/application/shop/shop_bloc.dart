@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/presentation/shop/screen_register_shop.dart';
+import '../../presentation/shop/screen_register_shop.dart';
 import '../../domain/core/failure.dart';
 import '../../domain/models/shop.dart';
 import '../../domain/shop/i_shop_repo.dart';
