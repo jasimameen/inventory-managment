@@ -20,21 +20,21 @@ mixin _$ShopEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
     required TResult Function() getShop,
-    required TResult Function() registerNewShop,
+    required TResult Function(BuildContext context) registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
     TResult Function()? getShop,
-    TResult Function()? registerNewShop,
+    TResult Function(BuildContext context)? registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
     TResult Function()? getShop,
-    TResult Function()? registerNewShop,
+    TResult Function(BuildContext context)? registerNewShop,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,7 +119,7 @@ class _$_GetAllShops implements _GetAllShops {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
     required TResult Function() getShop,
-    required TResult Function() registerNewShop,
+    required TResult Function(BuildContext context) registerNewShop,
   }) {
     return getAllShops();
   }
@@ -129,7 +129,7 @@ class _$_GetAllShops implements _GetAllShops {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
     TResult Function()? getShop,
-    TResult Function()? registerNewShop,
+    TResult Function(BuildContext context)? registerNewShop,
   }) {
     return getAllShops?.call();
   }
@@ -139,7 +139,7 @@ class _$_GetAllShops implements _GetAllShops {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
     TResult Function()? getShop,
-    TResult Function()? registerNewShop,
+    TResult Function(BuildContext context)? registerNewShop,
     required TResult orElse(),
   }) {
     if (getAllShops != null) {
@@ -228,7 +228,7 @@ class _$_GetShop implements _GetShop {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
     required TResult Function() getShop,
-    required TResult Function() registerNewShop,
+    required TResult Function(BuildContext context) registerNewShop,
   }) {
     return getShop();
   }
@@ -238,7 +238,7 @@ class _$_GetShop implements _GetShop {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
     TResult Function()? getShop,
-    TResult Function()? registerNewShop,
+    TResult Function(BuildContext context)? registerNewShop,
   }) {
     return getShop?.call();
   }
@@ -248,7 +248,7 @@ class _$_GetShop implements _GetShop {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
     TResult Function()? getShop,
-    TResult Function()? registerNewShop,
+    TResult Function(BuildContext context)? registerNewShop,
     required TResult orElse(),
   }) {
     if (getShop != null) {
@@ -301,6 +301,7 @@ abstract class _$$_RegisterNewShopCopyWith<$Res> {
   factory _$$_RegisterNewShopCopyWith(
           _$_RegisterNewShop value, $Res Function(_$_RegisterNewShop) then) =
       __$$_RegisterNewShopCopyWithImpl<$Res>;
+  $Res call({BuildContext context});
 }
 
 /// @nodoc
@@ -313,35 +314,58 @@ class __$$_RegisterNewShopCopyWithImpl<$Res>
 
   @override
   _$_RegisterNewShop get _value => super._value as _$_RegisterNewShop;
+
+  @override
+  $Res call({
+    Object? context = freezed,
+  }) {
+    return _then(_$_RegisterNewShop(
+      context == freezed
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as BuildContext,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_RegisterNewShop implements _RegisterNewShop {
-  const _$_RegisterNewShop();
+  const _$_RegisterNewShop(this.context);
+
+  @override
+  final BuildContext context;
 
   @override
   String toString() {
-    return 'ShopEvent.registerNewShop()';
+    return 'ShopEvent.registerNewShop(context: $context)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_RegisterNewShop);
+        (other.runtimeType == runtimeType &&
+            other is _$_RegisterNewShop &&
+            const DeepCollectionEquality().equals(other.context, context));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(context));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_RegisterNewShopCopyWith<_$_RegisterNewShop> get copyWith =>
+      __$$_RegisterNewShopCopyWithImpl<_$_RegisterNewShop>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
     required TResult Function() getShop,
-    required TResult Function() registerNewShop,
+    required TResult Function(BuildContext context) registerNewShop,
   }) {
-    return registerNewShop();
+    return registerNewShop(context);
   }
 
   @override
@@ -349,9 +373,9 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
     TResult Function()? getShop,
-    TResult Function()? registerNewShop,
+    TResult Function(BuildContext context)? registerNewShop,
   }) {
-    return registerNewShop?.call();
+    return registerNewShop?.call(context);
   }
 
   @override
@@ -359,11 +383,11 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
     TResult Function()? getShop,
-    TResult Function()? registerNewShop,
+    TResult Function(BuildContext context)? registerNewShop,
     required TResult orElse(),
   }) {
     if (registerNewShop != null) {
-      return registerNewShop();
+      return registerNewShop(context);
     }
     return orElse();
   }
@@ -404,7 +428,13 @@ class _$_RegisterNewShop implements _RegisterNewShop {
 }
 
 abstract class _RegisterNewShop implements ShopEvent {
-  const factory _RegisterNewShop() = _$_RegisterNewShop;
+  const factory _RegisterNewShop(final BuildContext context) =
+      _$_RegisterNewShop;
+
+  BuildContext get context => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$_RegisterNewShopCopyWith<_$_RegisterNewShop> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:invendory_managment/infrastructure/errand/errand_repo_impl.dart';
 import '../../domain/auth/i_auth_repo.dart';
@@ -15,6 +16,7 @@ class ScreenLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CupertinoNavigationBar(middle: Text('Login')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(10),

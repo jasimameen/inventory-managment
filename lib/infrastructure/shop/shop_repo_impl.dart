@@ -25,10 +25,10 @@ class ShopRepoImpl implements IShopRepo {
 
       final responce = await dio.get(ApiEndpoints.shop);
       if (responce.statusCode == 200 || responce.statusCode == 201) {
-      final shopsList = (responce.data as List<dynamic>)
-          .map((e) => ShopModel.fromMap(e))
-          .toList();
-      log('all shops from remote --> ${shopsList.toString()}');
+        final shopsList = (responce.data as List<dynamic>)
+            .map((e) => ShopModel.fromMap(e))
+            .toList();
+        log('all shops from remote --> ${shopsList.toString()}');
         return right(shopsList);
       }
     } on DioError catch (e) {
@@ -54,12 +54,19 @@ class ShopRepoImpl implements IShopRepo {
   @override
   Future<Either<Failure, ShopModel>> registerNewShop(
       Map<String, dynamic> shopData) async {
-    final responce = await dio.put(ApiEndpoints.shop, data: shopData);
-    log(responce.data);
-
-    if (responce.statusCode == 200 || responce.statusCode == 201) {
-      var shopData = ShopModel.fromJson(responce.data);
-      return right(shopData);
+    try {
+      
+      final responce = await dio.post(ApiEndpoints.shop, data: shopData);
+      responce.data['id'] = responce.data['shop_id'];
+      log(responce.data);
+      if (responce.statusCode == 200 || responce.statusCode == 201) {
+        final shop = ShopModel.fromMap(responce.data);
+        log('registed shop => ' + shop.toString());
+        return right(shop);
+      }
+     
+    } on DioError catch (_) {
+      
     }
     throw left(const Failure.serverFailure());
   }

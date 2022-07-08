@@ -54,14 +54,15 @@ class RouteRepoImpl implements IRouteRepo {
         final result = (responce.data as List<dynamic>)
             .map((e) => TownModel.fromMap(e))
             .toList();
+
         log('all towns from remote --> ${result.toString()}');
         return right(result);
       }
     } on DioError catch (_) {
       if (flag >= 0) {
         flag--;
-      await AuthRepoImpl().refresh();
-      getTowns();
+        await AuthRepoImpl().refresh();
+        getTowns();
       }
     }
     throw left(const Failure.serverFailure());

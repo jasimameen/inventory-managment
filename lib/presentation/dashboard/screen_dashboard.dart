@@ -52,14 +52,8 @@ class ScreenDasboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            // Navigation.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: const Text('Screen Dashboard'),
+      appBar: const CupertinoNavigationBar(
+        middle: Text('Dashboard'),
       ),
       body: Wrap(
         children: List.generate(

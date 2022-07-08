@@ -27,8 +27,7 @@ class ErrandRepoImpl implements IErrandRepo {
 
         // store all the ids
         PersistedIds.errandId = result.errand_id;
-        PersistedIds.driverId =
-            1; //result.driver; // TODO : change driverid to result.driver in production
+        PersistedIds.driverId = 1; // result.driverId
         PersistedIds.routeId = result.route;
         log(PersistedIds.driverId.toString());
 

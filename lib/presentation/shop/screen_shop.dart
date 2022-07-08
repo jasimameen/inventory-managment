@@ -8,20 +8,25 @@ import 'widgets/widgets.dart';
 String _shopName = '';
 String _shopId = '';
 String _shopAddress = '';
+String _contactNumber = '';
 
 class ScreenShop extends StatelessWidget {
   final String shopName;
   final String shopId;
   final String shopAddress;
+  final String contactNumber;
 
-  ScreenShop({Key? key, 
+  ScreenShop({
+    Key? key,
     required this.shopName,
     required this.shopId,
     required this.shopAddress,
+    required this.contactNumber,
   }) : super(key: key) {
     _shopName = shopName;
     _shopId = shopId;
     _shopAddress = shopAddress;
+    _contactNumber = contactNumber;
   }
 
   @override
@@ -64,12 +69,12 @@ class _Header extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // image
-          const Placeholder(
-            color: Colors.grey,
-            strokeWidth: 1,
-            fallbackHeight: 90,
-            fallbackWidth: 90,
-          ),
+          // const Placeholder(
+          //   color: Colors.grey,
+          //   strokeWidth: 1,
+          //   fallbackHeight: 90,
+          //   fallbackWidth: 90,
+          // ),
 
           // Shop Details
           kWidth,
@@ -90,13 +95,17 @@ class _Header extends StatelessWidget {
                       fontStyle: FontStyle.italic,
                     )),
                 kHeight,
-                Text(
-                  _shopAddress,
-                  // maxLines: 1,
-                  softWrap: true,
-                  overflow: TextOverflow.fade,
-                  style: const TextStyle(fontStyle: FontStyle.italic),
+                // Text(_shopAddress,
+                //     style: const TextStyle(
+                //       color: AppColors.grey,
+                //       fontStyle: FontStyle.italic,
+                //     )),
+
+                 Text(
+                  '+91 '+ _contactNumber,
+                  style:const TextStyle(fontWeight: FontWeight.bold),
                 ),
+                kHeight,
               ],
             ),
           ),
@@ -115,11 +124,11 @@ class _Header extends StatelessWidget {
                 ),
               ),
               kHeight,
-              const Text(
-                '+91 XXXXXXX08',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              kHeight,
+              // const Text(
+              //   '+91 XXXXXXX08',
+              //   style: TextStyle(fontWeight: FontWeight.bold),
+              // ),
+              // kHeight,
 
               // location
               const Text.rich(

@@ -26,7 +26,7 @@ class ScreenAllShops extends StatelessWidget {
       body: BlocBuilder<ShopBloc, ShopState>(
         builder: (context, state) {
           final allShops = state.shopsList;
-        
+
           return state.isLoading
               ? const Center(
                   child: CircularProgressIndicator(
@@ -43,9 +43,12 @@ class ScreenAllShops extends StatelessWidget {
                             Navigation.push(
                               context,
                               ScreenShop(
-                                  shopName: allShops[index].name,
-                                  shopId: '000' + allShops[index].shop_id,
-                                  shopAddress: dummyAddres),
+                                shopName: allShops[index].name,
+                                shopId: '000' + allShops[index].shop_id,
+                                shopAddress: dummyAddres,
+                                contactNumber:
+                                    allShops[index].contact_number.toString(),
+                              ),
                             );
                           })),
                 );
@@ -66,7 +69,7 @@ class RegisterShopFAB extends StatelessWidget {
     return CupertinoButton.filled(
       child: const Text('Register New Shop'),
       onPressed: () {
-        Navigation.push(context, const ScreenRegisterShop());
+        Navigation.push(context, ScreenRegisterShop());
       },
     );
   }

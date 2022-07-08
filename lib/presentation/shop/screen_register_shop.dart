@@ -1,6 +1,12 @@
+import 'dart:developer';
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/domain/models/town.dart';
+import 'package:invendory_managment/presentation/core/styles.dart';
+import '../../application/route/route_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
 import '../core/navigation.dart';
 import 'screen_shop.dart';
@@ -18,6 +24,18 @@ class RegShopControllers {
   static TextEditingController district = TextEditingController();
   static TextEditingController route = TextEditingController();
   static TextEditingController mapLink = TextEditingController();
+
+  static void clearAll() {
+    log('clearing');
+    shopName.clear();
+    email.clear();
+    contactNumber.clear();
+    town.clear();
+    area.clear();
+    district.clear();
+    route.clear();
+    mapLink.clear();
+  }
 }
 
 class ScreenRegisterShop extends StatelessWidget {
@@ -25,9 +43,12 @@ class ScreenRegisterShop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      BlocProvider.of<RouteBloc>(context).add(const RouteEvent.started());
+    });
     return Scaffold(
       appBar: CupertinoNavigationBar(
-        leading: const Icon(CupertinoIcons.back),
+        previousPageTitle: 'Shops',
         middle: const Text('Shop Registration'),
         trailing: TextButton(
           child: const Text(
@@ -36,17 +57,7 @@ class ScreenRegisterShop extends StatelessWidget {
           ),
           onPressed: () {
             // add the shop to db
-            context.read<ShopBloc>().add(const ShopEvent.registerNewShop());
-
-            // go to shop page
-            Navigation.push(
-              context,
-              ScreenShop(
-                shopName: 'shopName',
-                shopId: 'shopId',
-                shopAddress: 'shopAddress',
-              ),
-            );
+            context.read<ShopBloc>().add(ShopEvent.registerNewShop(context));
           },
         ),
       ),
@@ -80,37 +91,49 @@ class ScreenRegisterShop extends StatelessWidget {
             onChanged: (about) {},
           ),
           kHeight,
-          TextFieldWidget(
-            controller: RegShopControllers.town,
-            keyboardType: TextInputType.streetAddress,
-            label: 'Town',
-            onChanged: (about) {},
-          ),
+          BlocBuilder<RouteBloc, RouteState>(builder: (context, state) {
+            return dropDownTowns(
+              hintText: state.towns[0].name,
+              towns: state.towns,
+            );
+          }),
           kHeight,
-          TextFieldWidget(
-            controller: RegShopControllers.area,
-            label: 'Area',
-            onChanged: (about) {},
-          ),
-          kHeight,
-          TextFieldWidget(
-            controller: RegShopControllers.district,
-            label: 'District',
-            onChanged: (about) {},
-          ),
-          kHeight,
-          TextFieldWidget(
-            controller: RegShopControllers.route,
-            label: 'Route',
-            onChanged: (about) {},
-          ),
-          kHeight,
-          TextFieldWidget(
-            controller: RegShopControllers.mapLink,
-            label: 'Google Map link',
-            onChanged: (about) {},
-          ),
         ],
+      ),
+    );
+  }
+
+  Widget dropDownTowns({
+    required String hintText,
+    required List<TownModel> towns,
+  }) {
+    final items = towns.map((town) => town.name).toList();
+    String dropdownValue = items[0];
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.grey),
+      ),
+      child: DropdownButton(
+        value: dropdownValue,
+        items: items.map((String items) {
+          return DropdownMenuItem(
+            value: items,
+            child: Text(items),
+          );
+        }).toList(),
+        onChanged: (String? newValue) {
+          dropdownValue = newValue!;
+          RegShopControllers.town.text = towns
+              .firstWhere((element) => element.name == newValue)
+              .id
+              .toString();
+        },
+        borderRadius: BorderRadius.circular(12),
+        iconSize: 0,
+        underline: const SizedBox(),
+        elevation: 5,
       ),
     );
   }

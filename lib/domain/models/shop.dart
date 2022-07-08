@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 class ShopModel {
-  final int id;
+  final int? id;
   final String name;
   final String shop_id;
   final int contact_number;
   final String email;
   final int town;
   ShopModel({
-    required this.id,
+     this.id,
     required this.name,
     required this.shop_id,
     required this.contact_number,
@@ -47,7 +47,7 @@ class ShopModel {
 
   factory ShopModel.fromMap(Map<String, dynamic> map) {
     return ShopModel(
-      id: map['id']?.toInt() ?? 0,
+      id: map['id']?.toInt(),
       name: map['name'] ?? '',
       shop_id: map['shop_id'] ?? '',
       contact_number: map['contact_number']?.toInt() ?? 0,

@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/presentation/stock/widgets/stock_card_widget.dart';
+import '../../application/stock/stock_bloc.dart';
 import '../core/styles.dart';
 
 import '../core/navigation.dart';
@@ -16,25 +19,51 @@ class ScreenStock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read<StockBloc>().add(const StockEvent.getVehicleStocks());
+    });
     return Scaffold(
       appBar: CupertinoNavigationBar(
         previousPageTitle: fromPage,
         middle: Text(title),
       ),
-      body: Wrap(
-        children: List.generate(
-            20,
-            (index) => SquareCardWidget(
-                  title: '34$index Stocks Left',
-                  textStyle: const TextStyle(
-                    color: AppColors.green,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  iconData: Icons.production_quantity_limits,
-                  iconColor: Colors.redAccent,
-                  onTap: () {},
-                )),
+      body: BlocBuilder<StockBloc, StockState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const Center(
+                child: CircularProgressIndicator(color: AppColors.green));
+          }
+          if (state.isError) {
+            return const Center(
+                child: Text('Errror Occured',
+                    style: TextStyle(
+                      color: AppColors.red,
+                    )));
+          }
+          return Wrap(
+            children: List.generate(state.stocks.length, (index) {
+              final data = state.stocks[index];
+
+              //
+              return StockCardWidget(
+                  title: data.stock_id, subtitle: '${data.qty} left');
+
+              //
+
+              // return SquareCardWidget(
+              //   title: data.qty.toString() + ' Left',
+              //   textStyle: const TextStyle(
+              //     color: AppColors.green,
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              //   iconData: Icons.production_quantity_limits,
+              //   iconColor: Colors.redAccent,
+              //   onTap: () {},
+              // );
+            }),
+          );
+        },
       ),
     );
   }

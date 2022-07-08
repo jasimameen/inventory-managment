@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class StockCardWidget extends StatelessWidget {
-  const StockCardWidget({ Key? key }) : super(key: key);
+  final String title, subtitle;
+  const StockCardWidget({
+    Key? key,
+   required this.title,
+   required this.subtitle,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return ListTile(
+      title: Text(title),
+      subtitle: Text(subtitle),
     );
   }
 }

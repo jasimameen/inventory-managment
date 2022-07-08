@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class Itemmodel {
+class ItemModel {
   final int id;
   final String name;
   final int price;
   final int category;
-  Itemmodel({
+  ItemModel({
     required this.id,
     required this.name,
     required this.price,
     required this.category,
   });
 
-  Itemmodel copyWith({
+  ItemModel copyWith({
     int? id,
     String? name,
     int? price,
     int? category,
   }) {
-    return Itemmodel(
+    return ItemModel(
       id: id ?? this.id,
       name: name ?? this.name,
       price: price ?? this.price,
@@ -35,8 +35,8 @@ class Itemmodel {
     };
   }
 
-  factory Itemmodel.fromMap(Map<String, dynamic> map) {
-    return Itemmodel(
+  factory ItemModel.fromMap(Map<String, dynamic> map) {
+    return ItemModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       price: map['price']?.toInt() ?? 0,
@@ -46,7 +46,8 @@ class Itemmodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Itemmodel.fromJson(String source) => Itemmodel.fromMap(json.decode(source));
+  factory ItemModel.fromJson(String source) =>
+      ItemModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -56,19 +57,16 @@ class Itemmodel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Itemmodel &&
-      other.id == id &&
-      other.name == name &&
-      other.price == price &&
-      other.category == category;
+
+    return other is ItemModel &&
+        other.id == id &&
+        other.name == name &&
+        other.price == price &&
+        other.category == category;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-      name.hashCode ^
-      price.hashCode ^
-      category.hashCode;
+    return id.hashCode ^ name.hashCode ^ price.hashCode ^ category.hashCode;
   }
 }
