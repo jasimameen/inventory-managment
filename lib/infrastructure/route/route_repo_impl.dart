@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/core/persisted_ids.dart';
 import 'package:invendory_managment/domain/models/route.dart';
 import 'package:invendory_managment/domain/core/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -11,22 +10,23 @@ import 'package:invendory_managment/domain/route/i_route_repo.dart';
 import 'package:invendory_managment/infrastructure/auth/auth_repo_impl.dart';
 
 import '../../domain/core/api_endpoints.dart';
+import '../../domain/core/persisted_data.dart';
 
 @Injectable(as: IRouteRepo)
 class RouteRepoImpl implements IRouteRepo {
   @override
-  Future<Either<Failure, RouteModel>> getRouteInfo({int flag = 5}) async {
-    final routeId = PersistedIds.routeId ?? 0;
-
+  Future<Either<Failure, RouteModel>> getRouteInfo(
+      {int flag = 5}) async {
     try {
-      final resp = await dio.get(ApiEndpoints.route + routeId.toString());
+      final resp = await dio.get(ApiEndpoints.route + id.toString());
       log('routeInfo -> ' + resp.data.toString());
       if (resp.statusCode == 200 || resp.statusCode == 201) {
         final result = RouteModel.fromMap(resp.data);
         log('routeModel -> ' + result.toString());
+        PersistedData.routeModel = result;
 
         // store vehicle id
-        // PersistedIds.vehicleId = result.vehicle;
+        PersistedData.routeModel = result;
 
         return right(result);
       } else {
@@ -34,9 +34,8 @@ class RouteRepoImpl implements IRouteRepo {
       }
     } on DioError catch (_) {
       if (flag >= 0) {
-        flag--;
         await AuthRepoImpl().refresh();
-        getRouteInfo();
+        getRouteInfo(flag: flag--);
       } else {
         left(const Failure.serverFailure());
       }
@@ -54,15 +53,34 @@ class RouteRepoImpl implements IRouteRepo {
         final result = (responce.data as List<dynamic>)
             .map((e) => TownModel.fromMap(e))
             .toList();
+        
+        PersistedData.townModels = result;
 
         log('all towns from remote --> ${result.toString()}');
         return right(result);
       }
     } on DioError catch (_) {
       if (flag >= 0) {
-        flag--;
         await AuthRepoImpl().refresh();
-        getTowns();
+        getTowns(flag: flag--);
+      }
+    }
+    throw left(const Failure.serverFailure());
+  }
+  // get town
+   @override
+  Future<Either<Failure, TownModel>> getTown(int id,{flag = 5}) async {
+    try {
+      final responce = await dio.get(ApiEndpoints.town + id.toString());
+      if (responce.statusCode == 200 || responce.statusCode == 201) {
+        final result = TownModel.fromMap(responce.data);
+        log('all towns from remote --> ${result.toString()}');
+        return right(result);
+      }
+    } on DioError catch (_) {
+      if (flag >= 0) {
+        await AuthRepoImpl().refresh();
+        getTowns(flag: flag--);
       }
     }
     throw left(const Failure.serverFailure());

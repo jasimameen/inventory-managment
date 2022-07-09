@@ -39,8 +39,7 @@ class ScreenLogin extends StatelessWidget {
                   // await AuthRepoImpl().signInWithErrendId('errendId');
                   log('navigatting ...');
                   // Api integration
-                  Navigation.pushAndRemoveUntil(
-                      context, const ScreenDasboard());
+                  Navigation.pushAndRemoveUntil(const ScreenDasboard());
                 },
                 icon: const Icon(Icons.arrow_circle_right_outlined),
                 label: const Text('Start Session'),

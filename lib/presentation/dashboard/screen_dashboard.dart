@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:invendory_managment/presentation/core/styles.dart';
 
 import '../analytics/screen_analytics.dart';
 import '../core/navigation.dart';
@@ -32,6 +33,16 @@ List<IconData> dashTileIcons = const [
   Icons.inventory_outlined,
   Icons.stop_circle,
 ];
+List<Color> dashTileColors = const [
+  Color.fromARGB(255, 238, 66, 54),
+  Color.fromARGB(255, 76, 175, 80),
+  Color.fromARGB(255, 197, 69, 112),
+  Color.fromARGB(255, 255, 152, 0),
+  Color.fromARGB(255, 68, 59, 47),
+  Color.fromARGB(255, 16, 100, 129),
+  Color.fromARGB(255, 62, 95, 202),
+  Color.fromARGB(255, 214, 26, 26),
+];
 List<Widget> dashCardNavTo = const [
   ScreeVehcle(),
   ScreenRoute(),
@@ -61,8 +72,9 @@ class ScreenDasboard extends StatelessWidget {
             (index) => SquareCardWidget(
                 title: dashTileTitles[index],
                 iconData: dashTileIcons[index],
+                iconColor: dashTileColors[index],
                 onTap: () {
-                  Navigation.push(context, dashCardNavTo[index]);
+                  Navigation.push(dashCardNavTo[index]);
                 })),
       ),
     );

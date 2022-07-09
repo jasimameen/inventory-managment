@@ -5,11 +5,13 @@ class ItemModel {
   final String name;
   final int price;
   final int category;
+  final String categoryName;
   ItemModel({
     required this.id,
     required this.name,
     required this.price,
     required this.category,
+    required this.categoryName,
   });
 
   ItemModel copyWith({
@@ -17,12 +19,14 @@ class ItemModel {
     String? name,
     int? price,
     int? category,
+    String? categoryName,
   }) {
     return ItemModel(
       id: id ?? this.id,
       name: name ?? this.name,
       price: price ?? this.price,
       category: category ?? this.category,
+      categoryName: categoryName ?? this.categoryName,
     );
   }
 
@@ -32,6 +36,7 @@ class ItemModel {
       'name': name,
       'price': price,
       'category': category,
+      'categoryName': categoryName,
     };
   }
 
@@ -41,6 +46,7 @@ class ItemModel {
       name: map['name'] ?? '',
       price: map['price']?.toInt() ?? 0,
       category: map['category']?.toInt() ?? 0,
+      categoryName: map['categoryName'] ?? '',
     );
   }
 
@@ -51,22 +57,27 @@ class ItemModel {
 
   @override
   String toString() {
-    return 'Itemmodel(id: $id, name: $name, price: $price, category: $category)';
+    return 'ItemModel(id: $id, name: $name, price: $price, category: $category, categoryName: $categoryName)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is ItemModel &&
-        other.id == id &&
-        other.name == name &&
-        other.price == price &&
-        other.category == category;
+      other.id == id &&
+      other.name == name &&
+      other.price == price &&
+      other.category == category &&
+      other.categoryName == categoryName;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ price.hashCode ^ category.hashCode;
+    return id.hashCode ^
+      name.hashCode ^
+      price.hashCode ^
+      category.hashCode ^
+      categoryName.hashCode;
   }
 }

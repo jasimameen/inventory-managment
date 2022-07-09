@@ -92,48 +92,38 @@ class ScreenRegisterShop extends StatelessWidget {
           ),
           kHeight,
           BlocBuilder<RouteBloc, RouteState>(builder: (context, state) {
-            return dropDownTowns(
-              hintText: state.towns[0].name,
-              towns: state.towns,
+            final items = state.towns.map((town) => town.name).toList();
+            String dropdownValue = items[0];
+            return Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.grey),
+              ),
+              child: DropdownButton(
+                value: dropdownValue,
+                items: items.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  dropdownValue = newValue!;
+                  RegShopControllers.town.text = state.towns
+                      .firstWhere((element) => element.name == newValue)
+                      .id
+                      .toString();
+                },
+                borderRadius: BorderRadius.circular(12),
+                iconSize: 0,
+                underline: const SizedBox(),
+                elevation: 5,
+              ),
             );
           }),
           kHeight,
         ],
-      ),
-    );
-  }
-
-  Widget dropDownTowns({
-    required String hintText,
-    required List<TownModel> towns,
-  }) {
-    final items = towns.map((town) => town.name).toList();
-    String dropdownValue = items[0];
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.grey),
-      ),
-      child: DropdownButton(
-        value: dropdownValue,
-        items: items.map((String items) {
-          return DropdownMenuItem(
-            value: items,
-            child: Text(items),
-          );
-        }).toList(),
-        onChanged: (String? newValue) {
-          dropdownValue = newValue!;
-          RegShopControllers.town.text = towns
-              .firstWhere((element) => element.name == newValue)
-              .id
-              .toString();
-        },
-        borderRadius: BorderRadius.circular(12),
-        iconSize: 0,
-        underline: const SizedBox(),
-        elevation: 5,
       ),
     );
   }

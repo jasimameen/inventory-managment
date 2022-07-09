@@ -46,7 +46,10 @@ class ScreenStock extends StatelessWidget {
 
               //
               return StockCardWidget(
-                  title: data.stock_id, subtitle: '${data.qty} left');
+                id: data.id,
+                title: data.stock_id,
+                subtitle: '${data.qty} left',
+              );
 
               //
 

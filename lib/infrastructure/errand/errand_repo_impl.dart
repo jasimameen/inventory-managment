@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';
-import '../../domain/core/persisted_ids.dart';
+import '../../domain/core/persisted_data.dart';
 import '../../domain/errand/i_errand_repo.dart';
 import '../../domain/models/driver.dart';
 import '../../domain/models/errand.dart';
@@ -26,10 +26,12 @@ class ErrandRepoImpl implements IErrandRepo {
         final result = ErrandModel.fromMap(resp.data);
 
         // store all the ids
-        PersistedIds.errandId = result.errand_id;
-        PersistedIds.driverId = 1; // result.driverId
-        PersistedIds.routeId = result.route;
-        log(PersistedIds.driverId.toString());
+        PersistedData.errandModel = result;
+        PersistedData.errandId = result.errand_id;
+
+        PersistedData.driverId = 1; // result.driverId
+        PersistedData.routeId = result.route;
+        log(PersistedData.driverId.toString());
 
         return right(result);
       } else {
@@ -52,7 +54,8 @@ class ErrandRepoImpl implements IErrandRepo {
         final result = DriverModel.fromMap(resp.data);
 
         // store vehicle id
-        PersistedIds.vehicleId = result.vehicle;
+        PersistedData.driverModel = result;
+        PersistedData.vehicleId = result.vehicle;
 
         return right(result);
       } else {
@@ -60,7 +63,7 @@ class ErrandRepoImpl implements IErrandRepo {
       }
     } on DioError catch (_) {
       await AuthRepoImpl().refresh();
-      final driverId = PersistedIds.driverId;
+      final driverId = PersistedData.driverId;
       getDriverInfo(driverId!);
     }
     throw left(const Failure.cliendFailure());
@@ -75,7 +78,8 @@ class ErrandRepoImpl implements IErrandRepo {
       if (resp.statusCode == 200 || resp.statusCode == 201) {
         final result = VehicleModel.fromMap(resp.data);
         // store store id
-        PersistedIds.vehicleStockId = result.stock.toInt();
+        PersistedData.vehicleModel = result;
+        PersistedData.vehicleStockId = result.stock.toInt();
 
         return right(result);
       } else {
@@ -83,7 +87,7 @@ class ErrandRepoImpl implements IErrandRepo {
       }
     } on DioError catch (_) {
       await AuthRepoImpl().refresh();
-      getVehicleInfo(PersistedIds.vehicleId!);
+      getVehicleInfo(PersistedData.vehicleId!);
     }
     throw left(const Failure.cliendFailure());
   }
@@ -95,8 +99,8 @@ class ErrandRepoImpl implements IErrandRepo {
     // if (PersistedIds.errandId != null) {
     await AuthRepoImpl().signInWithErrendId('');
     await getErrentInfo('PersistedIds.errandId!');
-    await getDriverInfo(PersistedIds.driverId!);
-    await getVehicleInfo(PersistedIds.vehicleId!);
+    await getDriverInfo(PersistedData.driverId!);
+    await getVehicleInfo(PersistedData.vehicleId!);
     // }
     return false;
   }

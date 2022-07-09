@@ -7,4 +7,5 @@ import '../models/route.dart';
 abstract class IRouteRepo {
   Future<Either<Failure, RouteModel>> getRouteInfo();
   Future<Either<Failure, List<TownModel>>> getTowns();
+  Future<Either<Failure, TownModel>> getTown(int id);
 }

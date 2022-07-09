@@ -7,11 +7,12 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../../application/errand/errand_bloc.dart' as _i19;
+import '../../../application/errand/errand_bloc.dart' as _i20;
 import '../../../application/route/route_bloc.dart' as _i15;
-import '../../../application/shop/shop_bloc.dart' as _i16;
-import '../../../application/stock/stock_bloc.dart' as _i17;
-import '../../../application/warehouse/warehouse_bloc.dart' as _i18;
+import '../../../application/sales/sales_bloc.dart' as _i16;
+import '../../../application/shop/shop_bloc.dart' as _i17;
+import '../../../application/stock/stock_bloc.dart' as _i18;
+import '../../../application/warehouse/warehouse_bloc.dart' as _i19;
 import '../../../infrastructure/auth/auth_repo_impl.dart' as _i4;
 import '../../../infrastructure/errand/errand_repo_impl.dart' as _i6;
 import '../../../infrastructure/route/route_repo_impl.dart' as _i8;
@@ -38,11 +39,12 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i11.IStockRepo>(() => _i12.StockRepoImpl());
   gh.lazySingleton<_i13.IWareHouseRepo>(() => _i14.ShopRepoImpl());
   gh.factory<_i15.RouteBloc>(() => _i15.RouteBloc(get<_i7.IRouteRepo>()));
-  gh.factory<_i16.ShopBloc>(
-      () => _i16.ShopBloc(get<_i9.IShopRepo>(), get<_i7.IRouteRepo>()));
-  gh.factory<_i17.StockBloc>(() => _i17.StockBloc(get<_i11.IStockRepo>()));
-  gh.factory<_i18.WarehouseBloc>(
-      () => _i18.WarehouseBloc(get<_i13.IWareHouseRepo>()));
-  gh.factory<_i19.ErrandBloc>(() => _i19.ErrandBloc(get<_i5.IErrandRepo>()));
+  gh.factory<_i16.SalesBloc>(() => _i16.SalesBloc());
+  gh.factory<_i17.ShopBloc>(() => _i17.ShopBloc(
+      get<_i9.IShopRepo>(), get<_i7.IRouteRepo>(), get<_i11.IStockRepo>()));
+  gh.factory<_i18.StockBloc>(() => _i18.StockBloc(get<_i11.IStockRepo>()));
+  gh.factory<_i19.WarehouseBloc>(
+      () => _i19.WarehouseBloc(get<_i13.IWareHouseRepo>()));
+  gh.factory<_i20.ErrandBloc>(() => _i20.ErrandBloc(get<_i5.IErrandRepo>()));
   return get;
 }

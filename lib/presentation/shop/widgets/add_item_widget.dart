@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,21 @@ import '../../core/constants.dart';
 import '../../core/styles.dart';
 
 class AddItemWidget extends StatelessWidget {
-  const AddItemWidget({Key? key}) : super(key: key);
+  final String shop;
+  final String stock;
+  final int qty;
+  final int unitprice;
+  final int totalprice;
+  final String date;
+  const AddItemWidget({
+    Key? key,
+    required this.shop,
+    required this.stock,
+    required this.qty,
+    required this.unitprice,
+    required this.totalprice,
+    required this.date,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,28 +34,28 @@ class AddItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // image
-          const Placeholder(
-            color: Colors.grey,
-            strokeWidth: 1,
-            fallbackHeight: 30,
-            fallbackWidth: 30,
-          ),
+          // const Placeholder(
+          //   color: Colors.grey,
+          //   strokeWidth: 1,
+          //   fallbackHeight: 30,
+          //   fallbackWidth: 30,
+          // ),
 
           // Title
           RichText(
             text: TextSpan(
               style: DefaultTextStyle.of(context).style,
-              children: const [
+              children: [
                 TextSpan(
-                  text: 'Item Name \n',
-                  style: TextStyle(
+                  text: stock + '\n',
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 TextSpan(
                   text: "Item Brand",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontStyle: FontStyle.italic,
                   ),
@@ -54,7 +69,8 @@ class AddItemWidget extends StatelessWidget {
             width: 50,
             height: 30,
             child: TextField(
-              controller: TextEditingController(text: '20'),// price controller
+              controller: TextEditingController(
+                  text: unitprice.toString()), // price controller
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 20),
               decoration: const InputDecoration(
@@ -70,18 +86,18 @@ class AddItemWidget extends StatelessWidget {
 
           // Qty
           kWidth,
-          Icon(Icons.remove),
-          Text('2'),
-          Icon(Icons.add),
+          const Icon(Icons.remove),
+          Text(qty.toString()),
+          const Icon(Icons.add),
 
           //
           // const Spacer(),
 
           // Base Price
           kWidth,
-          const Text(
-            '200 USD',
-            style: TextStyle(
+          Text(
+            totalprice.toString() + ' INR',
+            style: const TextStyle(
               color: AppColors.green,
               fontWeight: FontWeight.bold,
             ),

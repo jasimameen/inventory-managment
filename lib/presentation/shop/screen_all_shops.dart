@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/shop/shop_bloc.dart';
 import '../core/navigation.dart';
-import '../core/strings.dart';
 import '../core/styles.dart';
 import '../widgets/square_card_widget.dart';
 import 'screen_register_shop.dart';
@@ -41,11 +40,11 @@ class ScreenAllShops extends StatelessWidget {
                           iconColor: Colors.redAccent,
                           onTap: () {
                             Navigation.push(
-                              context,
                               ScreenShop(
                                 shopName: allShops[index].name,
                                 shopId: '000' + allShops[index].shop_id,
-                                shopAddress: dummyAddres,
+                                town: allShops[index].townModel?.name ?? 'null',
+                                email: allShops[index].email,
                                 contactNumber:
                                     allShops[index].contact_number.toString(),
                               ),
@@ -69,7 +68,7 @@ class RegisterShopFAB extends StatelessWidget {
     return CupertinoButton.filled(
       child: const Text('Register New Shop'),
       onPressed: () {
-        Navigation.push(context, ScreenRegisterShop());
+        Navigation.push(const ScreenRegisterShop());
       },
     );
   }

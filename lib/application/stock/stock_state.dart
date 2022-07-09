@@ -9,7 +9,7 @@ class StockState with _$StockState {
     required bool isError,
   }) = _StockStarted;
 
-  factory StockState.initial() => StockState(
+  factory StockState.initial() =>const StockState(
         stocks: [],
         items: [],
         isLoading: false,

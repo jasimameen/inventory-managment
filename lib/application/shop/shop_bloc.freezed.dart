@@ -19,43 +19,43 @@ mixin _$ShopEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
-    required TResult Function() getShop,
-    required TResult Function(BuildContext context) registerNewShop,
+    required TResult Function(String shopId) getSales,
+    required TResult Function() registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function()? getShop,
-    TResult Function(BuildContext context)? registerNewShop,
+    TResult Function(String shopId)? getSales,
+    TResult Function()? registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function()? getShop,
-    TResult Function(BuildContext context)? registerNewShop,
+    TResult Function(String shopId)? getSales,
+    TResult Function()? registerNewShop,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllShops value) getAllShops,
-    required TResult Function(_GetShop value) getShop,
+    required TResult Function(_GetShop value) getSales,
     required TResult Function(_RegisterNewShop value) registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getShop,
+    TResult Function(_GetShop value)? getSales,
     TResult Function(_RegisterNewShop value)? registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getShop,
+    TResult Function(_GetShop value)? getSales,
     TResult Function(_RegisterNewShop value)? registerNewShop,
     required TResult orElse(),
   }) =>
@@ -118,8 +118,8 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
-    required TResult Function() getShop,
-    required TResult Function(BuildContext context) registerNewShop,
+    required TResult Function(String shopId) getSales,
+    required TResult Function() registerNewShop,
   }) {
     return getAllShops();
   }
@@ -128,8 +128,8 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function()? getShop,
-    TResult Function(BuildContext context)? registerNewShop,
+    TResult Function(String shopId)? getSales,
+    TResult Function()? registerNewShop,
   }) {
     return getAllShops?.call();
   }
@@ -138,8 +138,8 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function()? getShop,
-    TResult Function(BuildContext context)? registerNewShop,
+    TResult Function(String shopId)? getSales,
+    TResult Function()? registerNewShop,
     required TResult orElse(),
   }) {
     if (getAllShops != null) {
@@ -152,7 +152,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllShops value) getAllShops,
-    required TResult Function(_GetShop value) getShop,
+    required TResult Function(_GetShop value) getSales,
     required TResult Function(_RegisterNewShop value) registerNewShop,
   }) {
     return getAllShops(this);
@@ -162,7 +162,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getShop,
+    TResult Function(_GetShop value)? getSales,
     TResult Function(_RegisterNewShop value)? registerNewShop,
   }) {
     return getAllShops?.call(this);
@@ -172,7 +172,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getShop,
+    TResult Function(_GetShop value)? getSales,
     TResult Function(_RegisterNewShop value)? registerNewShop,
     required TResult orElse(),
   }) {
@@ -192,6 +192,7 @@ abstract class _$$_GetShopCopyWith<$Res> {
   factory _$$_GetShopCopyWith(
           _$_GetShop value, $Res Function(_$_GetShop) then) =
       __$$_GetShopCopyWithImpl<$Res>;
+  $Res call({String shopId});
 }
 
 /// @nodoc
@@ -202,57 +203,80 @@ class __$$_GetShopCopyWithImpl<$Res> extends _$ShopEventCopyWithImpl<$Res>
 
   @override
   _$_GetShop get _value => super._value as _$_GetShop;
+
+  @override
+  $Res call({
+    Object? shopId = freezed,
+  }) {
+    return _then(_$_GetShop(
+      shopId == freezed
+          ? _value.shopId
+          : shopId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_GetShop implements _GetShop {
-  const _$_GetShop();
+  const _$_GetShop(this.shopId);
+
+  @override
+  final String shopId;
 
   @override
   String toString() {
-    return 'ShopEvent.getShop()';
+    return 'ShopEvent.getSales(shopId: $shopId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetShop);
+        (other.runtimeType == runtimeType &&
+            other is _$_GetShop &&
+            const DeepCollectionEquality().equals(other.shopId, shopId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(shopId));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_GetShopCopyWith<_$_GetShop> get copyWith =>
+      __$$_GetShopCopyWithImpl<_$_GetShop>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
-    required TResult Function() getShop,
-    required TResult Function(BuildContext context) registerNewShop,
+    required TResult Function(String shopId) getSales,
+    required TResult Function() registerNewShop,
   }) {
-    return getShop();
+    return getSales(shopId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function()? getShop,
-    TResult Function(BuildContext context)? registerNewShop,
+    TResult Function(String shopId)? getSales,
+    TResult Function()? registerNewShop,
   }) {
-    return getShop?.call();
+    return getSales?.call(shopId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function()? getShop,
-    TResult Function(BuildContext context)? registerNewShop,
+    TResult Function(String shopId)? getSales,
+    TResult Function()? registerNewShop,
     required TResult orElse(),
   }) {
-    if (getShop != null) {
-      return getShop();
+    if (getSales != null) {
+      return getSales(shopId);
     }
     return orElse();
   }
@@ -261,39 +285,44 @@ class _$_GetShop implements _GetShop {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllShops value) getAllShops,
-    required TResult Function(_GetShop value) getShop,
+    required TResult Function(_GetShop value) getSales,
     required TResult Function(_RegisterNewShop value) registerNewShop,
   }) {
-    return getShop(this);
+    return getSales(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getShop,
+    TResult Function(_GetShop value)? getSales,
     TResult Function(_RegisterNewShop value)? registerNewShop,
   }) {
-    return getShop?.call(this);
+    return getSales?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getShop,
+    TResult Function(_GetShop value)? getSales,
     TResult Function(_RegisterNewShop value)? registerNewShop,
     required TResult orElse(),
   }) {
-    if (getShop != null) {
-      return getShop(this);
+    if (getSales != null) {
+      return getSales(this);
     }
     return orElse();
   }
 }
 
 abstract class _GetShop implements ShopEvent {
-  const factory _GetShop() = _$_GetShop;
+  const factory _GetShop(final String shopId) = _$_GetShop;
+
+  String get shopId => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$_GetShopCopyWith<_$_GetShop> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -301,7 +330,6 @@ abstract class _$$_RegisterNewShopCopyWith<$Res> {
   factory _$$_RegisterNewShopCopyWith(
           _$_RegisterNewShop value, $Res Function(_$_RegisterNewShop) then) =
       __$$_RegisterNewShopCopyWithImpl<$Res>;
-  $Res call({BuildContext context});
 }
 
 /// @nodoc
@@ -314,80 +342,57 @@ class __$$_RegisterNewShopCopyWithImpl<$Res>
 
   @override
   _$_RegisterNewShop get _value => super._value as _$_RegisterNewShop;
-
-  @override
-  $Res call({
-    Object? context = freezed,
-  }) {
-    return _then(_$_RegisterNewShop(
-      context == freezed
-          ? _value.context
-          : context // ignore: cast_nullable_to_non_nullable
-              as BuildContext,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_RegisterNewShop implements _RegisterNewShop {
-  const _$_RegisterNewShop(this.context);
-
-  @override
-  final BuildContext context;
+  const _$_RegisterNewShop();
 
   @override
   String toString() {
-    return 'ShopEvent.registerNewShop(context: $context)';
+    return 'ShopEvent.registerNewShop()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_RegisterNewShop &&
-            const DeepCollectionEquality().equals(other.context, context));
+        (other.runtimeType == runtimeType && other is _$_RegisterNewShop);
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(context));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_RegisterNewShopCopyWith<_$_RegisterNewShop> get copyWith =>
-      __$$_RegisterNewShopCopyWithImpl<_$_RegisterNewShop>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
-    required TResult Function() getShop,
-    required TResult Function(BuildContext context) registerNewShop,
+    required TResult Function(String shopId) getSales,
+    required TResult Function() registerNewShop,
   }) {
-    return registerNewShop(context);
+    return registerNewShop();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function()? getShop,
-    TResult Function(BuildContext context)? registerNewShop,
+    TResult Function(String shopId)? getSales,
+    TResult Function()? registerNewShop,
   }) {
-    return registerNewShop?.call(context);
+    return registerNewShop?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function()? getShop,
-    TResult Function(BuildContext context)? registerNewShop,
+    TResult Function(String shopId)? getSales,
+    TResult Function()? registerNewShop,
     required TResult orElse(),
   }) {
     if (registerNewShop != null) {
-      return registerNewShop(context);
+      return registerNewShop();
     }
     return orElse();
   }
@@ -396,7 +401,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllShops value) getAllShops,
-    required TResult Function(_GetShop value) getShop,
+    required TResult Function(_GetShop value) getSales,
     required TResult Function(_RegisterNewShop value) registerNewShop,
   }) {
     return registerNewShop(this);
@@ -406,7 +411,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getShop,
+    TResult Function(_GetShop value)? getSales,
     TResult Function(_RegisterNewShop value)? registerNewShop,
   }) {
     return registerNewShop?.call(this);
@@ -416,7 +421,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getShop,
+    TResult Function(_GetShop value)? getSales,
     TResult Function(_RegisterNewShop value)? registerNewShop,
     required TResult orElse(),
   }) {
@@ -428,13 +433,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
 }
 
 abstract class _RegisterNewShop implements ShopEvent {
-  const factory _RegisterNewShop(final BuildContext context) =
-      _$_RegisterNewShop;
-
-  BuildContext get context => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$$_RegisterNewShopCopyWith<_$_RegisterNewShop> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _RegisterNewShop() = _$_RegisterNewShop;
 }
 
 /// @nodoc
@@ -442,6 +441,8 @@ mixin _$ShopState {
   Option<Either<Failure, List<ShopModel>>> get shopsFailureOrSuccessOption =>
       throw _privateConstructorUsedError;
   List<ShopModel> get shopsList => throw _privateConstructorUsedError;
+  ShopModel get shopModel => throw _privateConstructorUsedError;
+  List<SalesModel> get salesItems => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
 
@@ -457,6 +458,8 @@ abstract class $ShopStateCopyWith<$Res> {
   $Res call(
       {Option<Either<Failure, List<ShopModel>>> shopsFailureOrSuccessOption,
       List<ShopModel> shopsList,
+      ShopModel shopModel,
+      List<SalesModel> salesItems,
       bool isLoading,
       bool isError});
 }
@@ -473,6 +476,8 @@ class _$ShopStateCopyWithImpl<$Res> implements $ShopStateCopyWith<$Res> {
   $Res call({
     Object? shopsFailureOrSuccessOption = freezed,
     Object? shopsList = freezed,
+    Object? shopModel = freezed,
+    Object? salesItems = freezed,
     Object? isLoading = freezed,
     Object? isError = freezed,
   }) {
@@ -485,6 +490,14 @@ class _$ShopStateCopyWithImpl<$Res> implements $ShopStateCopyWith<$Res> {
           ? _value.shopsList
           : shopsList // ignore: cast_nullable_to_non_nullable
               as List<ShopModel>,
+      shopModel: shopModel == freezed
+          ? _value.shopModel
+          : shopModel // ignore: cast_nullable_to_non_nullable
+              as ShopModel,
+      salesItems: salesItems == freezed
+          ? _value.salesItems
+          : salesItems // ignore: cast_nullable_to_non_nullable
+              as List<SalesModel>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -507,6 +520,8 @@ abstract class _$$_InitialStateCopyWith<$Res>
   $Res call(
       {Option<Either<Failure, List<ShopModel>>> shopsFailureOrSuccessOption,
       List<ShopModel> shopsList,
+      ShopModel shopModel,
+      List<SalesModel> salesItems,
       bool isLoading,
       bool isError});
 }
@@ -525,6 +540,8 @@ class __$$_InitialStateCopyWithImpl<$Res> extends _$ShopStateCopyWithImpl<$Res>
   $Res call({
     Object? shopsFailureOrSuccessOption = freezed,
     Object? shopsList = freezed,
+    Object? shopModel = freezed,
+    Object? salesItems = freezed,
     Object? isLoading = freezed,
     Object? isError = freezed,
   }) {
@@ -537,6 +554,14 @@ class __$$_InitialStateCopyWithImpl<$Res> extends _$ShopStateCopyWithImpl<$Res>
           ? _value._shopsList
           : shopsList // ignore: cast_nullable_to_non_nullable
               as List<ShopModel>,
+      shopModel: shopModel == freezed
+          ? _value.shopModel
+          : shopModel // ignore: cast_nullable_to_non_nullable
+              as ShopModel,
+      salesItems: salesItems == freezed
+          ? _value._salesItems
+          : salesItems // ignore: cast_nullable_to_non_nullable
+              as List<SalesModel>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -555,9 +580,12 @@ class _$_InitialState implements _InitialState {
   _$_InitialState(
       {required this.shopsFailureOrSuccessOption,
       required final List<ShopModel> shopsList,
+      required this.shopModel,
+      required final List<SalesModel> salesItems,
       required this.isLoading,
       required this.isError})
-      : _shopsList = shopsList;
+      : _shopsList = shopsList,
+        _salesItems = salesItems;
 
   @override
   final Option<Either<Failure, List<ShopModel>>> shopsFailureOrSuccessOption;
@@ -569,13 +597,22 @@ class _$_InitialState implements _InitialState {
   }
 
   @override
+  final ShopModel shopModel;
+  final List<SalesModel> _salesItems;
+  @override
+  List<SalesModel> get salesItems {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_salesItems);
+  }
+
+  @override
   final bool isLoading;
   @override
   final bool isError;
 
   @override
   String toString() {
-    return 'ShopState(shopsFailureOrSuccessOption: $shopsFailureOrSuccessOption, shopsList: $shopsList, isLoading: $isLoading, isError: $isError)';
+    return 'ShopState(shopsFailureOrSuccessOption: $shopsFailureOrSuccessOption, shopsList: $shopsList, shopModel: $shopModel, salesItems: $salesItems, isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -588,6 +625,9 @@ class _$_InitialState implements _InitialState {
                 shopsFailureOrSuccessOption) &&
             const DeepCollectionEquality()
                 .equals(other._shopsList, _shopsList) &&
+            const DeepCollectionEquality().equals(other.shopModel, shopModel) &&
+            const DeepCollectionEquality()
+                .equals(other._salesItems, _salesItems) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.isError, isError));
   }
@@ -597,6 +637,8 @@ class _$_InitialState implements _InitialState {
       runtimeType,
       const DeepCollectionEquality().hash(shopsFailureOrSuccessOption),
       const DeepCollectionEquality().hash(_shopsList),
+      const DeepCollectionEquality().hash(shopModel),
+      const DeepCollectionEquality().hash(_salesItems),
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isError));
 
@@ -611,6 +653,8 @@ abstract class _InitialState implements ShopState {
       {required final Option<Either<Failure, List<ShopModel>>>
           shopsFailureOrSuccessOption,
       required final List<ShopModel> shopsList,
+      required final ShopModel shopModel,
+      required final List<SalesModel> salesItems,
       required final bool isLoading,
       required final bool isError}) = _$_InitialState;
 
@@ -619,6 +663,10 @@ abstract class _InitialState implements ShopState {
       throw _privateConstructorUsedError;
   @override
   List<ShopModel> get shopsList => throw _privateConstructorUsedError;
+  @override
+  ShopModel get shopModel => throw _privateConstructorUsedError;
+  @override
+  List<SalesModel> get salesItems => throw _privateConstructorUsedError;
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override

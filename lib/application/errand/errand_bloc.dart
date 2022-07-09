@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/core/persisted_ids.dart';
 
+import '../../domain/core/persisted_data.dart';
 import '../../domain/errand/i_errand_repo.dart';
 import '../../domain/models/driver.dart';
 import '../../domain/models/errand.dart';
@@ -18,12 +18,12 @@ class ErrandBloc extends Bloc<ErrandEvent, ErrandState> {
   final IErrandRepo _vehicleRepo;
   ErrandBloc(this._vehicleRepo) : super(ErrandState.initial()) {
     // get ErrendInfo
-    on<_GetErrandInfo>((event, emit)async {
-       // send loading state
+    on<_GetErrandInfo>((event, emit) async {
+      // send loading state
       emit(state.copyWith(isLoading: true));
       // fetch data from repository
       final resp = await _vehicleRepo
-          .getErrentInfo(PersistedIds.errandId!); 
+          .getErrentInfo(PersistedData.errandId!); 
       // fold the data
       final _newState = resp.fold(
         (failure) => state.copyWith(isError: true, isLoading: false),
@@ -40,10 +40,9 @@ class ErrandBloc extends Bloc<ErrandEvent, ErrandState> {
 
     // get Vehicle Info
     on<_GetVehicleInfo>((event, emit) async {
-      
       // fetch data from repository
-      final resp = await _vehicleRepo
-          .getVehicleInfo(PersistedIds.vehicleId!); 
+      final resp =
+          await _vehicleRepo.getVehicleInfo(PersistedData.vehicleId!);
       // fold the data
       final _newState = resp.fold(
         (failure) => state.copyWith(isError: true, isLoading: false),
@@ -60,10 +59,9 @@ class ErrandBloc extends Bloc<ErrandEvent, ErrandState> {
 
     // get driver Info
     on<_GetDriverInfo>((event, emit) async {
-      
       // fetch data from repository
       final resp = await _vehicleRepo
-          .getDriverInfo(PersistedIds.driverId!); 
+          .getDriverInfo(PersistedData.driverId!); 
       // fold the data
       final _newState = resp.fold(
         (failure) => state.copyWith(isError: true, isLoading: false),

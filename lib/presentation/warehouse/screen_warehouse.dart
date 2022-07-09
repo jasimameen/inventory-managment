@@ -40,7 +40,6 @@ class ScreenWareHouse extends StatelessWidget {
                   iconColor: const Color.fromARGB(255, 113, 54, 54),
                   onTap: () {
                     Navigation.push(
-                        context,
                         ScreenStock(
                           title: data.name + 'WareHouse Stock Details',
                           fromPage: 'Warehouse',
