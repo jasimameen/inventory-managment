@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class WareHouseModel {
+class WarehouseModel {
   final int id;
   final String name;
   final String warehouse_id;
   final int town;
-  WareHouseModel({
+  WarehouseModel({
     required this.id,
     required this.name,
     required this.warehouse_id,
     required this.town,
   });
 
-  WareHouseModel copyWith({
+  WarehouseModel copyWith({
     int? id,
     String? name,
     String? warehouse_id,
     int? town,
   }) {
-    return WareHouseModel(
+    return WarehouseModel(
       id: id ?? this.id,
       name: name ?? this.name,
       warehouse_id: warehouse_id ?? this.warehouse_id,
@@ -35,8 +35,8 @@ class WareHouseModel {
     };
   }
 
-  factory WareHouseModel.fromMap(Map<String, dynamic> map) {
-    return WareHouseModel(
+  factory WarehouseModel.fromMap(Map<String, dynamic> map) {
+    return WarehouseModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       warehouse_id: map['warehouse_id'] ?? '',
@@ -46,8 +46,8 @@ class WareHouseModel {
 
   String toJson() => json.encode(toMap());
 
-  factory WareHouseModel.fromJson(String source) =>
-      WareHouseModel.fromMap(json.decode(source));
+  factory WarehouseModel.fromJson(String source) =>
+      WarehouseModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -58,7 +58,7 @@ class WareHouseModel {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is WareHouseModel &&
+    return other is WarehouseModel &&
         other.id == id &&
         other.name == name &&
         other.warehouse_id == warehouse_id &&

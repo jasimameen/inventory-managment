@@ -4,5 +4,5 @@ import '../core/failure.dart';
 import '../models/warehouse.dart';
 
 abstract class IWareHouseRepo {
-  Future<Either<Failure, List<WareHouseModel>>> getAllWareHouses();
+  Future<Either<Failure, List<WarehouseModel>>> getAllWareHouses();
 }

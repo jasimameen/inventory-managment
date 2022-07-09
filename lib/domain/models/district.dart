@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class Districtmodel {
+class DistrictModel {
   final int id;
   final String name;
-  Districtmodel({
+  DistrictModel({
     required this.id,
     required this.name,
   });
 
-  Districtmodel copyWith({
+  DistrictModel copyWith({
     int? id,
     String? name,
   }) {
-    return Districtmodel(
+    return DistrictModel(
       id: id ?? this.id,
       name: name ?? this.name,
     );
@@ -25,8 +25,8 @@ class Districtmodel {
     };
   }
 
-  factory Districtmodel.fromMap(Map<String, dynamic> map) {
-    return Districtmodel(
+  factory DistrictModel.fromMap(Map<String, dynamic> map) {
+    return DistrictModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
     );
@@ -34,7 +34,8 @@ class Districtmodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Districtmodel.fromJson(String source) => Districtmodel.fromMap(json.decode(source));
+  factory DistrictModel.fromJson(String source) =>
+      DistrictModel.fromMap(json.decode(source));
 
   @override
   String toString() => 'Districtmodel(id: $id, name: $name)';
@@ -42,10 +43,8 @@ class Districtmodel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Districtmodel &&
-      other.id == id &&
-      other.name == name;
+
+    return other is DistrictModel && other.id == id && other.name == name;
   }
 
   @override
