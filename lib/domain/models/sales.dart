@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-class Salesmodel {
-  final int id;
+class SalesModel {
+  final int? id;
   final String vehicle;
   final String route;
   final String shop;
@@ -11,8 +11,9 @@ class Salesmodel {
   final int totalprice;
   final String date;
   final String errand;
-  Salesmodel({
-    required this.id,
+
+  SalesModel({
+    this.id,
     required this.vehicle,
     required this.route,
     required this.shop,
@@ -24,7 +25,7 @@ class Salesmodel {
     required this.errand,
   });
 
-  Salesmodel copyWith({
+  SalesModel copyWith({
     int? id,
     String? vehicle,
     String? route,
@@ -36,7 +37,7 @@ class Salesmodel {
     String? date,
     String? errand,
   }) {
-    return Salesmodel(
+    return SalesModel(
       id: id ?? this.id,
       vehicle: vehicle ?? this.vehicle,
       route: route ?? this.route,
@@ -65,9 +66,9 @@ class Salesmodel {
     };
   }
 
-  factory Salesmodel.fromMap(Map<String, dynamic> map) {
-    return Salesmodel(
-      id: map['id']?.toInt() ?? 0,
+  factory SalesModel.fromMap(Map<String, dynamic> map) {
+    return SalesModel(
+      id: map['id']?.toInt(),
       vehicle: map['vehicle'] ?? '',
       route: map['route'] ?? '',
       shop: map['shop'] ?? '',
@@ -82,18 +83,18 @@ class Salesmodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Salesmodel.fromJson(String source) => Salesmodel.fromMap(json.decode(source));
+  factory SalesModel.fromJson(String source) => SalesModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Salesmodel(id: $id, vehicle: $vehicle, route: $route, shop: $shop, stock: $stock, qty: $qty, unitprice: $unitprice, totalprice: $totalprice, date: $date, errand: $errand)';
+    return 'SalesModel(id: $id, vehicle: $vehicle, route: $route, shop: $shop, stock: $stock, qty: $qty, unitprice: $unitprice, totalprice: $totalprice, date: $date, errand: $errand)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is Salesmodel &&
+    return other is SalesModel &&
       other.id == id &&
       other.vehicle == vehicle &&
       other.route == route &&

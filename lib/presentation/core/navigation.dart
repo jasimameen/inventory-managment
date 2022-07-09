@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Navigation {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   Navigation._();
-  static pop(BuildContext context) => Navigator.pop(context);
-  
-  static push(BuildContext context, Widget screen) => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen),
+  static pop() => navigatorKey.currentState?.pop();
+
+  static push(Widget screen) => navigatorKey.currentState?.push(
+        MaterialPageRoute(
+          builder: (context) => screen,
+        ),
       );
 
-  static pushAndRemoveUntil(BuildContext context, Widget screen) =>
-      Navigator.pushAndRemoveUntil(
-        context,
+  static pushAndRemoveUntil(Widget screen) =>
+      navigatorKey.currentState?.pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => screen),
         (Route<dynamic> route) => false,
       );

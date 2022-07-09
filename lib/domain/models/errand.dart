@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class Errandmodel {
+class ErrandModel {
   final int id;
   final int driver;
   final String errand_id;
   final int route;
-  Errandmodel({
+  ErrandModel({
     required this.id,
     required this.driver,
     required this.errand_id,
     required this.route,
   });
 
-  Errandmodel copyWith({
+  ErrandModel copyWith({
     int? id,
     int? driver,
     String? errand_id,
     int? route,
   }) {
-    return Errandmodel(
+    return ErrandModel(
       id: id ?? this.id,
       driver: driver ?? this.driver,
       errand_id: errand_id ?? this.errand_id,
@@ -35,8 +35,8 @@ class Errandmodel {
     };
   }
 
-  factory Errandmodel.fromMap(Map<String, dynamic> map) {
-    return Errandmodel(
+  factory ErrandModel.fromMap(Map<String, dynamic> map) {
+    return ErrandModel(
       id: map['id']?.toInt() ?? 0,
       driver: map['driver']?.toInt() ?? 0,
       errand_id: map['errand_id'] ?? '',
@@ -46,7 +46,8 @@ class Errandmodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Errandmodel.fromJson(String source) => Errandmodel.fromMap(json.decode(source));
+  factory ErrandModel.fromJson(String source) =>
+      ErrandModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -56,19 +57,16 @@ class Errandmodel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
-    return other is Errandmodel &&
-      other.id == id &&
-      other.driver == driver &&
-      other.errand_id == errand_id &&
-      other.route == route;
+
+    return other is ErrandModel &&
+        other.id == id &&
+        other.driver == driver &&
+        other.errand_id == errand_id &&
+        other.route == route;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-      driver.hashCode ^
-      errand_id.hashCode ^
-      route.hashCode;
+    return id.hashCode ^ driver.hashCode ^ errand_id.hashCode ^ route.hashCode;
   }
 }

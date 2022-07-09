@@ -1,28 +1,32 @@
 import 'dart:convert';
 
-class Itemmodel {
+class ItemModel {
   final int id;
   final String name;
   final int price;
   final int category;
-  Itemmodel({
+  final String categoryName;
+  ItemModel({
     required this.id,
     required this.name,
     required this.price,
     required this.category,
+    required this.categoryName,
   });
 
-  Itemmodel copyWith({
+  ItemModel copyWith({
     int? id,
     String? name,
     int? price,
     int? category,
+    String? categoryName,
   }) {
-    return Itemmodel(
+    return ItemModel(
       id: id ?? this.id,
       name: name ?? this.name,
       price: price ?? this.price,
       category: category ?? this.category,
+      categoryName: categoryName ?? this.categoryName,
     );
   }
 
@@ -32,36 +36,40 @@ class Itemmodel {
       'name': name,
       'price': price,
       'category': category,
+      'categoryName': categoryName,
     };
   }
 
-  factory Itemmodel.fromMap(Map<String, dynamic> map) {
-    return Itemmodel(
+  factory ItemModel.fromMap(Map<String, dynamic> map) {
+    return ItemModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       price: map['price']?.toInt() ?? 0,
       category: map['category']?.toInt() ?? 0,
+      categoryName: map['categoryName'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Itemmodel.fromJson(String source) => Itemmodel.fromMap(json.decode(source));
+  factory ItemModel.fromJson(String source) =>
+      ItemModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Itemmodel(id: $id, name: $name, price: $price, category: $category)';
+    return 'ItemModel(id: $id, name: $name, price: $price, category: $category, categoryName: $categoryName)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is Itemmodel &&
+    return other is ItemModel &&
       other.id == id &&
       other.name == name &&
       other.price == price &&
-      other.category == category;
+      other.category == category &&
+      other.categoryName == categoryName;
   }
 
   @override
@@ -69,6 +77,7 @@ class Itemmodel {
     return id.hashCode ^
       name.hashCode ^
       price.hashCode ^
-      category.hashCode;
+      category.hashCode ^
+      categoryName.hashCode;
   }
 }

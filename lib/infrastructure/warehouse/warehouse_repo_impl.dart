@@ -5,7 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dartz/dartz_unsafe.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/models/warehouse.dart';
+import '../../domain/models/warehouse.dart';
 import '../../domain/auth/i_auth_repo.dart';
 import '../../domain/models/shop.dart';
 

@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class Categorymodel {
+class CategoryModel {
   final int id;
   final String name;
-  Categorymodel({
+  CategoryModel({
     required this.id,
     required this.name,
   });
 
-  Categorymodel copyWith({
+  CategoryModel copyWith({
     int? id,
     String? name,
   }) {
-    return Categorymodel(
+    return CategoryModel(
       id: id ?? this.id,
       name: name ?? this.name,
     );
@@ -25,8 +25,8 @@ class Categorymodel {
     };
   }
 
-  factory Categorymodel.fromMap(Map<String, dynamic> map) {
-    return Categorymodel(
+  factory CategoryModel.fromMap(Map<String, dynamic> map) {
+    return CategoryModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
     );
@@ -34,7 +34,7 @@ class Categorymodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Categorymodel.fromJson(String source) => Categorymodel.fromMap(json.decode(source));
+  factory CategoryModel.fromJson(String source) => CategoryModel.fromMap(json.decode(source));
 
   @override
   String toString() => 'Categorymodel(id: $id, name: $name)';
@@ -43,7 +43,7 @@ class Categorymodel {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is Categorymodel &&
+    return other is CategoryModel &&
       other.id == id &&
       other.name == name;
   }

@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-class Drivermodel {
+class DriverModel {
   final int id;
   final String name;
   final int contact;
   final int vehicle;
-  Drivermodel({
+  DriverModel({
     required this.id,
     required this.name,
     required this.contact,
     required this.vehicle,
   });
 
-  Drivermodel copyWith({
+  DriverModel copyWith({
     int? id,
     String? name,
     int? contact,
     int? vehicle,
   }) {
-    return Drivermodel(
+    return DriverModel(
       id: id ?? this.id,
       name: name ?? this.name,
       contact: contact ?? this.contact,
@@ -35,8 +35,8 @@ class Drivermodel {
     };
   }
 
-  factory Drivermodel.fromMap(Map<String, dynamic> map) {
-    return Drivermodel(
+  factory DriverModel.fromMap(Map<String, dynamic> map) {
+    return DriverModel(
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       contact: map['contact']?.toInt() ?? 0,
@@ -46,18 +46,18 @@ class Drivermodel {
 
   String toJson() => json.encode(toMap());
 
-  factory Drivermodel.fromJson(String source) => Drivermodel.fromMap(json.decode(source));
+  factory DriverModel.fromJson(String source) => DriverModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Drivermodel(id: $id, name: $name, contact: $contact, vehicle: $vehicle)';
+    return 'DriverModel(id: $id, name: $name, contact: $contact, vehicle: $vehicle)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is Drivermodel &&
+    return other is DriverModel &&
       other.id == id &&
       other.name == name &&
       other.contact == contact &&

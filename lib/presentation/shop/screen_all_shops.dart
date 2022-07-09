@@ -1,16 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/models/shop.dart';
-import '../core/styles.dart';
-import 'screen_register_shop.dart';
-import '../../application/shop/shop_bloc.dart';
-import '../core/strings.dart';
-import '../widgets/square_card_widget.dart';
 
+import '../../application/shop/shop_bloc.dart';
 import '../core/navigation.dart';
+import '../core/styles.dart';
+import '../widgets/square_card_widget.dart';
+import 'screen_register_shop.dart';
 import 'screen_shop.dart';
 
 class ScreenAllShops extends StatelessWidget {
@@ -29,7 +25,7 @@ class ScreenAllShops extends StatelessWidget {
       body: BlocBuilder<ShopBloc, ShopState>(
         builder: (context, state) {
           final allShops = state.shopsList;
-        
+
           return state.isLoading
               ? const Center(
                   child: CircularProgressIndicator(
@@ -44,11 +40,14 @@ class ScreenAllShops extends StatelessWidget {
                           iconColor: Colors.redAccent,
                           onTap: () {
                             Navigation.push(
-                              context,
                               ScreenShop(
-                                  shopName: allShops[index].name,
-                                  shopId: '000' + allShops[index].shop_id,
-                                  shopAddress: dummyAddres),
+                                shopName: allShops[index].name,
+                                shopId: '000' + allShops[index].shop_id,
+                                town: allShops[index].townModel?.name ?? 'null',
+                                email: allShops[index].email,
+                                contactNumber:
+                                    allShops[index].contact_number.toString(),
+                              ),
                             );
                           })),
                 );
@@ -69,7 +68,7 @@ class RegisterShopFAB extends StatelessWidget {
     return CupertinoButton.filled(
       child: const Text('Register New Shop'),
       onPressed: () {
-        Navigation.push(context, const ScreenRegisterShop());
+        Navigation.push(const ScreenRegisterShop());
       },
     );
   }

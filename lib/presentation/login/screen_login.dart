@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:invendory_managment/infrastructure/errand/errand_repo_impl.dart';
 import '../../domain/auth/i_auth_repo.dart';
 import '../../infrastructure/auth/auth_repo_impl.dart';
 
@@ -14,6 +16,7 @@ class ScreenLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const CupertinoNavigationBar(middle: Text('Login')),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(10),
@@ -32,11 +35,11 @@ class ScreenLogin extends StatelessWidget {
                 onPressed: () async {
                   // bloc
                   log('login button created');
-                  await AuthRepoImpl().signInWithErrendId('errendId');
+                  await ErrandRepoImpl().initialiazeErrand();
+                  // await AuthRepoImpl().signInWithErrendId('errendId');
                   log('navigatting ...');
                   // Api integration
-                  Navigation.pushAndRemoveUntil(
-                      context, const ScreenDasboard());
+                  Navigation.pushAndRemoveUntil(const ScreenDasboard());
                 },
                 icon: const Icon(Icons.arrow_circle_right_outlined),
                 label: const Text('Start Session'),

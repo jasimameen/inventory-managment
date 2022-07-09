@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/models/warehouse.dart';
-import 'package:invendory_managment/domain/warehouse/i_warehouse_repo.dart';
+import '../../domain/models/warehouse.dart';
+import '../../domain/warehouse/i_warehouse_repo.dart';
 
 part 'warehouse_event.dart';
 part 'warehouse_state.dart';

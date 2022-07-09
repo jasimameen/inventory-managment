@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:invendory_managment/presentation/core/styles.dart';
 
 import '../analytics/screen_analytics.dart';
 import '../core/navigation.dart';
@@ -21,13 +23,36 @@ List<String> dashTileTitles = const [
   'Prev Bills',
   'EndSession',
 ];
+List<IconData> dashTileIcons = const [
+  CupertinoIcons.car_detailed,
+  CupertinoIcons.map,
+  CupertinoIcons.graph_square_fill,
+  CupertinoIcons.house_fill,
+  Icons.warehouse_outlined,
+  Icons.shopping_cart_checkout_rounded,
+  Icons.inventory_outlined,
+  Icons.stop_circle,
+];
+List<Color> dashTileColors = const [
+  Color.fromARGB(255, 238, 66, 54),
+  Color.fromARGB(255, 76, 175, 80),
+  Color.fromARGB(255, 197, 69, 112),
+  Color.fromARGB(255, 255, 152, 0),
+  Color.fromARGB(255, 68, 59, 47),
+  Color.fromARGB(255, 16, 100, 129),
+  Color.fromARGB(255, 62, 95, 202),
+  Color.fromARGB(255, 214, 26, 26),
+];
 List<Widget> dashCardNavTo = const [
   ScreeVehcle(),
   ScreenRoute(),
   ScreenAnalytics(),
   ScreenAllShops(),
   ScreenWareHouse(),
-  ScreenStock(title: 'VehcleStock Details',fromPage: 'Home',),
+  ScreenStock(
+    title: 'VehcleStock Details',
+    fromPage: 'Home',
+  ),
   ScreenPrevBills(),
   ScreenEndSession(),
 ];
@@ -38,23 +63,18 @@ class ScreenDasboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            // Navigation.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back),
-        ),
-        title: const Text('Screen Dashboard'),
+      appBar: const CupertinoNavigationBar(
+        middle: Text('Dashboard'),
       ),
       body: Wrap(
         children: List.generate(
             dashCardNavTo.length,
             (index) => SquareCardWidget(
                 title: dashTileTitles[index],
-                iconData: Icons.abc,
+                iconData: dashTileIcons[index],
+                iconColor: dashTileColors[index],
                 onTap: () {
-                  Navigation.push(context, dashCardNavTo[index]);
+                  Navigation.push(dashCardNavTo[index]);
                 })),
       ),
     );
