@@ -14,12 +14,12 @@ import '../warehouse/screen_warehouse.dart';
 import '../widgets/square_card_widget.dart';
 
 List<String> dashTileTitles = const [
-  'Vehcle Details',
+  'Vehcle',
   'Route',
   'Anylics',
   'Shops',
   'Warehouse',
-  'Stock Details',
+  'Stock',
   'Prev Bills',
   'EndSession',
 ];

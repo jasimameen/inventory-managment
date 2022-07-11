@@ -3,7 +3,7 @@ part of 'warehouse_bloc.dart';
 @freezed
 class WarehouseState with _$WarehouseState {
   factory WarehouseState({
-    required List<WareHouseModel> warehouseList,
+    required List<WarehouseModel> warehouseList,
     required bool isLoading,
     required bool isError,
   }) = _InitialState;

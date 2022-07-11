@@ -168,7 +168,7 @@ abstract class _GetAllWarehouses implements WarehouseEvent {
 
 /// @nodoc
 mixin _$WarehouseState {
-  List<WareHouseModel> get warehouseList => throw _privateConstructorUsedError;
+  List<WarehouseModel> get warehouseList => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
 
@@ -182,7 +182,7 @@ abstract class $WarehouseStateCopyWith<$Res> {
   factory $WarehouseStateCopyWith(
           WarehouseState value, $Res Function(WarehouseState) then) =
       _$WarehouseStateCopyWithImpl<$Res>;
-  $Res call({List<WareHouseModel> warehouseList, bool isLoading, bool isError});
+  $Res call({List<WarehouseModel> warehouseList, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -204,7 +204,7 @@ class _$WarehouseStateCopyWithImpl<$Res>
       warehouseList: warehouseList == freezed
           ? _value.warehouseList
           : warehouseList // ignore: cast_nullable_to_non_nullable
-              as List<WareHouseModel>,
+              as List<WarehouseModel>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -224,7 +224,7 @@ abstract class _$$_InitialStateCopyWith<$Res>
           _$_InitialState value, $Res Function(_$_InitialState) then) =
       __$$_InitialStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<WareHouseModel> warehouseList, bool isLoading, bool isError});
+  $Res call({List<WarehouseModel> warehouseList, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -248,7 +248,7 @@ class __$$_InitialStateCopyWithImpl<$Res>
       warehouseList: warehouseList == freezed
           ? _value._warehouseList
           : warehouseList // ignore: cast_nullable_to_non_nullable
-              as List<WareHouseModel>,
+              as List<WarehouseModel>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -265,14 +265,14 @@ class __$$_InitialStateCopyWithImpl<$Res>
 
 class _$_InitialState implements _InitialState {
   _$_InitialState(
-      {required final List<WareHouseModel> warehouseList,
+      {required final List<WarehouseModel> warehouseList,
       required this.isLoading,
       required this.isError})
       : _warehouseList = warehouseList;
 
-  final List<WareHouseModel> _warehouseList;
+  final List<WarehouseModel> _warehouseList;
   @override
-  List<WareHouseModel> get warehouseList {
+  List<WarehouseModel> get warehouseList {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_warehouseList);
   }
@@ -313,12 +313,12 @@ class _$_InitialState implements _InitialState {
 
 abstract class _InitialState implements WarehouseState {
   factory _InitialState(
-      {required final List<WareHouseModel> warehouseList,
+      {required final List<WarehouseModel> warehouseList,
       required final bool isLoading,
       required final bool isError}) = _$_InitialState;
 
   @override
-  List<WareHouseModel> get warehouseList => throw _privateConstructorUsedError;
+  List<WarehouseModel> get warehouseList => throw _privateConstructorUsedError;
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override

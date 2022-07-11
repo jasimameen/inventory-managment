@@ -1,17 +1,13 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/domain/models/town.dart';
-import 'package:invendory_managment/presentation/core/styles.dart';
+
 import '../../application/route/route_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
-import '../core/navigation.dart';
-import 'screen_shop.dart';
-
 import '../core/constants.dart';
+import '../core/styles.dart';
 import 'widgets/profile_widget.dart';
 import 'widgets/textfield_widget.dart';
 
@@ -57,7 +53,7 @@ class ScreenRegisterShop extends StatelessWidget {
           ),
           onPressed: () {
             // add the shop to db
-            context.read<ShopBloc>().add(ShopEvent.registerNewShop(context));
+            context.read<ShopBloc>().add(ShopEvent.registerNewShop());
           },
         ),
       ),

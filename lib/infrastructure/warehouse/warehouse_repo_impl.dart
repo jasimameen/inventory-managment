@@ -21,17 +21,17 @@ import '../auth/auth_repo_impl.dart'
 @LazySingleton(as: IWareHouseRepo)
 class ShopRepoImpl implements IWareHouseRepo {
   @override
-  Future<Either<Failure, List<WareHouseModel>>> getAllWareHouses() async {
+  Future<Either<Failure, List<WarehouseModel>>> getAllWareHouses() async {
     try {
       log('started');
       dio.options.headers['Authorization'] = 'Bearer $ACCESS_TOKEN';
 
       final responce = await dio.get(ApiEndpoints.warehouse);
       if (responce.statusCode == 200 || responce.statusCode == 201) {
-      final warehousesList = (responce.data as List<dynamic>)
-          .map((e) => WareHouseModel.fromMap(e))
-          .toList();
-      log('all shops from remote --> ${warehousesList.toString()}');
+        final warehousesList = (responce.data as List<dynamic>)
+            .map((e) => WarehouseModel.fromMap(e))
+            .toList();
+        log('all shops from remote --> ${warehousesList.toString()}');
         return right(warehousesList);
       }
     } on DioError catch (e) {
@@ -41,5 +41,4 @@ class ShopRepoImpl implements IWareHouseRepo {
     }
     throw left(const Failure.serverFailure());
   }
-
 }

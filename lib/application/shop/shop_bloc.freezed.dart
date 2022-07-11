@@ -19,21 +19,21 @@ mixin _$ShopEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
-    required TResult Function(String shopId) getSales,
+    required TResult Function(String shopId) getShop,
     required TResult Function() registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function(String shopId)? getSales,
+    TResult Function(String shopId)? getShop,
     TResult Function()? registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function(String shopId)? getSales,
+    TResult Function(String shopId)? getShop,
     TResult Function()? registerNewShop,
     required TResult orElse(),
   }) =>
@@ -41,21 +41,21 @@ mixin _$ShopEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllShops value) getAllShops,
-    required TResult Function(_GetShop value) getSales,
+    required TResult Function(_GetShop value) getShop,
     required TResult Function(_RegisterNewShop value) registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getSales,
+    TResult Function(_GetShop value)? getShop,
     TResult Function(_RegisterNewShop value)? registerNewShop,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getSales,
+    TResult Function(_GetShop value)? getShop,
     TResult Function(_RegisterNewShop value)? registerNewShop,
     required TResult orElse(),
   }) =>
@@ -118,7 +118,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
-    required TResult Function(String shopId) getSales,
+    required TResult Function(String shopId) getShop,
     required TResult Function() registerNewShop,
   }) {
     return getAllShops();
@@ -128,7 +128,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function(String shopId)? getSales,
+    TResult Function(String shopId)? getShop,
     TResult Function()? registerNewShop,
   }) {
     return getAllShops?.call();
@@ -138,7 +138,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function(String shopId)? getSales,
+    TResult Function(String shopId)? getShop,
     TResult Function()? registerNewShop,
     required TResult orElse(),
   }) {
@@ -152,7 +152,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllShops value) getAllShops,
-    required TResult Function(_GetShop value) getSales,
+    required TResult Function(_GetShop value) getShop,
     required TResult Function(_RegisterNewShop value) registerNewShop,
   }) {
     return getAllShops(this);
@@ -162,7 +162,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getSales,
+    TResult Function(_GetShop value)? getShop,
     TResult Function(_RegisterNewShop value)? registerNewShop,
   }) {
     return getAllShops?.call(this);
@@ -172,7 +172,7 @@ class _$_GetAllShops implements _GetAllShops {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getSales,
+    TResult Function(_GetShop value)? getShop,
     TResult Function(_RegisterNewShop value)? registerNewShop,
     required TResult orElse(),
   }) {
@@ -227,7 +227,7 @@ class _$_GetShop implements _GetShop {
 
   @override
   String toString() {
-    return 'ShopEvent.getSales(shopId: $shopId)';
+    return 'ShopEvent.getShop(shopId: $shopId)';
   }
 
   @override
@@ -251,32 +251,32 @@ class _$_GetShop implements _GetShop {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
-    required TResult Function(String shopId) getSales,
+    required TResult Function(String shopId) getShop,
     required TResult Function() registerNewShop,
   }) {
-    return getSales(shopId);
+    return getShop(shopId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function(String shopId)? getSales,
+    TResult Function(String shopId)? getShop,
     TResult Function()? registerNewShop,
   }) {
-    return getSales?.call(shopId);
+    return getShop?.call(shopId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function(String shopId)? getSales,
+    TResult Function(String shopId)? getShop,
     TResult Function()? registerNewShop,
     required TResult orElse(),
   }) {
-    if (getSales != null) {
-      return getSales(shopId);
+    if (getShop != null) {
+      return getShop(shopId);
     }
     return orElse();
   }
@@ -285,32 +285,32 @@ class _$_GetShop implements _GetShop {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllShops value) getAllShops,
-    required TResult Function(_GetShop value) getSales,
+    required TResult Function(_GetShop value) getShop,
     required TResult Function(_RegisterNewShop value) registerNewShop,
   }) {
-    return getSales(this);
+    return getShop(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getSales,
+    TResult Function(_GetShop value)? getShop,
     TResult Function(_RegisterNewShop value)? registerNewShop,
   }) {
-    return getSales?.call(this);
+    return getShop?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getSales,
+    TResult Function(_GetShop value)? getShop,
     TResult Function(_RegisterNewShop value)? registerNewShop,
     required TResult orElse(),
   }) {
-    if (getSales != null) {
-      return getSales(this);
+    if (getShop != null) {
+      return getShop(this);
     }
     return orElse();
   }
@@ -367,7 +367,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getAllShops,
-    required TResult Function(String shopId) getSales,
+    required TResult Function(String shopId) getShop,
     required TResult Function() registerNewShop,
   }) {
     return registerNewShop();
@@ -377,7 +377,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function(String shopId)? getSales,
+    TResult Function(String shopId)? getShop,
     TResult Function()? registerNewShop,
   }) {
     return registerNewShop?.call();
@@ -387,7 +387,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllShops,
-    TResult Function(String shopId)? getSales,
+    TResult Function(String shopId)? getShop,
     TResult Function()? registerNewShop,
     required TResult orElse(),
   }) {
@@ -401,7 +401,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllShops value) getAllShops,
-    required TResult Function(_GetShop value) getSales,
+    required TResult Function(_GetShop value) getShop,
     required TResult Function(_RegisterNewShop value) registerNewShop,
   }) {
     return registerNewShop(this);
@@ -411,7 +411,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getSales,
+    TResult Function(_GetShop value)? getShop,
     TResult Function(_RegisterNewShop value)? registerNewShop,
   }) {
     return registerNewShop?.call(this);
@@ -421,7 +421,7 @@ class _$_RegisterNewShop implements _RegisterNewShop {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllShops value)? getAllShops,
-    TResult Function(_GetShop value)? getSales,
+    TResult Function(_GetShop value)? getShop,
     TResult Function(_RegisterNewShop value)? registerNewShop,
     required TResult orElse(),
   }) {

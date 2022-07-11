@@ -27,7 +27,7 @@ class AuthRepoImpl implements IAuthRepo {
       };
 
       dio.options.headers['Authorization'] = 'Bearer $ACCESS_TOKEN';
-      dio.post(ApiEndpoints.accessTokenPath,
+      await dio.post(ApiEndpoints.accessTokenPath,
           data: {"username": "qwerty", "password": "qwerty"}).then((response) {
         ACCESS_TOKEN = response.data["access"];
         REFRESH_TOKEN = response.data["refresh"];
@@ -38,7 +38,7 @@ class AuthRepoImpl implements IAuthRepo {
           '\n --------------\n refreshing access token ....');
 
       /// if any error occures call the refresh function to get new access Token
-      refresh();
+      await refresh();
     }
 
     try {
@@ -54,7 +54,7 @@ class AuthRepoImpl implements IAuthRepo {
       /// when it fails to authorize with accesToken
       /// use refreshToken to get the new accesToken
       /// call -> refresh() and retry
-      refresh();
+      await refresh();
     }
     return retry();
   }
@@ -71,14 +71,13 @@ class AuthRepoImpl implements IAuthRepo {
         data: {"refresh": REFRESH_TOKEN},
       );
       ACCESS_TOKEN = resp.data['access'];
+      dio.options.headers['Authorization'] = 'Bearer $ACCESS_TOKEN';
     } on DioError catch (e) {
       log('refresh error ' + e.toString());
     }
 
     // attemp one time
-    oldAToken == ACCESS_TOKEN
-        ? log('access token not changed')
-        : log('acces token changed');
+   
     if (oldAToken != ACCESS_TOKEN) {
       log('new accessToken generated');
       var retryStatus = await retry();
@@ -102,9 +101,6 @@ class AuthRepoImpl implements IAuthRepo {
       log('Retry called');
       dio.options.headers['Authorization'] = 'Bearer $ACCESS_TOKEN';
       final responce = await dio.get(ApiEndpoints.errand);
-      log('Retry status code = ' + responce.statusCode.toString());
-      log('errand -> ${responce.data}');
-
       if (responce.statusCode == 200) {
         return true;
       } else {

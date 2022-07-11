@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +26,7 @@ class ScreenAllShops extends StatelessWidget {
       ),
       body: BlocBuilder<ShopBloc, ShopState>(
         builder: (context, state) {
-          final allShops = state.shopsList;
+          final shopList = state.shopsList;
 
           return state.isLoading
               ? const Center(
@@ -32,24 +34,20 @@ class ScreenAllShops extends StatelessWidget {
                       strokeWidth: 2, color: AppColors.green),
                 )
               : Wrap(
-                  children: List.generate(
-                      allShops.length,
-                      (index) => SquareCardWidget(
-                          title: allShops[index].name,
-                          iconData: Icons.business_rounded,
-                          iconColor: Colors.redAccent,
-                          onTap: () {
-                            Navigation.push(
-                              ScreenShop(
-                                shopName: allShops[index].name,
-                                shopId: '000' + allShops[index].shop_id,
-                                town: allShops[index].townModel?.name ?? 'null',
-                                email: allShops[index].email,
-                                contactNumber:
-                                    allShops[index].contact_number.toString(),
-                              ),
-                            );
-                          })),
+                  children: List.generate(shopList.length, (index) {
+                    final data = shopList[index];
+                    log(data.toString());
+                    return SquareCardWidget(
+                        title: data.name,
+                        iconData: Icons.business_rounded,
+                        iconColor: Colors.redAccent,
+                        onTap: () {
+                          Navigation.push(
+                            const ScreenShop(),
+                            arguments: data,
+                          );
+                        });
+                  }),
                 );
         },
       ),

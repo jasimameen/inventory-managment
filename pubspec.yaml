@@ -22,6 +22,7 @@ dependencies:
   flutter_secure_storage: ^5.0.2
   dartz: ^0.10.1
   injectable: ^1.5.3
+  collection: 
 
 dev_dependencies:
   flutter_test:
