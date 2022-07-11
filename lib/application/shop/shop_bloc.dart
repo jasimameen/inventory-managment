@@ -5,6 +5,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:invendory_managment/domain/api_models/i_api_model_from_id_repo.dart';
+import 'package:invendory_managment/domain/api_models/i_api_models_repo.dart';
 import 'package:invendory_managment/domain/models/item.dart';
 import 'package:invendory_managment/domain/models/sales.dart';
 import 'package:invendory_managment/domain/route/i_route_repo.dart';
@@ -23,35 +25,25 @@ part 'shop_state.dart';
 @injectable
 class ShopBloc extends Bloc<ShopEvent, ShopState> {
   final IShopRepo _shopRepo;
-  final IRouteRepo _routeRepo;
-  final IStockRepo _stockRepo;
-  ShopBloc(this._shopRepo, this._routeRepo, this._stockRepo)
+  final IApiModelsRepo _stockRepo;
+  //
+  final IApiModelFromIdRepo _apiModelFromIdRepo;
+  final IApiModelsRepo _apiModelsRepo;
+  ShopBloc(this._shopRepo, this._stockRepo, this._apiModelFromIdRepo,
+      this._apiModelsRepo)
       : super(ShopState.initial()) {
     // Get list of All Shops
     on<_GetAllShops>((event, emit) async {
       // send Loding state
-      emit(
-          state.copyWith(isLoading: true, shopsFailureOrSuccessOption: none()));
+      emit(state.copyWith(isLoading: true));
 
       // get Data
-      final shops = await _shopRepo.fetchAllShops();
-      final _newSatate = shops.fold(
-        (failure) {
-          log(failure.toString());
-          return state.copyWith(isError: true, isLoading: false);
-        },
-        (results) {
-          return state.copyWith(
-            shopsFailureOrSuccessOption: some(right(results)),
-            shopsList: results,
-            isLoading: false,
-            isError: false,
-          );
-        },
-      );
+      final shops = await _apiModelsRepo.getShops();
+
+      final _newState = state.copyWith(shopsList: shops, isLoading: false);
 
       // update UI
-      emit(_newSatate);
+      emit(_newState);
     });
 
     // Register New Shop
@@ -62,6 +54,7 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
         contact_number: int.parse(RegShopControllers.contactNumber.text),
         email: RegShopControllers.email.text,
         town: int.parse(RegShopControllers.town.text),
+        // sales: [],
       ).toMap();
 
       final resp = await _shopRepo.registerNewShop(shopData);
@@ -69,29 +62,16 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
       resp.fold(
         (l) => null,
         (res) {
-          RegShopControllers.clearAll();
-          return Navigation.push(
-            ScreenShop(
-              shopName: res.name,
-              shopId: res.shop_id,
-              email: res.email,
-              contactNumber: res.contact_number.toString(),
-              town: res.townModel?.name ?? 'null',
-            ),
-          );
+          return Navigation.push(const ScreenShop(), arguments: res);
         },
       );
     });
 
     // sale
     on<_GetShop>((event, emit) async {
-      final resp = await _shopRepo.getShop(int.parse(event.shopId));
-      final _newState = resp.fold(
-        (l) => state.copyWith(isError: true, isLoading: false),
-        (r) => state.copyWith(shopModel: r),
-      );
+      final resp = await _apiModelFromIdRepo.getShop(event.shopId);
+      final _newState = state.copyWith(shopModel: resp);
       emit(_newState);
-      
     });
   }
 }

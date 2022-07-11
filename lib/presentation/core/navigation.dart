@@ -5,11 +5,16 @@ class Navigation {
   Navigation._();
   static pop() => navigatorKey.currentState?.pop();
 
-  static push(Widget screen) => navigatorKey.currentState?.push(
+  static push(Widget screen, {Object? arguments}) =>
+      navigatorKey.currentState?.push(
         MaterialPageRoute(
           builder: (context) => screen,
+          settings: RouteSettings(arguments: arguments),
         ),
       );
+
+  static pushNamed(String routeName, {Object? arguments}) =>
+      navigatorKey.currentState?.pushNamed(routeName, arguments: arguments);
 
   static pushAndRemoveUntil(Widget screen) =>
       navigatorKey.currentState?.pushAndRemoveUntil(

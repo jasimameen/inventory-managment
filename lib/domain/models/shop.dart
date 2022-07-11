@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
+import 'package:invendory_managment/domain/models/sales.dart';
 import 'package:invendory_managment/domain/models/town.dart';
 
 class ShopModel {
@@ -10,13 +13,14 @@ class ShopModel {
   final String email;
   final TownModel? townModel;
   final int town;
+  // final List<SalesModel> sales;
   ShopModel({
     this.id,
     required this.name,
     required this.shop_id,
     required this.contact_number,
     required this.email,
-     this.townModel,
+    this.townModel,
     required this.town,
   });
 

@@ -1,9 +1,9 @@
 import 'dart:developer';
 
+import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/api_models/i_api_model_from_id_repo.dart';
 
-import '../../domain/api_models/i_api_models_repo.dart';
+import '../../domain/api_models/i_api_model_from_id_repo.dart';
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';
 import '../../domain/models/models_exported.dart';
@@ -11,7 +11,7 @@ import '../auth/auth_repo_impl.dart';
 
 @Injectable(as: IApiModelFromIdRepo)
 class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
-   @override
+  @override
   Future<DistrictModel> getDistrict(int id, {flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.district + id.toString());
@@ -27,6 +27,7 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
       throw const Failure.serverFailure();
     }
   }
+
   @override
   Future<CategoryModel> getCategorie(int id, {flag = 0}) async {
     try {
@@ -43,8 +44,6 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
       throw const Failure.serverFailure();
     }
   }
-
- 
 
   @override
   Future<DriverModel> getDriver(int id, {flag = 0}) async {
@@ -115,15 +114,17 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
   }
 
   @override
-  Future<SalesModel> getSale(int id, {flag = 0}) async {
+  Future<List<SalesModel>> getSales(String shopId, {flag = 0}) async {
     try {
-      final resp = await dio.get(ApiEndpoints.sales + id.toString());
-      final result = SalesModel.fromMap(resp.data);
-      return result;
+      final resp = await dio.get(ApiEndpoints.sales);
+      final result = (resp.data as List<dynamic>)
+          .map((e) => SalesModel.fromMap(e))
+          .toList();
+      return result.where((element) => element.shop == shopId).toList();
     } catch (e) {
       if (flag <= 5) {
         await AuthRepoImpl().refresh();
-        return getSale(id, flag: flag++);
+        return getSales(shopId, flag: flag++);
       }
 
       log('[getSale Error -> ]' + e.toString());
@@ -132,15 +133,29 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
   }
 
   @override
-  Future<ShopModel> getShop(int id, {flag = 0}) async {
+  Future<ShopModel> getShop(String shopId, {flag = 0}) async {
     try {
-      final resp = await dio.get(ApiEndpoints.shop + id.toString());
-      final result = ShopModel.fromMap(resp.data);
-      return result;
+      final resp = await dio.get(ApiEndpoints.shop);
+      var result = (resp.data as List<dynamic>)
+          .map((e) => ShopModel.fromMap(e))
+          .firstWhere(
+            (element) => element.shop_id == shopId,
+            orElse: () => ShopModel(
+              name: 'null',
+              shop_id: 'null',
+              contact_number: 0,
+              email: 'null',
+              town: -1,
+              id: -1,
+            ),
+          );
+
+        return result;
+      
     } catch (e) {
       if (flag <= 5) {
         await AuthRepoImpl().refresh();
-        return getShop(id, flag: flag++);
+        return getShop(shopId, flag: flag++);
       }
 
       log('[getShop Error -> ]' + e.toString());
@@ -166,7 +181,7 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
   }
 
   @override
-  Future<TownModel> getTown(int id) async{
+  Future<TownModel> getTown(int id) async {
     try {
       final resp = await dio.get(ApiEndpoints.town + id.toString());
       final result = TownModel.fromMap(resp.data);
@@ -178,7 +193,7 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
   }
 
   @override
-  Future<VehicleModel> getVehicle(int id) async{
+  Future<VehicleModel> getVehicle(int id) async {
     try {
       final resp = await dio.get(ApiEndpoints.vehicle + id.toString());
       final result = VehicleModel.fromMap(resp.data);
@@ -190,8 +205,8 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
   }
 
   @override
-  Future<WarehouseModel> getWarehouse(int id)async {
-   try {
+  Future<WarehouseModel> getWarehouse(int id) async {
+    try {
       final resp = await dio.get(ApiEndpoints.warehouse + id.toString());
       final result = WarehouseModel.fromMap(resp.data);
       return result;
@@ -200,5 +215,4 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
       throw const Failure.serverFailure();
     }
   }
-
 }

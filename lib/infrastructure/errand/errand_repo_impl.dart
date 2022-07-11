@@ -18,7 +18,8 @@ import '../auth/auth_repo_impl.dart';
 class ErrandRepoImpl implements IErrandRepo {
   // get Errent Info
   @override
-  Future<Either<Failure, ErrandModel>> getErrentInfo(String errentId) async {
+  Future<Either<Failure, ErrandModel>> getErrentInfo(String errentId,
+      {int flag = 0}) async {
     try {
       final resp = await dio.get(
           ApiEndpoints.errand + 1.toString()); // TODO : get errend with string
@@ -38,15 +39,18 @@ class ErrandRepoImpl implements IErrandRepo {
         throw left(const Failure.serverFailure());
       }
     } on DioError catch (_) {
-      await AuthRepoImpl().refresh();
-      getErrentInfo('put the errent Id here');
+      if (flag <= 5) {
+        await AuthRepoImpl().refresh();
+        getErrentInfo('put the errent Id here', flag: flag + 1);
+      }
     }
     throw left(const Failure.cliendFailure());
   }
 
   // get DriverInfo
   @override
-  Future<Either<Failure, DriverModel>> getDriverInfo(int id) async {
+  Future<Either<Failure, DriverModel>> getDriverInfo(int id,
+      {int flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.driver + id.toString());
       log('driverInfo -> ' + resp.data.toString());
@@ -62,16 +66,19 @@ class ErrandRepoImpl implements IErrandRepo {
         throw left(const Failure.serverFailure());
       }
     } on DioError catch (_) {
-      await AuthRepoImpl().refresh();
-      final driverId = PersistedData.driverId;
-      getDriverInfo(driverId!);
+      if (flag <= 5) {
+        await AuthRepoImpl().refresh();
+        final driverId = PersistedData.driverId;
+        getDriverInfo(driverId!, flag: flag + 1);
+      }
     }
     throw left(const Failure.cliendFailure());
   }
 
   // getVehicleInfo
   @override
-  Future<Either<Failure, VehicleModel>> getVehicleInfo(int id) async {
+  Future<Either<Failure, VehicleModel>> getVehicleInfo(int id,
+      {int flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.vehicle + id.toString());
       log('VehicleInfo -> ' + resp.data.toString());
@@ -86,8 +93,10 @@ class ErrandRepoImpl implements IErrandRepo {
         throw left(const Failure.serverFailure());
       }
     } on DioError catch (_) {
-      await AuthRepoImpl().refresh();
-      getVehicleInfo(PersistedData.vehicleId!);
+      if (flag <= 5) {
+        await AuthRepoImpl().refresh();
+        getVehicleInfo(PersistedData.vehicleId!, flag: flag + 1);
+      }
     }
     throw left(const Failure.cliendFailure());
   }

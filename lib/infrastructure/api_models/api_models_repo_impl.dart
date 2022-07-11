@@ -15,7 +15,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.category);
       final result = (resp.data as List<dynamic>)
-          .map<CategoryModel>((e) => CategoryModel.fromJson(e))
+          .map<CategoryModel>((e) => CategoryModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
@@ -34,14 +34,14 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.district);
       final result = (resp.data as List<dynamic>)
-          .map<DistrictModel>((e) => DistrictModel.fromJson(e))
+          .map<DistrictModel>((e) => DistrictModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
       if (flag <= 5) {
         await AuthRepoImpl().refresh();
         return getDistricts(flag: flag++);
-      } 
+      }
       log('[getDistricts Error -> ]' + e.toString());
       throw const Failure.serverFailure();
     }
@@ -52,7 +52,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.driver);
       final result = (resp.data as List<dynamic>)
-          .map<DriverModel>((e) => DriverModel.fromJson(e))
+          .map<DriverModel>((e) => DriverModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
@@ -71,7 +71,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.errand);
       final result = (resp.data as List<dynamic>)
-          .map<ErrandModel>((e) => ErrandModel.fromJson(e))
+          .map<ErrandModel>((e) => ErrandModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
@@ -90,7 +90,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.item);
       final result = (resp.data as List<dynamic>)
-          .map<ItemModel>((e) => ItemModel.fromJson(e))
+          .map<ItemModel>((e) => ItemModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
@@ -109,7 +109,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.route);
       final result = (resp.data as List<dynamic>)
-          .map<RouteModel>((e) => RouteModel.fromJson(e))
+          .map<RouteModel>((e) => RouteModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
@@ -128,7 +128,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.sales);
       final result = (resp.data as List<dynamic>)
-          .map<SalesModel>((e) => SalesModel.fromJson(e))
+          .map<SalesModel>((e) => SalesModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
@@ -146,17 +146,27 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
   Future<List<ShopModel>> getShops({int flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.shop);
-      final result = (resp.data as List<dynamic>)
-          .map<ShopModel>((e) => ShopModel.fromJson(e))
-          .toList();
+      final salesList = await getSales();
+
+      final result = (resp.data as List<dynamic>).map<ShopModel>((e) {
+        return ShopModel.fromMap(e);}).toList();
+      // result.forEach((model) {
+      //   var _salesList = salesList
+      //       .where((element) => element.shop == model.shop_id)
+      //       .toList();
+      //   model.copyWith(sales: _salesList);
+      // });
+
+      log('getShops -> ' + result.toString());
       return result;
     } catch (e) {
       if (flag <= 5) {
+        log('[getShops Error -> ]' + e.toString());
+        log('retry attempt ' + flag.toString());
         await AuthRepoImpl().refresh();
-        return getShops(flag: flag++);
+        getShops(flag: flag+1);
       }
 
-      log('[getShops Error -> ]' + e.toString());
       throw const Failure.serverFailure();
     }
   }
@@ -166,8 +176,9 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.stock);
       final result = (resp.data as List<dynamic>)
-          .map<StockModel>((e) => StockModel.fromJson(e))
+          .map<StockModel>((e) => StockModel.fromMap(e))
           .toList();
+      log('getStocks -> ' + result.toString());
       return result;
     } catch (e) {
       if (flag <= 5) {
@@ -185,7 +196,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.town);
       final result = (resp.data as List<dynamic>)
-          .map<TownModel>((e) => TownModel.fromJson(e))
+          .map<TownModel>((e) => TownModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
@@ -204,7 +215,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.vehicle);
       final result = (resp.data as List<dynamic>)
-          .map<VehicleModel>((e) => VehicleModel.fromJson(e))
+          .map<VehicleModel>((e) => VehicleModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
@@ -223,7 +234,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
     try {
       final resp = await dio.get(ApiEndpoints.warehouse);
       final result = (resp.data as List<dynamic>)
-          .map<WarehouseModel>((e) => WarehouseModel.fromJson(e))
+          .map<WarehouseModel>((e) => WarehouseModel.fromMap(e))
           .toList();
       return result;
     } catch (e) {
