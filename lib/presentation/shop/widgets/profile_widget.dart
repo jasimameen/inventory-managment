@@ -32,7 +32,7 @@ class ProfileWidget extends StatelessWidget {
 
   Widget buildImage() {
     // final image = NetworkImage(imagePath);
-    final image = AssetImage('assets/images/list_item.png');
+    const image = AssetImage('assets/images/list_item.png');
 
     return ClipOval(
       child: Material(

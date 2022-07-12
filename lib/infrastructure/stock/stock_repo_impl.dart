@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/models/item.dart';
+import '../../domain/models/item.dart';
 
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/presentation/core/navigation.dart';
 
 import '../../application/errand/errand_bloc.dart';
 import '../../application/route/route_bloc.dart';
@@ -9,7 +8,8 @@ import '../../application/shop/shop_bloc.dart';
 import '../../application/stock/stock_bloc.dart';
 import '../../application/warehouse/warehouse_bloc.dart';
 import '../../domain/core/sl/injection.dart';
-import '../login/screen_login.dart';
+import '../core/navigation.dart';
+import '../login/screen_sign_in.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: Navigation.navigatorKey,
         title: 'Inventory App',
-        home:const Scaffold(
+        home: Scaffold(
           body: SafeArea(
-            child: ScreenLogin(),
+            child: ScreenSignIn(),
           ),
         ),
       ),

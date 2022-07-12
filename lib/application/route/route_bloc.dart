@@ -3,14 +3,14 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/core/failure.dart';
-import 'package:invendory_managment/domain/models/shop.dart';
-import 'package:invendory_managment/domain/models/town.dart';
-import 'package:invendory_managment/domain/route/i_route_repo.dart';
 
+import '../../domain/models/shop.dart';
+import '../../domain/models/town.dart';
+import '../../domain/route/i_route_repo.dart';
+
+part 'route_bloc.freezed.dart';
 part 'route_event.dart';
 part 'route_state.dart';
-part 'route_bloc.freezed.dart';
 
 @injectable
 class RouteBloc extends Bloc<RouteEvent, RouteState> {

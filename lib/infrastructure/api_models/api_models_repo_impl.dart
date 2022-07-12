@@ -146,16 +146,9 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
   Future<List<ShopModel>> getShops({int flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.shop);
-      final salesList = await getSales();
 
       final result = (resp.data as List<dynamic>).map<ShopModel>((e) {
         return ShopModel.fromMap(e);}).toList();
-      // result.forEach((model) {
-      //   var _salesList = salesList
-      //       .where((element) => element.shop == model.shop_id)
-      //       .toList();
-      //   model.copyWith(sales: _salesList);
-      // });
 
       log('getShops -> ' + result.toString());
       return result;

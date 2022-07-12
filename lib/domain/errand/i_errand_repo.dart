@@ -1,8 +1,9 @@
 import 'package:dartz/dartz.dart';
-import '../models/errand.dart';
+
 import '../core/failure.dart';
-import '../models/vehicle.dart';
 import '../models/driver.dart';
+import '../models/errand.dart';
+import '../models/vehicle.dart';
 
 abstract class IErrandRepo {
   Future<Either<Failure, ErrandModel>> getErrentInfo(String errentId);

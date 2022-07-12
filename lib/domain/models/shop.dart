@@ -1,9 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
-import 'package:invendory_managment/domain/models/sales.dart';
-import 'package:invendory_managment/domain/models/town.dart';
+import 'town.dart';
 
 class ShopModel {
   final int? id;

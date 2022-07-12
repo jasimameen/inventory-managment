@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../domain/api_models/i_api_model_from_id_repo.dart';

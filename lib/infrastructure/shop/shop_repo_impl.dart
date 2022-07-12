@@ -4,9 +4,9 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/models/sales.dart';
-import 'package:invendory_managment/domain/models/town.dart';
-import 'package:invendory_managment/infrastructure/route/route_repo_impl.dart';
+import '../../domain/models/sales.dart';
+import '../../domain/models/town.dart';
+import '../route/route_repo_impl.dart';
 
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';

@@ -8,8 +8,8 @@ class ScreenEndSession extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CupertinoNavigationBar(
+    return const Scaffold(
+      appBar:  CupertinoNavigationBar(
         previousPageTitle: 'Home',
         middle: Text('End Session'),
       ),

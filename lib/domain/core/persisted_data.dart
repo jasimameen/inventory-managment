@@ -1,9 +1,7 @@
-import 'package:invendory_managment/domain/models/shop.dart';
-import 'package:invendory_managment/domain/models/town.dart';
-
 import '../models/driver.dart';
 import '../models/errand.dart';
 import '../models/route.dart';
+import '../models/town.dart';
 import '../models/vehicle.dart';
 
 /// Stores all the static id for the current sessions

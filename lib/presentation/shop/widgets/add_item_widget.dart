@@ -1,4 +1,3 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -53,9 +52,9 @@ class AddItemWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextSpan(
+                const TextSpan(
                   text: "Item Brand",
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.grey,
                     fontStyle: FontStyle.italic,
                   ),

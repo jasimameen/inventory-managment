@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/presentation/stock/widgets/stock_card_widget.dart';
+
 import '../../application/stock/stock_bloc.dart';
 import '../core/styles.dart';
-
-import '../core/navigation.dart';
-import '../widgets/square_card_widget.dart';
+import 'widgets/stock_card_widget.dart';
 
 class ScreenStock extends StatelessWidget {
   final String title;

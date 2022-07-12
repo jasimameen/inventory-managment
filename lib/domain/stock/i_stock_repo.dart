@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:invendory_managment/domain/core/failure.dart';
-import 'package:invendory_managment/domain/models/category.dart';
-import 'package:invendory_managment/domain/models/item.dart';
-import 'package:invendory_managment/domain/models/stock.dart';
+import '../core/failure.dart';
+import '../models/category.dart';
+import '../models/item.dart';
+import '../models/stock.dart';
 
 abstract class IStockRepo {
   Future<Either<Failure, List<StockModel>>> getVehicleStocks(int id);

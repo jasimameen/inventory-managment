@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:invendory_managment/domain/models/town.dart';
 
 import '../core/failure.dart';
 import '../models/route.dart';
+import '../models/town.dart';
 
 abstract class IRouteRepo {
   Future<Either<Failure, RouteModel>> getRouteInfo();

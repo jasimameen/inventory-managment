@@ -1,21 +1,18 @@
-import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+
 import 'package:dartz/dartz.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/api_models/i_api_model_from_id_repo.dart';
-import 'package:invendory_managment/domain/api_models/i_api_models_repo.dart';
-import 'package:invendory_managment/domain/models/item.dart';
-import 'package:invendory_managment/domain/models/sales.dart';
-import 'package:invendory_managment/domain/route/i_route_repo.dart';
-import 'package:invendory_managment/domain/stock/i_stock_repo.dart';
-import '../../presentation/core/navigation.dart';
-import '../../presentation/shop/screen_register_shop.dart';
+
+import '../../domain/api_models/i_api_model_from_id_repo.dart';
+import '../../domain/api_models/i_api_models_repo.dart';
 import '../../domain/core/failure.dart';
+import '../../domain/models/sales.dart';
 import '../../domain/models/shop.dart';
 import '../../domain/shop/i_shop_repo.dart';
+import '../../presentation/core/navigation.dart';
+import '../../presentation/shop/screen_register_shop.dart';
 import '../../presentation/shop/screen_shop.dart';
 
 part 'shop_bloc.freezed.dart';
@@ -25,12 +22,10 @@ part 'shop_state.dart';
 @injectable
 class ShopBloc extends Bloc<ShopEvent, ShopState> {
   final IShopRepo _shopRepo;
-  final IApiModelsRepo _stockRepo;
   //
   final IApiModelFromIdRepo _apiModelFromIdRepo;
   final IApiModelsRepo _apiModelsRepo;
-  ShopBloc(this._shopRepo, this._stockRepo, this._apiModelFromIdRepo,
-      this._apiModelsRepo)
+  ShopBloc(this._shopRepo, this._apiModelFromIdRepo, this._apiModelsRepo)
       : super(ShopState.initial()) {
     // Get list of All Shops
     on<_GetAllShops>((event, emit) async {

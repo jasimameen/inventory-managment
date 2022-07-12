@@ -48,11 +48,8 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.factory<_i19.RouteBloc>(() => _i19.RouteBloc(get<_i11.IRouteRepo>()));
   gh.factory<_i20.SalesBloc>(
       () => _i20.SalesBloc(get<_i3.IApiModelFromIdRepo>()));
-  gh.factory<_i21.ShopBloc>(() => _i21.ShopBloc(
-      get<_i13.IShopRepo>(),
-      get<_i5.IApiModelsRepo>(),
-      get<_i3.IApiModelFromIdRepo>(),
-      get<_i5.IApiModelsRepo>()));
+  gh.factory<_i21.ShopBloc>(() => _i21.ShopBloc(get<_i13.IShopRepo>(),
+      get<_i3.IApiModelFromIdRepo>(), get<_i5.IApiModelsRepo>()));
   gh.factory<_i22.StockBloc>(() => _i22.StockBloc(get<_i15.IStockRepo>()));
   gh.factory<_i23.WarehouseBloc>(
       () => _i23.WarehouseBloc(get<_i17.IWareHouseRepo>()));

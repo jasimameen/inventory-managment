@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/models/route.dart';
-import 'package:invendory_managment/domain/core/failure.dart';
+import '../../domain/models/route.dart';
+import '../../domain/core/failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:invendory_managment/domain/models/town.dart';
-import 'package:invendory_managment/domain/route/i_route_repo.dart';
-import 'package:invendory_managment/infrastructure/auth/auth_repo_impl.dart';
+import '../../domain/models/town.dart';
+import '../../domain/route/i_route_repo.dart';
+import '../auth/auth_repo_impl.dart';
 
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/persisted_data.dart';

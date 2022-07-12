@@ -1,5 +1,7 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/widgets.dart' show Spacer, SizedBox;
 
+// fillers
+const spacer = Spacer();
 
 // Height
 const kHeight3 = SizedBox(height: 3);

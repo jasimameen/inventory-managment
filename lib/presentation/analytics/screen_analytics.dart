@@ -6,7 +6,7 @@ class ScreenAnalytics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       appBar: CupertinoNavigationBar(
         previousPageTitle: 'Home',
         middle: Text('Analytics'),

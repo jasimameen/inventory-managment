@@ -3,11 +3,10 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/application/sales/sales_bloc.dart';
-import 'package:invendory_managment/domain/models/sales.dart';
-import 'package:invendory_managment/domain/models/shop.dart';
 
+import '../../application/sales/sales_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
+import '../../domain/models/shop.dart';
 import '../core/constants.dart';
 import '../core/styles.dart';
 import 'widgets/widgets.dart';

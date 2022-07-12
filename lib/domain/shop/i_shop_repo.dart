@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:invendory_managment/domain/models/sales.dart';
+import '../models/sales.dart';
 
 import '../core/failure.dart';
 import '../models/shop.dart';

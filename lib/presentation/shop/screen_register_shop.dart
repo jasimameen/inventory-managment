@@ -53,7 +53,7 @@ class ScreenRegisterShop extends StatelessWidget {
           ),
           onPressed: () {
             // add the shop to db
-            context.read<ShopBloc>().add(ShopEvent.registerNewShop());
+            context.read<ShopBloc>().add(const ShopEvent.registerNewShop());
           },
         ),
       ),
