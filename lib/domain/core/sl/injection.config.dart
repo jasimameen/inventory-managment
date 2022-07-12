@@ -7,12 +7,13 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../../application/errand/errand_bloc.dart' as _i24;
-import '../../../application/route/route_bloc.dart' as _i19;
-import '../../../application/sales/sales_bloc.dart' as _i20;
-import '../../../application/shop/shop_bloc.dart' as _i21;
-import '../../../application/stock/stock_bloc.dart' as _i22;
-import '../../../application/warehouse/warehouse_bloc.dart' as _i23;
+import '../../../application/errand/errand_bloc.dart' as _i25;
+import '../../../application/login/login_bloc.dart' as _i19;
+import '../../../application/route/route_bloc.dart' as _i20;
+import '../../../application/sales/sales_bloc.dart' as _i21;
+import '../../../application/shop/shop_bloc.dart' as _i22;
+import '../../../application/stock/stock_bloc.dart' as _i23;
+import '../../../application/warehouse/warehouse_bloc.dart' as _i24;
 import '../../../infrastructure/api_models/api_model_from_id_repo_impl.dart'
     as _i4;
 import '../../../infrastructure/api_models/api_models_repo_impl.dart' as _i6;
@@ -45,14 +46,15 @@ _i1.GetIt $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i13.IShopRepo>(() => _i14.ShopRepoImpl());
   gh.factory<_i15.IStockRepo>(() => _i16.StockRepoImpl());
   gh.lazySingleton<_i17.IWareHouseRepo>(() => _i18.ShopRepoImpl());
-  gh.factory<_i19.RouteBloc>(() => _i19.RouteBloc(get<_i11.IRouteRepo>()));
-  gh.factory<_i20.SalesBloc>(
-      () => _i20.SalesBloc(get<_i3.IApiModelFromIdRepo>()));
-  gh.factory<_i21.ShopBloc>(() => _i21.ShopBloc(get<_i13.IShopRepo>(),
+  gh.factory<_i19.LoginBloc>(() => _i19.LoginBloc());
+  gh.factory<_i20.RouteBloc>(() => _i20.RouteBloc(get<_i11.IRouteRepo>()));
+  gh.factory<_i21.SalesBloc>(
+      () => _i21.SalesBloc(get<_i3.IApiModelFromIdRepo>()));
+  gh.factory<_i22.ShopBloc>(() => _i22.ShopBloc(get<_i13.IShopRepo>(),
       get<_i3.IApiModelFromIdRepo>(), get<_i5.IApiModelsRepo>()));
-  gh.factory<_i22.StockBloc>(() => _i22.StockBloc(get<_i15.IStockRepo>()));
-  gh.factory<_i23.WarehouseBloc>(
-      () => _i23.WarehouseBloc(get<_i17.IWareHouseRepo>()));
-  gh.factory<_i24.ErrandBloc>(() => _i24.ErrandBloc(get<_i9.IErrandRepo>()));
+  gh.factory<_i23.StockBloc>(() => _i23.StockBloc(get<_i15.IStockRepo>()));
+  gh.factory<_i24.WarehouseBloc>(
+      () => _i24.WarehouseBloc(get<_i17.IWareHouseRepo>()));
+  gh.factory<_i25.ErrandBloc>(() => _i25.ErrandBloc(get<_i9.IErrandRepo>()));
   return get;
 }

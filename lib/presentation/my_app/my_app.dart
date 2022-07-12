@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/errand/errand_bloc.dart';
+import '../../application/login/login_bloc.dart';
 import '../../application/route/route_bloc.dart';
 import '../../application/sales/sales_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => sl<LoginBloc>()),
         BlocProvider(create: (context) => sl<ShopBloc>()),
         BlocProvider(create: (context) => sl<WarehouseBloc>()),
         BlocProvider(create: (context) => sl<ErrandBloc>()),
@@ -25,13 +27,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => sl<StockBloc>()),
         BlocProvider(create: (context) => sl<SalesBloc>()),
       ],
-      child:  MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: Navigation.navigatorKey,
         title: 'Inventory App',
         home: Scaffold(
           body: SafeArea(
-            child: ScreenSignIn(),
+            child: ScreenLogIn(),
           ),
         ),
       ),

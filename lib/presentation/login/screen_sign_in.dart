@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:invendory_managment/presentation/core/constants.dart';
 
+import '../../application/login/login_bloc.dart';
 import '../../infrastructure/errand/errand_repo_impl.dart';
 import '../core/navigation.dart';
 import '../dashboard/screen_dashboard.dart';
@@ -11,7 +13,7 @@ import '../dashboard/screen_dashboard.dart';
 const imageUrl =
     'https://images.unsplash.com/photo-1547623641-d2c56c03e2a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80';
 
-class ScreenSignIn extends StatelessWidget {
+class ScreenLogIn extends StatelessWidget {
   final TextEditingController errandController = TextEditingController();
   final shadow = const [
     BoxShadow(
@@ -22,7 +24,7 @@ class ScreenSignIn extends StatelessWidget {
     )
   ];
 
-  ScreenSignIn({Key? key}) : super(key: key);
+  ScreenLogIn({Key? key}) : super(key: key);
 
   Widget userInputField() {
     return Container(
@@ -40,12 +42,12 @@ class ScreenSignIn extends StatelessWidget {
           autocorrect: false,
           enableSuggestions: false,
           autofocus: false,
-          // textAlign: TextAlign.center,
+          textAlign: TextAlign.center,
           decoration: const InputDecoration.collapsed(
-              hintText: 'Paste Current Errand Id here..',
+              hintText: '>>>>  Paste Current Errand Id here  <<<<',
               hintStyle: TextStyle(
                 fontSize: 20,
-                color: Colors.white70,
+                color: Color.fromARGB(179, 96, 86, 86),
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold,
               )),
@@ -90,11 +92,10 @@ class ScreenSignIn extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   // bloc
-                  log('login button created');
-                  await ErrandRepoImpl().initialiazeErrand();
-                  log('navigatting ...');
-                  // Api integration
-                  Navigation.pushAndRemoveUntil(const ScreenDasboard());
+                  log('login button clicked');
+                  context
+                      .read<LoginBloc>()
+                      .add(LoginEvent.loginWithErrandId(errandController.text));
                 },
                 child: Container(
                   height: 55,
@@ -105,14 +106,25 @@ class ScreenSignIn extends StatelessWidget {
                     color: Colors.indigo.shade800,
                     boxShadow: shadow,
                   ),
-                  child: const Center(
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
+                  child: Center(
+                    child: BlocBuilder<LoginBloc, LoginState>(
+                      builder: (context, state) {
+                        if (state.isLoading)
+                          return const CircularProgressIndicator(
+                              strokeWidth: 2);
+                        else if (state.isDone)
+                          return const Icon(CupertinoIcons.check_mark_circled);
+                        final String btnText =
+                            state.isError ? 'Try Again' : 'Sign In';
+                        return Text(
+                          btnText,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
