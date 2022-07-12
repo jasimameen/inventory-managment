@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/presentation/core/constants.dart';
 import '../../application/warehouse/warehouse_bloc.dart';
 import '../stock/screen_stock.dart';
 
@@ -22,34 +23,36 @@ class ScreenWareHouse extends StatelessWidget {
         previousPageTitle: 'Home',
         middle: Text('WareHouses'),
       ),
-      body: BlocBuilder<WarehouseBloc, WarehouseState>(
-        builder: (context, state) {
-          return Wrap(
-            children: List.generate(
-              state.warehouseList.length,
-              (index) {
-                final data = state.warehouseList[index];
-                return SquareCardWidget(
-                  title: data.name,
-                  textStyle: const TextStyle(
-                    color: Color.fromARGB(255, 50, 106, 52),
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  iconData: Icons.warehouse_sharp,
-                  iconColor: const Color.fromARGB(255, 113, 54, 54),
-                  onTap: () {
-                    Navigation.push(
-                        ScreenStock(
-                          title: data.name + 'WareHouse Stock Details',
-                          fromPage: 'Warehouse',
-                        ));
-                  },
-                );
-              },
-            ),
-          );
-        },
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocBuilder<WarehouseBloc, WarehouseState>(
+          builder: (context, state) {
+            return Wrap(
+              children: List.generate(
+                state.warehouseList.length,
+                (index) {
+                  final data = state.warehouseList[index];
+                  return SquareCardWidget(
+                    title: data.name,
+                    textStyle: const TextStyle(
+                      color: Color.fromARGB(255, 50, 106, 52),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    iconData: Icons.warehouse_sharp,
+                    iconColor: getRandomColor,
+                    onTap: () {
+                      Navigation.push(ScreenStock(
+                        title: data.name + 'WareHouse Stock Details',
+                        fromPage: 'Warehouse',
+                      ));
+                    },
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }

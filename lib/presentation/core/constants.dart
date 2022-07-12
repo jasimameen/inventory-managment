@@ -1,4 +1,6 @@
-import 'package:flutter/widgets.dart' show Spacer, SizedBox;
+import 'dart:math' show Random;
+
+import 'package:flutter/widgets.dart' show Color, SizedBox, Spacer;
 
 // fillers
 const spacer = Spacer();
@@ -13,3 +15,6 @@ const kWidth = SizedBox(width: 10);
 
 // padding
 const defaultPadding = 16.0;
+
+// color
+Color get getRandomColor => Color(Random().nextInt(0xffffffff)).withAlpha(0xff);

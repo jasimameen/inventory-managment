@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/presentation/core/constants.dart';
 
 import '../../application/shop/shop_bloc.dart';
 import '../core/navigation.dart';
@@ -40,7 +41,7 @@ class ScreenAllShops extends StatelessWidget {
                     return SquareCardWidget(
                         title: data.name,
                         iconData: Icons.business_rounded,
-                        iconColor: Colors.redAccent,
+                        iconColor: getRandomColor,
                         onTap: () {
                           Navigation.push(
                             const ScreenShop(),

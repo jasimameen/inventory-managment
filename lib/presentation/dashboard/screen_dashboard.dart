@@ -23,13 +23,13 @@ List<String> dashTileTitles = const [
   'EndSession',
 ];
 List<IconData> dashTileIcons = const [
-  CupertinoIcons.car_detailed,
+  Icons.local_shipping,
   CupertinoIcons.map,
-  CupertinoIcons.graph_square_fill,
-  CupertinoIcons.house_fill,
+  Icons.analytics_outlined,
+  Icons.storefront,
   Icons.warehouse_outlined,
   Icons.shopping_cart_checkout_rounded,
-  Icons.inventory_outlined,
+  Icons.receipt_long,
   Icons.stop_circle,
 ];
 List<Color> dashTileColors = const [
@@ -65,16 +65,19 @@ class ScreenDasboard extends StatelessWidget {
       appBar: const CupertinoNavigationBar(
         middle: Text('Dashboard'),
       ),
-      body: Wrap(
-        children: List.generate(
-            dashCardNavTo.length,
-            (index) => SquareCardWidget(
-                title: dashTileTitles[index],
-                iconData: dashTileIcons[index],
-                iconColor: dashTileColors[index],
-                onTap: () {
-                  Navigation.push(dashCardNavTo[index]);
-                })),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: Wrap(
+          children: List.generate(
+              dashCardNavTo.length,
+              (index) => SquareCardWidget(
+                  title: dashTileTitles[index],
+                  iconData: dashTileIcons[index],
+                  iconColor: dashTileColors[index],
+                  onTap: () {
+                    Navigation.push(dashCardNavTo[index]);
+                  })),
+        ),
       ),
     );
   }

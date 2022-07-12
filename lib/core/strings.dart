@@ -2,3 +2,6 @@
 
 /// api base url
 const BASE_URL = 'https://adityanjothir.pythonanywhere.com/';
+
+// assets
+const kImageDeliveryClipArt = 'assets/images/delivery-clip-art.png';
