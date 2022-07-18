@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/presentation/shop/widgets/new_item_popup_card.dart';
 
 import '../../application/sales/sales_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
@@ -50,6 +51,7 @@ class ScreenShop extends StatelessWidget {
   }
 }
 
+//! Header Section
 class _Header extends StatelessWidget {
   const _Header({
     Key? key,
@@ -142,9 +144,8 @@ class _Header extends StatelessWidget {
                         const WidgetSpan(
                             child: Icon(Icons.place, color: AppColors.red)),
                         TextSpan(
-                          text: data.townModel?.name ?? 'null',
-                          // style: TextStyle(fontStyle: FontStyle.italic)
-                        ),
+                            text: data.townName,
+                            style: TextStyle(fontStyle: FontStyle.italic)),
                       ],
                     ),
                   ),
@@ -158,6 +159,7 @@ class _Header extends StatelessWidget {
   }
 }
 
+//! Invoice Creation Section
 class _InvoiceCreation extends StatelessWidget {
   const _InvoiceCreation({
     Key? key,
@@ -168,30 +170,49 @@ class _InvoiceCreation extends StatelessWidget {
     return BlocBuilder<SalesBloc, SalesState>(
       builder: (context, state) {
         final itemCount = state.salesList.length;
-        return ListView.separated(
-          itemBuilder: (context, index) {
-            final item = state.salesList[index];
-            _subtotal += item.totalprice;
-            if (state.salesList.isEmpty) {
-              return const Text("  The item list is empty");
-            }
-            return AddItemWidget(
-              shop: item.shop,
-              stock: item.stock,
-              qty: item.qty,
-              unitprice: item.unitprice,
-              totalprice: item.totalprice,
-              date: DateTime.now().toIso8601String(),
-            );
-          },
-          separatorBuilder: (context, index) => kHeight3,
-          itemCount: itemCount,
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+          child: ListView.separated(
+            itemBuilder: (context, index) {
+              if (index == itemCount) {
+                return Card(
+                  child: ElevatedButton.icon(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) => NewItemPopup());
+                      },
+                      icon: const Icon(Icons.add),
+                      label: const Text('Add Item')),
+                );
+              }
+
+              final item = state.salesList[index];
+              _subtotal += item.totalprice;
+              if (state.salesList.isEmpty) {
+                return const Text("  The item list is empty");
+              }
+              return Card(
+                child: AddItemWidget(
+                  shop: item.shop,
+                  stock: item.stock,
+                  qty: item.qty,
+                  unitprice: item.unitprice,
+                  totalprice: item.totalprice,
+                  date: DateTime.now().toIso8601String(),
+                ),
+              );
+            },
+            separatorBuilder: (context, index) => kHeight3,
+            itemCount: itemCount + 1,
+          ),
         );
       },
     );
   }
 }
 
+//! Footer Section
 class _Footer extends StatelessWidget {
   const _Footer({
     Key? key,

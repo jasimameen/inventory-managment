@@ -1,15 +1,16 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/api_models/i_api_model_from_id_repo.dart';
+import '../../domain/api_models/i_api_get.dart';
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';
 import '../../domain/models/models_exported.dart';
 import '../auth/auth_repo_impl.dart';
 
-@Injectable(as: IApiModelFromIdRepo)
-class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
+@Injectable(as: IApiGet)
+class ApiGetImpl implements IApiGet {
   @override
   Future<DistrictModel> getDistrict(int id, {flag = 0}) async {
     try {
@@ -18,6 +19,7 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
       return result;
     } catch (e) {
       if (flag <= 5) {
+        log(e.toString());
         await AuthRepoImpl().refresh();
         return getDistrict(id, flag: flag++);
       }
@@ -113,7 +115,7 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
   }
 
   @override
-  Future<List<SalesModel>> getSales(String shopId, {flag = 0}) async {
+  Future<List<SalesModel>> getSalesByShop(String shopId, {flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.sales);
       final result = (resp.data as List<dynamic>)
@@ -123,7 +125,7 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
     } catch (e) {
       if (flag <= 5) {
         await AuthRepoImpl().refresh();
-        return getSales(shopId, flag: flag++);
+        return getSalesByShop(shopId, flag: flag++);
       }
 
       log('[getSale Error -> ]' + e.toString());
@@ -148,10 +150,10 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
               id: -1,
             ),
           );
+      final town = await getTown(result.town);
 
-        return result;
-      
-    } catch (e) {
+      return result.copyWith(townName: town.name);
+    } on DioError catch (e) {
       if (flag <= 5) {
         await AuthRepoImpl().refresh();
         return getShop(shopId, flag: flag++);
@@ -184,7 +186,9 @@ class ApiModelFromIdRepoImpl implements IApiModelFromIdRepo {
     try {
       final resp = await dio.get(ApiEndpoints.town + id.toString());
       final result = TownModel.fromMap(resp.data);
-      return result;
+      final districtModel = await getDistrict(result.district);
+
+      return result.copyWith(districtName: districtModel.name);
     } catch (e) {
       log('[getTown Error -> ]' + e.toString());
       throw const Failure.serverFailure();

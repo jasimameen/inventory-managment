@@ -1,12 +1,10 @@
-
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../domain/api_models/i_api_model_from_id_repo.dart';
-import '../../domain/api_models/i_api_models_repo.dart';
+import '../../domain/api_models/i_api_get.dart';
+import '../../domain/api_models/i_api_get_all.dart';
 import '../../domain/core/failure.dart';
 import '../../domain/models/sales.dart';
 import '../../domain/models/shop.dart';
@@ -23,8 +21,8 @@ part 'shop_state.dart';
 class ShopBloc extends Bloc<ShopEvent, ShopState> {
   final IShopRepo _shopRepo;
   //
-  final IApiModelFromIdRepo _apiModelFromIdRepo;
-  final IApiModelsRepo _apiModelsRepo;
+  final IApiGet _apiModelFromIdRepo;
+  final IApiGetAll _apiModelsRepo;
   ShopBloc(this._shopRepo, this._apiModelFromIdRepo, this._apiModelsRepo)
       : super(ShopState.initial()) {
     // Get list of All Shops

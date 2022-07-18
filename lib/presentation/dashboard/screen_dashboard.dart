@@ -65,18 +65,21 @@ class ScreenDasboard extends StatelessWidget {
       appBar: const CupertinoNavigationBar(
         middle: Text('Dashboard'),
       ),
+      backgroundColor: Color.fromARGB(255, 247, 242, 242),
       body: Align(
         alignment: Alignment.topCenter,
-        child: Wrap(
-          children: List.generate(
-              dashCardNavTo.length,
-              (index) => SquareCardWidget(
-                  title: dashTileTitles[index],
-                  iconData: dashTileIcons[index],
-                  iconColor: dashTileColors[index],
-                  onTap: () {
-                    Navigation.push(dashCardNavTo[index]);
-                  })),
+        child: SingleChildScrollView(
+          child: Wrap(
+            children: List.generate(
+                dashCardNavTo.length,
+                (index) => SquareCardWidget(
+                    title: dashTileTitles[index],
+                    iconData: dashTileIcons[index],
+                    iconColor: dashTileColors[index],
+                    onTap: () {
+                      Navigation.push(dashCardNavTo[index]);
+                    })),
+          ),
         ),
       ),
     );

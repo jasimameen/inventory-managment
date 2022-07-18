@@ -35,7 +35,7 @@ class ShopRepoImpl implements IShopRepo {
                 (l) => null,
                 (result) => townModel = result,
               ));
-          return ShopModel.fromMap(e).copyWith(townModel: townModel);
+          return ShopModel.fromMap(e).copyWith(townName: townModel?.name);
         }).toList();
 
         log('all shops from remote --> ${shopsList.toString()}');
@@ -56,7 +56,7 @@ class ShopRepoImpl implements IShopRepo {
     if (responce.statusCode == 200) {
       var shopData = ShopModel.fromJson(jsonDecode(responce.data));
       RouteRepoImpl().getTown(shopData.town).then((value) => value.fold(
-          (l) => null, (result) => shopData.copyWith(townModel: result)));
+          (l) => null, (result) => shopData.copyWith(townName: result.name)));
 
       return right(shopData);
     }

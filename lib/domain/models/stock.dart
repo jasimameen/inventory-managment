@@ -1,17 +1,21 @@
 import 'dart:convert';
 
 class StockModel {
-  final int id;
-  final String stock_id;
-  final int qty;
-  final int warehouse;
-  final int item;
+  int id;
+  String stock_id;
+  int qty;
+  int warehouse;
+  int item;
+  String warehouseName;
+  String itemName;
   StockModel({
     required this.id,
     required this.stock_id,
     required this.qty,
     required this.warehouse,
     required this.item,
+    this.warehouseName = 'null',
+    this.itemName = 'null',
   });
 
   StockModel copyWith({
@@ -20,6 +24,8 @@ class StockModel {
     int? qty,
     int? warehouse,
     int? item,
+    String? warehouseName,
+    String? itemName,
   }) {
     return StockModel(
       id: id ?? this.id,
@@ -27,6 +33,8 @@ class StockModel {
       qty: qty ?? this.qty,
       warehouse: warehouse ?? this.warehouse,
       item: item ?? this.item,
+      warehouseName: warehouseName ?? this.warehouseName,
+      itemName: itemName ?? this.itemName,
     );
   }
 
@@ -57,27 +65,31 @@ class StockModel {
 
   @override
   String toString() {
-    return 'Stockmodel(id: $id, stock_id: $stock_id, qty: $qty, warehouse: $warehouse, item: $item)';
+    return 'StockModel(id: $id, stock_id: $stock_id, qty: $qty, warehouse: $warehouse, item: $item, warehouseName: $warehouseName, itemName: $itemName)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is StockModel &&
-        other.id == id &&
-        other.stock_id == stock_id &&
-        other.qty == qty &&
-        other.warehouse == warehouse &&
-        other.item == item;
+      other.id == id &&
+      other.stock_id == stock_id &&
+      other.qty == qty &&
+      other.warehouse == warehouse &&
+      other.item == item &&
+      other.warehouseName == warehouseName &&
+      other.itemName == itemName;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        stock_id.hashCode ^
-        qty.hashCode ^
-        warehouse.hashCode ^
-        item.hashCode;
+      stock_id.hashCode ^
+      qty.hashCode ^
+      warehouse.hashCode ^
+      item.hashCode ^
+      warehouseName.hashCode ^
+      itemName.hashCode;
   }
 }

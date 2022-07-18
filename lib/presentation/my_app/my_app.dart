@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../application/errand/errand_bloc.dart';
-import '../../application/login/login_bloc.dart';
-import '../../application/route/route_bloc.dart';
-import '../../application/sales/sales_bloc.dart';
-import '../../application/shop/shop_bloc.dart';
-import '../../application/stock/stock_bloc.dart';
-import '../../application/warehouse/warehouse_bloc.dart';
+import '../../application/bloc_export.dart';
 import '../../domain/core/sl/injection.dart';
 import '../core/navigation.dart';
 import '../login/screen_sign_in.dart';

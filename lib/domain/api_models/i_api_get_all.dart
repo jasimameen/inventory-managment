@@ -1,10 +1,6 @@
-
-
-
-
 import '../models/models_exported.dart';
 
-abstract class IApiModelsRepo {
+abstract class IApiGetAll {
   Future<List<DistrictModel>> getDistricts();
   Future<List<CategoryModel>> getCategories();
   Future<List<TownModel>> getTowns();

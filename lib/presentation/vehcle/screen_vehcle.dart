@@ -41,32 +41,34 @@ class ScreeVehcle extends StatelessWidget {
               return const Text('Error Occured');
             }
 
-            return Column(
-              children: [
-                spacer,
-                Text(
-                  """
-Driver Name : ${driverInfo.name.toUpperCase()}
-\n
-Vehcle No : ${vehicleInfo.vehicle_number}
-\n
-Vehicle Type : ${vehicleInfo.vehicle_type}
-""",
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.green,
+            return LimitedBox(
+              child: Column(
+                children: [
+                  spacer,
+                  Text(
+                    """
+            Driver Name : ${driverInfo.name.toUpperCase()}
+            \n
+            Vehcle No : ${vehicleInfo.vehicle_number}
+            \n
+            Vehicle Type : ${vehicleInfo.vehicle_type}
+            """,
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.green,
+                    ),
                   ),
-                ),
-                spacer,
-                Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    kImageDeliveryClipArt,
-                    height: ScreenWidth * .5,
+                  spacer,
+                  Align(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      kImageDeliveryClipArt,
+                      height: ScreenWidth * .5,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           }),
         ),

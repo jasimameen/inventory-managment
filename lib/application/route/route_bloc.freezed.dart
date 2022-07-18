@@ -19,32 +19,38 @@ mixin _$RouteEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function() getTowns,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getTowns,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getTowns,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_GetTowns value) getTowns,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetTowns value)? getTowns,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetTowns value)? getTowns,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -106,6 +112,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
+    required TResult Function() getTowns,
   }) {
     return started();
   }
@@ -114,6 +121,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getTowns,
   }) {
     return started?.call();
   }
@@ -122,6 +130,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
+    TResult Function()? getTowns,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -134,6 +143,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
+    required TResult Function(_GetTowns value) getTowns,
   }) {
     return started(this);
   }
@@ -142,6 +152,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetTowns value)? getTowns,
   }) {
     return started?.call(this);
   }
@@ -150,6 +161,7 @@ class _$_Started implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
+    TResult Function(_GetTowns value)? getTowns,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -164,10 +176,113 @@ abstract class _Started implements RouteEvent {
 }
 
 /// @nodoc
+abstract class _$$_GetTownsCopyWith<$Res> {
+  factory _$$_GetTownsCopyWith(
+          _$_GetTowns value, $Res Function(_$_GetTowns) then) =
+      __$$_GetTownsCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GetTownsCopyWithImpl<$Res> extends _$RouteEventCopyWithImpl<$Res>
+    implements _$$_GetTownsCopyWith<$Res> {
+  __$$_GetTownsCopyWithImpl(
+      _$_GetTowns _value, $Res Function(_$_GetTowns) _then)
+      : super(_value, (v) => _then(v as _$_GetTowns));
+
+  @override
+  _$_GetTowns get _value => super._value as _$_GetTowns;
+}
+
+/// @nodoc
+
+class _$_GetTowns implements _GetTowns {
+  const _$_GetTowns();
+
+  @override
+  String toString() {
+    return 'RouteEvent.getTowns()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetTowns);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getTowns,
+  }) {
+    return getTowns();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getTowns,
+  }) {
+    return getTowns?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getTowns,
+    required TResult orElse(),
+  }) {
+    if (getTowns != null) {
+      return getTowns();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetTowns value) getTowns,
+  }) {
+    return getTowns(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetTowns value)? getTowns,
+  }) {
+    return getTowns?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetTowns value)? getTowns,
+    required TResult orElse(),
+  }) {
+    if (getTowns != null) {
+      return getTowns(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetTowns implements RouteEvent {
+  const factory _GetTowns() = _$_GetTowns;
+}
+
+/// @nodoc
 mixin _$RouteState {
   String get routeId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  List<ShopModel> get shops => throw _privateConstructorUsedError;
   List<TownModel> get towns => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
@@ -185,7 +300,6 @@ abstract class $RouteStateCopyWith<$Res> {
   $Res call(
       {String routeId,
       String name,
-      List<ShopModel> shops,
       List<TownModel> towns,
       bool isLoading,
       bool isError});
@@ -203,7 +317,6 @@ class _$RouteStateCopyWithImpl<$Res> implements $RouteStateCopyWith<$Res> {
   $Res call({
     Object? routeId = freezed,
     Object? name = freezed,
-    Object? shops = freezed,
     Object? towns = freezed,
     Object? isLoading = freezed,
     Object? isError = freezed,
@@ -217,10 +330,6 @@ class _$RouteStateCopyWithImpl<$Res> implements $RouteStateCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      shops: shops == freezed
-          ? _value.shops
-          : shops // ignore: cast_nullable_to_non_nullable
-              as List<ShopModel>,
       towns: towns == freezed
           ? _value.towns
           : towns // ignore: cast_nullable_to_non_nullable
@@ -246,7 +355,6 @@ abstract class _$$_InitialCopyWith<$Res> implements $RouteStateCopyWith<$Res> {
   $Res call(
       {String routeId,
       String name,
-      List<ShopModel> shops,
       List<TownModel> towns,
       bool isLoading,
       bool isError});
@@ -265,7 +373,6 @@ class __$$_InitialCopyWithImpl<$Res> extends _$RouteStateCopyWithImpl<$Res>
   $Res call({
     Object? routeId = freezed,
     Object? name = freezed,
-    Object? shops = freezed,
     Object? towns = freezed,
     Object? isLoading = freezed,
     Object? isError = freezed,
@@ -279,10 +386,6 @@ class __$$_InitialCopyWithImpl<$Res> extends _$RouteStateCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      shops: shops == freezed
-          ? _value._shops
-          : shops // ignore: cast_nullable_to_non_nullable
-              as List<ShopModel>,
       towns: towns == freezed
           ? _value._towns
           : towns // ignore: cast_nullable_to_non_nullable
@@ -305,24 +408,15 @@ class _$_Initial implements _Initial {
   const _$_Initial(
       {required this.routeId,
       required this.name,
-      required final List<ShopModel> shops,
       required final List<TownModel> towns,
       required this.isLoading,
       required this.isError})
-      : _shops = shops,
-        _towns = towns;
+      : _towns = towns;
 
   @override
   final String routeId;
   @override
   final String name;
-  final List<ShopModel> _shops;
-  @override
-  List<ShopModel> get shops {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_shops);
-  }
-
   final List<TownModel> _towns;
   @override
   List<TownModel> get towns {
@@ -337,7 +431,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'RouteState(routeId: $routeId, name: $name, shops: $shops, towns: $towns, isLoading: $isLoading, isError: $isError)';
+    return 'RouteState(routeId: $routeId, name: $name, towns: $towns, isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -347,7 +441,6 @@ class _$_Initial implements _Initial {
             other is _$_Initial &&
             const DeepCollectionEquality().equals(other.routeId, routeId) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other._shops, _shops) &&
             const DeepCollectionEquality().equals(other._towns, _towns) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.isError, isError));
@@ -358,7 +451,6 @@ class _$_Initial implements _Initial {
       runtimeType,
       const DeepCollectionEquality().hash(routeId),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(_shops),
       const DeepCollectionEquality().hash(_towns),
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isError));
@@ -373,7 +465,6 @@ abstract class _Initial implements RouteState {
   const factory _Initial(
       {required final String routeId,
       required final String name,
-      required final List<ShopModel> shops,
       required final List<TownModel> towns,
       required final bool isLoading,
       required final bool isError}) = _$_Initial;
@@ -382,8 +473,6 @@ abstract class _Initial implements RouteState {
   String get routeId => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
-  @override
-  List<ShopModel> get shops => throw _privateConstructorUsedError;
   @override
   List<TownModel> get towns => throw _privateConstructorUsedError;
   @override

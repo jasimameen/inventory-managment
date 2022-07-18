@@ -1,15 +1,17 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:collection/collection.dart';
 
-import '../../domain/api_models/i_api_models_repo.dart';
+import '../../domain/api_models/i_api_get_all.dart';
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';
 import '../../domain/models/models_exported.dart';
 import '../auth/auth_repo_impl.dart';
 
-@Injectable(as: IApiModelsRepo)
-class ApiModelsRepoImpl implements IApiModelsRepo {
+@Injectable(as: IApiGetAll)
+class ApiGetAllImpl implements IApiGetAll {
   @override
   Future<List<CategoryModel>> getCategories({int flag = 0}) async {
     try {
@@ -146,9 +148,14 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
   Future<List<ShopModel>> getShops({int flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.shop);
+      final towns = await getTowns();
 
       final result = (resp.data as List<dynamic>).map<ShopModel>((e) {
-        return ShopModel.fromMap(e);}).toList();
+        final townName =
+            towns.firstWhereOrNull((element) => element.id == e['town'])?.name ??
+                '';
+        return ShopModel.fromMap(e).copyWith(townName: townName);
+      }).toList();
 
       log('getShops -> ' + result.toString());
       return result;
@@ -157,7 +164,7 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
         log('[getShops Error -> ]' + e.toString());
         log('retry attempt ' + flag.toString());
         await AuthRepoImpl().refresh();
-        getShops(flag: flag+1);
+        getShops(flag: flag + 1);
       }
 
       throw const Failure.serverFailure();
@@ -167,14 +174,32 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
   @override
   Future<List<StockModel>> getStocks({int flag = 0}) async {
     try {
+      //
       final resp = await dio.get(ApiEndpoints.stock);
-      final result = (resp.data as List<dynamic>)
-          .map<StockModel>((e) => StockModel.fromMap(e))
-          .toList();
+      final items = await getItems();
+      final warehouses = await getWarehouses();
+
+      //
+      final result = (resp.data as List<dynamic>).map<StockModel>((e) {
+        //
+        final warehouseName = warehouses
+            .firstWhere((element) => element.id == e['warehouse'],
+                orElse: () => WarehouseModel.fromMap({}))
+            .name;
+        final itemName = items
+            .firstWhere((element) => element.id == e['item'],
+                orElse: () => ItemModel.fromMap({}))
+            .name;
+
+        //
+        return StockModel.fromMap(e)
+            .copyWith(warehouseName: warehouseName, itemName: itemName);
+      }).toList();
       log('getStocks -> ' + result.toString());
       return result;
-    } catch (e) {
-      if (flag <= 5) {
+    } on DioError catch (e) {
+      if ((e.response?.statusCode == 401 &&
+          e.response?.data['message'] == "Invalid JWT")) {
         await AuthRepoImpl().refresh();
         return getStocks(flag: flag++);
       }
@@ -188,17 +213,26 @@ class ApiModelsRepoImpl implements IApiModelsRepo {
   Future<List<TownModel>> getTowns({int flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.town);
-      final result = (resp.data as List<dynamic>)
-          .map<TownModel>((e) => TownModel.fromMap(e))
-          .toList();
-      return result;
-    } catch (e) {
-      if (flag <= 5) {
-        await AuthRepoImpl().refresh();
-        return getTowns(flag: flag++);
-      }
+      final districts = await getDistricts();
 
+      final result = (resp.data as List<dynamic>).map<TownModel>((e) {
+        final dIndex =
+            districts.indexWhere((element) => element.id == e['district']);
+        return TownModel.fromMap(e)
+            .copyWith(districtName: districts[dIndex].name);
+      }).toList();
+
+      log('get towns -> ' + result.toString());
+      return result;
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 401 ||
+          e.response?.data['message'] == "Token is invalid or expired") {
+        log(e.toString());
+        await AuthRepoImpl().refresh();
+        getTowns();
+      }
       log('[getTowns Error -> ]' + e.toString());
+
       throw const Failure.serverFailure();
     }
   }

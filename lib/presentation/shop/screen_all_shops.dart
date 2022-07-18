@@ -37,7 +37,6 @@ class ScreenAllShops extends StatelessWidget {
               : Wrap(
                   children: List.generate(shopList.length, (index) {
                     final data = shopList[index];
-                    log(data.toString());
                     return SquareCardWidget(
                         title: data.name,
                         iconData: Icons.business_rounded,

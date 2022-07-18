@@ -2,6 +2,22 @@ import 'dart:math' show Random;
 
 import 'package:flutter/widgets.dart' show Color, SizedBox, Spacer;
 
+/// ScreenWidth of the Device runnig
+double _screenWidth = 0;
+double get screenWidth {
+  return _screenWidth;
+}
+
+/// set screenWidth to constand
+set setScreenWidth(width) => _screenWidth = width;
+
+// ScreeenHeight of the Device running
+double _screenHeight = 0;
+double get screenHeight => _screenHeight;
+
+/// set ScreenHeight to a constand
+set setScreenHeight(height) => _screenHeight = height;
+
 // fillers
 const spacer = Spacer();
 

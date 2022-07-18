@@ -1,25 +1,24 @@
 import 'dart:convert';
 
-import 'town.dart';
 
 class ShopModel {
-  final int? id;
-  final String name;
-  final String shop_id;
-  final int contact_number;
-  final String email;
-  final TownModel? townModel;
-  final int town;
-  // final List<SalesModel> sales;
+  int? id;
+  String name;
+  String shop_id;
+  int contact_number;
+  String email;
+  String? townName;
+  int town;
   ShopModel({
     this.id,
     required this.name,
     required this.shop_id,
     required this.contact_number,
     required this.email,
-    this.townModel,
+    this.townName = '',
     required this.town,
   });
+ 
 
   ShopModel copyWith({
     int? id,
@@ -27,7 +26,7 @@ class ShopModel {
     String? shop_id,
     int? contact_number,
     String? email,
-    TownModel? townModel,
+    String? townName,
     int? town,
   }) {
     return ShopModel(
@@ -36,7 +35,7 @@ class ShopModel {
       shop_id: shop_id ?? this.shop_id,
       contact_number: contact_number ?? this.contact_number,
       email: email ?? this.email,
-      townModel: townModel ?? this.townModel,
+      townName: townName ?? this.townName,
       town: town ?? this.town,
     );
   }
@@ -48,7 +47,6 @@ class ShopModel {
       'shop_id': shop_id,
       'contact_number': contact_number,
       'email': email,
-      'townModel': townModel?.toMap(),
       'town': town,
     };
   }
@@ -60,19 +58,17 @@ class ShopModel {
       shop_id: map['shop_id'] ?? '',
       contact_number: map['contact_number']?.toInt() ?? 0,
       email: map['email'] ?? '',
-      townModel: map['townModel'] != null ? TownModel.fromMap(map['townModel']) : null,
       town: map['town']?.toInt() ?? 0,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory ShopModel.fromJson(String source) =>
-      ShopModel.fromMap(json.decode(source));
+  factory ShopModel.fromJson(String source) => ShopModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'ShopModel(id: $id, name: $name, shop_id: $shop_id, contact_number: $contact_number, email: $email, townModel: $townModel, town: $town)';
+    return 'ShopModel(id: $id, name: $name, shop_id: $shop_id, contact_number: $contact_number, email: $email, townName: $townName, town: $town)';
   }
 
   @override
@@ -85,7 +81,7 @@ class ShopModel {
       other.shop_id == shop_id &&
       other.contact_number == contact_number &&
       other.email == email &&
-      other.townModel == townModel &&
+      other.townName == townName &&
       other.town == town;
   }
 
@@ -96,7 +92,7 @@ class ShopModel {
       shop_id.hashCode ^
       contact_number.hashCode ^
       email.hashCode ^
-      townModel.hashCode ^
+      townName.hashCode ^
       town.hashCode;
   }
 }

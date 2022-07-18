@@ -46,42 +46,27 @@ class AddItemWidget extends StatelessWidget {
               style: DefaultTextStyle.of(context).style,
               children: [
                 TextSpan(
-                  text: stock + '\n',
+                  text: stock // + '\n'
+                  ,
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const TextSpan(
-                  text: "Item Brand",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
+                // const TextSpan(
+                //   text: "Item Brand",
+                //   style: TextStyle(
+                //     color: Colors.grey,
+                //     fontStyle: FontStyle.italic,
+                //   ),
+                // ),
               ],
             ),
           ),
           // Base Price
           kWidth,
-          SizedBox(
-            width: 50,
-            height: 30,
-            child: TextField(
-              controller: TextEditingController(
-                  text: unitprice.toString()), // price controller
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20),
-              decoration: const InputDecoration(
-                  prefix: Icon(
-                Icons.currency_rupee,
-                color: AppColors.green,
-                size: 20,
-              )),
-              keyboardType: TextInputType.number,
-              textInputAction: TextInputAction.done,
-            ),
-          ),
+
+          Text('$unitprice inr/ unit'),
 
           // Qty
           kWidth,

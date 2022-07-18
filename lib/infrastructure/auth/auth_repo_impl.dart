@@ -32,13 +32,16 @@ class AuthRepoImpl implements IAuthRepo {
         ACCESS_TOKEN = response.data["access"];
         REFRESH_TOKEN = response.data["refresh"];
       });
-    } catch (e) {
+    } on DioError catch (e) {
       log('[POST]Error in dio sign In -> ' +
           e.toString() +
           '\n --------------\n refreshing access token ....');
 
       /// if any error occures call the refresh function to get new access Token
-      await refresh();
+      if ((e.response?.statusCode == 401 &&
+          e.response?.data['message'] == "Invalid JWT")) {
+        await refresh();
+      }
     }
 
     try {
@@ -48,13 +51,17 @@ class AuthRepoImpl implements IAuthRepo {
       if (resp.statusCode == 200) {
         return true;
       }
-    } catch (e) {
+    } on DioError catch (e) {
       log('[GET]error happendd in dio -> ' + e.toString());
 
       /// when it fails to authorize with accesToken
       /// use refreshToken to get the new accesToken
       /// call -> refresh() and retry
-      await refresh();
+      if ((e.response?.statusCode == 401 &&
+          e.response?.data['message'] == "Invalid JWT")) {
+        await refresh();
+        return retry();
+      }
     }
     return retry();
   }
@@ -77,19 +84,9 @@ class AuthRepoImpl implements IAuthRepo {
     }
 
     // attemp one time
-   
+
     if (oldAToken != ACCESS_TOKEN) {
       log('new accessToken generated');
-      var retryStatus = await retry();
-      if (retryStatus) {
-        flag = 0;
-      } 
-    } else {
-      log('no access token generated');
-      if (flag <= 5) {
-        refresh();
-        flag++;
-      }
     }
   }
 

@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/domain/models/models_exported.dart';
 
 import '../../application/route/route_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
@@ -40,7 +42,7 @@ class ScreenRegisterShop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      BlocProvider.of<RouteBloc>(context).add(const RouteEvent.started());
+      context.read<RouteBloc>().add(const RouteEvent.started());
     });
     return Scaffold(
       appBar: CupertinoNavigationBar(
@@ -53,7 +55,7 @@ class ScreenRegisterShop extends StatelessWidget {
           ),
           onPressed: () {
             // add the shop to db
-            context.read<ShopBloc>().add(const ShopEvent.registerNewShop());
+            // context.read<ShopBloc>().add(const ShopEvent.registerNewShop());
           },
         ),
       ),
@@ -88,39 +90,46 @@ class ScreenRegisterShop extends StatelessWidget {
           ),
           kHeight,
           BlocBuilder<RouteBloc, RouteState>(builder: (context, state) {
-            final items = state.towns.map((town) => town.name).toList();
-            String dropdownValue = items[0];
+            var towns = state.towns;
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: AppColors.grey),
               ),
-              child: DropdownButton(
-                value: dropdownValue,
-                items: items.map((String items) {
-                  return DropdownMenuItem(
-                    value: items,
-                    child: Text(items),
-                  );
-                }).toList(),
-                onChanged: (String? newValue) {
-                  dropdownValue = newValue!;
-                  RegShopControllers.town.text = state.towns
-                      .firstWhere((element) => element.name == newValue)
-                      .id
-                      .toString();
-                },
-                borderRadius: BorderRadius.circular(12),
-                iconSize: 0,
-                underline: const SizedBox(),
-                elevation: 5,
-              ),
+              child: AutocompleteBasicUserExample(suggestionList: towns),
             );
           }),
           kHeight,
         ],
       ),
+    );
+  }
+}
+
+class AutocompleteBasicUserExample extends StatelessWidget {
+  const AutocompleteBasicUserExample({
+    Key? key,
+    required this.suggestionList,
+  }) : super(key: key);
+
+  final List<TownModel> suggestionList;
+
+  static String _displayStringForOption(TownModel option) => option.name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Autocomplete<TownModel>(
+      displayStringForOption: _displayStringForOption,
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text == '') {
+          return const Iterable<TownModel>.empty();
+        }
+        return suggestionList.where((TownModel option) =>
+            option.toString().contains(textEditingValue.text.toLowerCase()));
+      },
+      onSelected: (TownModel selection) =>
+          debugPrint('You just selected ${_displayStringForOption(selection)}'),
     );
   }
 }

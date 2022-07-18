@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 class ItemModel {
-  final int id;
-  final String name;
-  final int price;
-  final int category;
-  final String categoryName;
+  int id;
+  String name;
+  int price;
+  int category;
+  String categoryName;
   ItemModel({
     required this.id,
     required this.name,
@@ -63,21 +63,21 @@ class ItemModel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is ItemModel &&
-      other.id == id &&
-      other.name == name &&
-      other.price == price &&
-      other.category == category &&
-      other.categoryName == categoryName;
+        other.id == id &&
+        other.name == name &&
+        other.price == price &&
+        other.category == category &&
+        other.categoryName == categoryName;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      price.hashCode ^
-      category.hashCode ^
-      categoryName.hashCode;
+        name.hashCode ^
+        price.hashCode ^
+        category.hashCode ^
+        categoryName.hashCode;
   }
 }

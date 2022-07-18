@@ -1,11 +1,11 @@
 import '../models/models_exported.dart';
 
-abstract class IApiModelFromIdRepo {
+abstract class IApiGet {
   Future<DistrictModel> getDistrict(int id);
   Future<CategoryModel> getCategorie(int id);
   Future<TownModel> getTown(int id);
   Future<WarehouseModel> getWarehouse(int id);
-  Future<List<SalesModel>> getSales(String shopId);
+  Future<List<SalesModel>> getSalesByShop(String shopId);
   Future<VehicleModel> getVehicle(int id);
   Future<ErrandModel> getErrand(int id);
   Future<ShopModel> getShop(String shopId);

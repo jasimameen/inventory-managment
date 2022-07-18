@@ -4,7 +4,11 @@ part of 'sales_bloc.dart';
 class SalesEvent with _$SalesEvent {
   const factory SalesEvent.getAllSales() = _GetAllSales;
   const factory SalesEvent.getAllSalesByShopId(String shopId) = _GetAllSalesByShopId;
-  const factory SalesEvent.addNewSale(String shopId) = _AddNewSale;
+  const factory SalesEvent.addNewSale(SalesModel salesModel) = _AddNewSale;
   const factory SalesEvent.deleteSale(String saleId,String shopId) = _DeleteSale;
-  const factory SalesEvent.updateSalePrice(String saleId, double newPrice) = _UpdateSale;
+  const factory SalesEvent.getAllStocks() = _GetAllStocks;
+  
+  const factory SalesEvent.totalAmound() = _TotalAmound;
+  
+  
 }
