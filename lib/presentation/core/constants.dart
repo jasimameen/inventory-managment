@@ -1,5 +1,6 @@
 import 'dart:math' show Random;
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart' show Color, SizedBox, Spacer;
 
 /// ScreenWidth of the Device runnig
@@ -20,6 +21,7 @@ set setScreenHeight(height) => _screenHeight = height;
 
 // fillers
 const spacer = Spacer();
+const divider = Divider(thickness: 3);
 
 // Height
 const kHeight3 = SizedBox(height: 3);
@@ -34,3 +36,12 @@ const defaultPadding = 16.0;
 
 // color
 Color get getRandomColor => Color(Random().nextInt(0xffffffff)).withAlpha(0xff);
+
+const kVehicleCardImage = 'assets/images/vehicle_clipart.png';
+
+// appbar height
+const kAppBarHeight = 50.0;
+const Size kPriferedSize = Size.fromHeight(50);
+
+
+/// home screen vehicle stock list title

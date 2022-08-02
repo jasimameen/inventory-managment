@@ -169,11 +169,13 @@ class ApiGetImpl implements IApiGet {
     try {
       final resp = await dio.get(ApiEndpoints.stock + id.toString());
       final result = StockModel.fromMap(resp.data);
-      return result;
-    } catch (e) {
-      if (flag <= 5) {
-        await AuthRepoImpl().refresh();
-        return getStock(id, flag: flag++);
+      final item = await getItem(result.item);
+      return result.copyWith(itemModel: item, itemName: item.name);
+    } on DioError catch (e) {
+      if ((e.response?.statusCode == 401 &&
+          e.response?.data['message'] == "Invalid JWT")) {
+        await AuthRepoImpl().signInWithErrendId('');
+        getStock(id);
       }
 
       log('[getStock Error -> ]' + e.toString());
@@ -211,8 +213,10 @@ class ApiGetImpl implements IApiGet {
   Future<WarehouseModel> getWarehouse(int id) async {
     try {
       final resp = await dio.get(ApiEndpoints.warehouse + id.toString());
+
       final result = WarehouseModel.fromMap(resp.data);
-      return result;
+      final townModel = await getTown(result.town);
+      return result.copyWith(townModel: townModel);
     } catch (e) {
       log('[getWarehouse Error -> ]' + e.toString());
       throw const Failure.serverFailure();

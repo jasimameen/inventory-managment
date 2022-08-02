@@ -3,14 +3,12 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/domain/api_models/i_api_get.dart';
-import 'package:invendory_managment/domain/api_models/i_api_get_all.dart';
-import 'package:invendory_managment/domain/core/persisted_data.dart';
-import 'package:invendory_managment/infrastructure/api_models/api_get_impl.dart';
 
+import '../../domain/api_models/i_api_get.dart';
+import '../../domain/api_models/i_api_get_all.dart';
+import '../../domain/core/persisted_data.dart';
 import '../../domain/models/shop.dart';
 import '../../domain/models/town.dart';
-import '../../domain/route/i_route_repo.dart';
 
 part 'route_bloc.freezed.dart';
 part 'route_event.dart';
@@ -26,12 +24,23 @@ class RouteBloc extends Bloc<RouteEvent, RouteState> {
       emit(state.copyWith(isLoading: true));
 
       // get data
-      // final routeData = await _apiGet.getRoute(PersistedData.routeId ?? -1);
-      final towns = await _apiGetAll.getTowns();
+      log('route id ' + PersistedData.routeId.toString());
+      final routeData = await _apiGet.getRoute(PersistedData.routeId ?? -1);
+      final townIds = routeData.towns;
+      final shopIds = routeData.shops;
+
+      final rawTownList = await _apiGetAll.getTowns();
+      final rawShopList = await _apiGetAll.getShops();
+
+     final towns = rawTownList.where((element) => townIds.contains(element.id)).toList();
+     final shops = rawShopList.where((element) => shopIds.contains(element.id)).toList();
+
+
 
       final _newState = state.copyWith(
         isLoading: false,
         towns: towns,
+        shops: shops
       );
 
       // update ui

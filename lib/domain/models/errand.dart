@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 class ErrandModel {
-  final int id;
-  final int driver;
-  final String errand_id;
-  final int route;
+  int id;
+  int driver;
+  String errand_id;
+  int route;
   ErrandModel({
     required this.id,
     required this.driver,

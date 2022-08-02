@@ -20,8 +20,8 @@ mixin _$SalesEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllSales,
     required TResult Function(String shopId) getAllSalesByShopId,
-    required TResult Function(SalesModel salesModel) addNewSale,
-    required TResult Function(String saleId, String shopId) deleteSale,
+    required TResult Function(String shopId, int stockId, int qty) addNewSale,
+    required TResult Function(int saleId) deleteSale,
     required TResult Function() getAllStocks,
     required TResult Function() totalAmound,
   }) =>
@@ -30,8 +30,8 @@ mixin _$SalesEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
   }) =>
@@ -40,8 +40,8 @@ mixin _$SalesEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
     required TResult orElse(),
@@ -138,8 +138,8 @@ class _$_GetAllSales implements _GetAllSales {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllSales,
     required TResult Function(String shopId) getAllSalesByShopId,
-    required TResult Function(SalesModel salesModel) addNewSale,
-    required TResult Function(String saleId, String shopId) deleteSale,
+    required TResult Function(String shopId, int stockId, int qty) addNewSale,
+    required TResult Function(int saleId) deleteSale,
     required TResult Function() getAllStocks,
     required TResult Function() totalAmound,
   }) {
@@ -151,8 +151,8 @@ class _$_GetAllSales implements _GetAllSales {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
   }) {
@@ -164,8 +164,8 @@ class _$_GetAllSales implements _GetAllSales {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
     required TResult orElse(),
@@ -292,8 +292,8 @@ class _$_GetAllSalesByShopId implements _GetAllSalesByShopId {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllSales,
     required TResult Function(String shopId) getAllSalesByShopId,
-    required TResult Function(SalesModel salesModel) addNewSale,
-    required TResult Function(String saleId, String shopId) deleteSale,
+    required TResult Function(String shopId, int stockId, int qty) addNewSale,
+    required TResult Function(int saleId) deleteSale,
     required TResult Function() getAllStocks,
     required TResult Function() totalAmound,
   }) {
@@ -305,8 +305,8 @@ class _$_GetAllSalesByShopId implements _GetAllSalesByShopId {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
   }) {
@@ -318,8 +318,8 @@ class _$_GetAllSalesByShopId implements _GetAllSalesByShopId {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
     required TResult orElse(),
@@ -389,7 +389,7 @@ abstract class _$$_AddNewSaleCopyWith<$Res> {
   factory _$$_AddNewSaleCopyWith(
           _$_AddNewSale value, $Res Function(_$_AddNewSale) then) =
       __$$_AddNewSaleCopyWithImpl<$Res>;
-  $Res call({SalesModel salesModel});
+  $Res call({String shopId, int stockId, int qty});
 }
 
 /// @nodoc
@@ -404,13 +404,23 @@ class __$$_AddNewSaleCopyWithImpl<$Res> extends _$SalesEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? salesModel = freezed,
+    Object? shopId = freezed,
+    Object? stockId = freezed,
+    Object? qty = freezed,
   }) {
     return _then(_$_AddNewSale(
-      salesModel == freezed
-          ? _value.salesModel
-          : salesModel // ignore: cast_nullable_to_non_nullable
-              as SalesModel,
+      shopId == freezed
+          ? _value.shopId
+          : shopId // ignore: cast_nullable_to_non_nullable
+              as String,
+      stockId == freezed
+          ? _value.stockId
+          : stockId // ignore: cast_nullable_to_non_nullable
+              as int,
+      qty == freezed
+          ? _value.qty
+          : qty // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -418,14 +428,18 @@ class __$$_AddNewSaleCopyWithImpl<$Res> extends _$SalesEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_AddNewSale implements _AddNewSale {
-  const _$_AddNewSale(this.salesModel);
+  const _$_AddNewSale(this.shopId, this.stockId, this.qty);
 
   @override
-  final SalesModel salesModel;
+  final String shopId;
+  @override
+  final int stockId;
+  @override
+  final int qty;
 
   @override
   String toString() {
-    return 'SalesEvent.addNewSale(salesModel: $salesModel)';
+    return 'SalesEvent.addNewSale(shopId: $shopId, stockId: $stockId, qty: $qty)';
   }
 
   @override
@@ -433,13 +447,17 @@ class _$_AddNewSale implements _AddNewSale {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AddNewSale &&
-            const DeepCollectionEquality()
-                .equals(other.salesModel, salesModel));
+            const DeepCollectionEquality().equals(other.shopId, shopId) &&
+            const DeepCollectionEquality().equals(other.stockId, stockId) &&
+            const DeepCollectionEquality().equals(other.qty, qty));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(salesModel));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(shopId),
+      const DeepCollectionEquality().hash(stockId),
+      const DeepCollectionEquality().hash(qty));
 
   @JsonKey(ignore: true)
   @override
@@ -451,12 +469,12 @@ class _$_AddNewSale implements _AddNewSale {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllSales,
     required TResult Function(String shopId) getAllSalesByShopId,
-    required TResult Function(SalesModel salesModel) addNewSale,
-    required TResult Function(String saleId, String shopId) deleteSale,
+    required TResult Function(String shopId, int stockId, int qty) addNewSale,
+    required TResult Function(int saleId) deleteSale,
     required TResult Function() getAllStocks,
     required TResult Function() totalAmound,
   }) {
-    return addNewSale(salesModel);
+    return addNewSale(shopId, stockId, qty);
   }
 
   @override
@@ -464,12 +482,12 @@ class _$_AddNewSale implements _AddNewSale {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
   }) {
-    return addNewSale?.call(salesModel);
+    return addNewSale?.call(shopId, stockId, qty);
   }
 
   @override
@@ -477,14 +495,14 @@ class _$_AddNewSale implements _AddNewSale {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
     required TResult orElse(),
   }) {
     if (addNewSale != null) {
-      return addNewSale(salesModel);
+      return addNewSale(shopId, stockId, qty);
     }
     return orElse();
   }
@@ -534,9 +552,12 @@ class _$_AddNewSale implements _AddNewSale {
 }
 
 abstract class _AddNewSale implements SalesEvent {
-  const factory _AddNewSale(final SalesModel salesModel) = _$_AddNewSale;
+  const factory _AddNewSale(
+      final String shopId, final int stockId, final int qty) = _$_AddNewSale;
 
-  SalesModel get salesModel => throw _privateConstructorUsedError;
+  String get shopId => throw _privateConstructorUsedError;
+  int get stockId => throw _privateConstructorUsedError;
+  int get qty => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_AddNewSaleCopyWith<_$_AddNewSale> get copyWith =>
       throw _privateConstructorUsedError;
@@ -547,7 +568,7 @@ abstract class _$$_DeleteSaleCopyWith<$Res> {
   factory _$$_DeleteSaleCopyWith(
           _$_DeleteSale value, $Res Function(_$_DeleteSale) then) =
       __$$_DeleteSaleCopyWithImpl<$Res>;
-  $Res call({String saleId, String shopId});
+  $Res call({int saleId});
 }
 
 /// @nodoc
@@ -563,17 +584,12 @@ class __$$_DeleteSaleCopyWithImpl<$Res> extends _$SalesEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object? saleId = freezed,
-    Object? shopId = freezed,
   }) {
     return _then(_$_DeleteSale(
       saleId == freezed
           ? _value.saleId
           : saleId // ignore: cast_nullable_to_non_nullable
-              as String,
-      shopId == freezed
-          ? _value.shopId
-          : shopId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
     ));
   }
 }
@@ -581,16 +597,14 @@ class __$$_DeleteSaleCopyWithImpl<$Res> extends _$SalesEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DeleteSale implements _DeleteSale {
-  const _$_DeleteSale(this.saleId, this.shopId);
+  const _$_DeleteSale(this.saleId);
 
   @override
-  final String saleId;
-  @override
-  final String shopId;
+  final int saleId;
 
   @override
   String toString() {
-    return 'SalesEvent.deleteSale(saleId: $saleId, shopId: $shopId)';
+    return 'SalesEvent.deleteSale(saleId: $saleId)';
   }
 
   @override
@@ -598,15 +612,12 @@ class _$_DeleteSale implements _DeleteSale {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DeleteSale &&
-            const DeepCollectionEquality().equals(other.saleId, saleId) &&
-            const DeepCollectionEquality().equals(other.shopId, shopId));
+            const DeepCollectionEquality().equals(other.saleId, saleId));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(saleId),
-      const DeepCollectionEquality().hash(shopId));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(saleId));
 
   @JsonKey(ignore: true)
   @override
@@ -618,12 +629,12 @@ class _$_DeleteSale implements _DeleteSale {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllSales,
     required TResult Function(String shopId) getAllSalesByShopId,
-    required TResult Function(SalesModel salesModel) addNewSale,
-    required TResult Function(String saleId, String shopId) deleteSale,
+    required TResult Function(String shopId, int stockId, int qty) addNewSale,
+    required TResult Function(int saleId) deleteSale,
     required TResult Function() getAllStocks,
     required TResult Function() totalAmound,
   }) {
-    return deleteSale(saleId, shopId);
+    return deleteSale(saleId);
   }
 
   @override
@@ -631,12 +642,12 @@ class _$_DeleteSale implements _DeleteSale {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
   }) {
-    return deleteSale?.call(saleId, shopId);
+    return deleteSale?.call(saleId);
   }
 
   @override
@@ -644,14 +655,14 @@ class _$_DeleteSale implements _DeleteSale {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
     required TResult orElse(),
   }) {
     if (deleteSale != null) {
-      return deleteSale(saleId, shopId);
+      return deleteSale(saleId);
     }
     return orElse();
   }
@@ -701,11 +712,9 @@ class _$_DeleteSale implements _DeleteSale {
 }
 
 abstract class _DeleteSale implements SalesEvent {
-  const factory _DeleteSale(final String saleId, final String shopId) =
-      _$_DeleteSale;
+  const factory _DeleteSale(final int saleId) = _$_DeleteSale;
 
-  String get saleId => throw _privateConstructorUsedError;
-  String get shopId => throw _privateConstructorUsedError;
+  int get saleId => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$$_DeleteSaleCopyWith<_$_DeleteSale> get copyWith =>
       throw _privateConstructorUsedError;
@@ -753,8 +762,8 @@ class _$_GetAllStocks implements _GetAllStocks {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllSales,
     required TResult Function(String shopId) getAllSalesByShopId,
-    required TResult Function(SalesModel salesModel) addNewSale,
-    required TResult Function(String saleId, String shopId) deleteSale,
+    required TResult Function(String shopId, int stockId, int qty) addNewSale,
+    required TResult Function(int saleId) deleteSale,
     required TResult Function() getAllStocks,
     required TResult Function() totalAmound,
   }) {
@@ -766,8 +775,8 @@ class _$_GetAllStocks implements _GetAllStocks {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
   }) {
@@ -779,8 +788,8 @@ class _$_GetAllStocks implements _GetAllStocks {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
     required TResult orElse(),
@@ -881,8 +890,8 @@ class _$_TotalAmound implements _TotalAmound {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllSales,
     required TResult Function(String shopId) getAllSalesByShopId,
-    required TResult Function(SalesModel salesModel) addNewSale,
-    required TResult Function(String saleId, String shopId) deleteSale,
+    required TResult Function(String shopId, int stockId, int qty) addNewSale,
+    required TResult Function(int saleId) deleteSale,
     required TResult Function() getAllStocks,
     required TResult Function() totalAmound,
   }) {
@@ -894,8 +903,8 @@ class _$_TotalAmound implements _TotalAmound {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
   }) {
@@ -907,8 +916,8 @@ class _$_TotalAmound implements _TotalAmound {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllSales,
     TResult Function(String shopId)? getAllSalesByShopId,
-    TResult Function(SalesModel salesModel)? addNewSale,
-    TResult Function(String saleId, String shopId)? deleteSale,
+    TResult Function(String shopId, int stockId, int qty)? addNewSale,
+    TResult Function(int saleId)? deleteSale,
     TResult Function()? getAllStocks,
     TResult Function()? totalAmound,
     required TResult orElse(),
@@ -971,7 +980,7 @@ abstract class _TotalAmound implements SalesEvent {
 mixin _$SalesState {
   List<SalesModel> get salesList => throw _privateConstructorUsedError;
   List<StockModel> get stocks => throw _privateConstructorUsedError;
-  num get total => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
 
@@ -988,7 +997,7 @@ abstract class $SalesStateCopyWith<$Res> {
   $Res call(
       {List<SalesModel> salesList,
       List<StockModel> stocks,
-      num total,
+      int total,
       bool isLoading,
       bool isError});
 }
@@ -1021,7 +1030,7 @@ class _$SalesStateCopyWithImpl<$Res> implements $SalesStateCopyWith<$Res> {
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as num,
+              as int,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -1044,7 +1053,7 @@ abstract class _$$_SalesStartedCopyWith<$Res>
   $Res call(
       {List<SalesModel> salesList,
       List<StockModel> stocks,
-      num total,
+      int total,
       bool isLoading,
       bool isError});
 }
@@ -1079,7 +1088,7 @@ class __$$_SalesStartedCopyWithImpl<$Res> extends _$SalesStateCopyWithImpl<$Res>
       total: total == freezed
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
-              as num,
+              as int,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -1119,7 +1128,7 @@ class _$_SalesStarted implements _SalesStarted {
   }
 
   @override
-  final num total;
+  final int total;
   @override
   final bool isLoading;
   @override
@@ -1162,7 +1171,7 @@ abstract class _SalesStarted implements SalesState {
   const factory _SalesStarted(
       {required final List<SalesModel> salesList,
       required final List<StockModel> stocks,
-      required final num total,
+      required final int total,
       required final bool isLoading,
       required final bool isError}) = _$_SalesStarted;
 
@@ -1171,7 +1180,7 @@ abstract class _SalesStarted implements SalesState {
   @override
   List<StockModel> get stocks => throw _privateConstructorUsedError;
   @override
-  num get total => throw _privateConstructorUsedError;
+  int get total => throw _privateConstructorUsedError;
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override

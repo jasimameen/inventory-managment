@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:invendory_managment/presentation/core/constants.dart';
 
 import '../../application/stock/stock_bloc.dart';
-import '../core/constants.dart';
 import '../core/styles.dart';
+import '../stock/widgets/stock_card_widget.dart';
 import '../widgets/custom_app_bar.dart';
-import 'widgets/stock_card_widget.dart';
 
 class ScreenStock extends StatelessWidget {
   final String title;
@@ -19,22 +19,29 @@ class ScreenStock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final warehouseIdArg = ModalRoute.of(context)?.settings.arguments as int;
     WidgetsBinding.instance!.addPostFrameCallback((_) {
-      context.read<StockBloc>().add(const StockEvent.getVehicleStocks());
+      context
+          .read<StockBloc>()
+          .add(StockEvent.getWarehouseStock(warehouseIdArg));
     });
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: kPriferedSize,
-        child:  CustomAppBar(
-          previousPageTitle:fromPage,
-          middle:title,
+        child: CustomAppBar(
+          previousPageTitle: fromPage,
+          middle: title,
         ),
       ),
       body: BlocBuilder<StockBloc, StockState>(
         builder: (context, state) {
           if (state.isLoading) {
-            return const Center(
-                child: CircularProgressIndicator(color: AppColors.green));
+            return Center(
+                child: Column(children: const [
+              CircularProgressIndicator(color: AppColors.green),
+              kHeight,
+              Text('Loading...'),
+            ]));
           }
           if (state.isError) {
             return const Center(
@@ -44,8 +51,8 @@ class ScreenStock extends StatelessWidget {
                     )));
           }
           return Wrap(
-            children: List.generate(state.stocks.length, (index) {
-              final data = state.stocks[index];
+            children: List.generate(state.warehouseStocks.length, (index) {
+              final data = state.warehouseStocks[index];
 
               //
               return StockCardWidget(
@@ -53,24 +60,11 @@ class ScreenStock extends StatelessWidget {
                 title: data.stock_id,
                 stocksCount: '${data.qty} left',
               );
-
-              //
-
-              // return SquareCardWidget(
-              //   title: data.qty.toString() + ' Left',
-              //   textStyle: const TextStyle(
-              //     color: AppColors.green,
-              //     fontSize: 18,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              //   iconData: Icons.production_quantity_limits,
-              //   iconColor: Colors.redAccent,
-              //   onTap: () {},
-              // );
             }),
           );
         },
       ),
+      backgroundColor: Color.fromARGB(255, 228, 225, 225),
     );
   }
 }

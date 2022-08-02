@@ -1,21 +1,25 @@
 import 'dart:convert';
 
+import 'item.dart';
+
 class StockModel {
-  int id;
+  int? id;
   String stock_id;
   int qty;
   int warehouse;
   int item;
   String warehouseName;
   String itemName;
+  ItemModel? itemModel;
   StockModel({
-    required this.id,
+     this.id,
     required this.stock_id,
     required this.qty,
     required this.warehouse,
     required this.item,
     this.warehouseName = 'null',
     this.itemName = 'null',
+     this.itemModel,
   });
 
   StockModel copyWith({
@@ -26,6 +30,7 @@ class StockModel {
     int? item,
     String? warehouseName,
     String? itemName,
+    ItemModel? itemModel,
   }) {
     return StockModel(
       id: id ?? this.id,
@@ -35,6 +40,7 @@ class StockModel {
       item: item ?? this.item,
       warehouseName: warehouseName ?? this.warehouseName,
       itemName: itemName ?? this.itemName,
+      itemModel: itemModel ?? this.itemModel,
     );
   }
 
@@ -65,7 +71,7 @@ class StockModel {
 
   @override
   String toString() {
-    return 'StockModel(id: $id, stock_id: $stock_id, qty: $qty, warehouse: $warehouse, item: $item, warehouseName: $warehouseName, itemName: $itemName)';
+    return 'StockModel(id: $id, stock_id: $stock_id, qty: $qty, warehouse: $warehouse, item: $item, warehouseName: $warehouseName, itemName: $itemName, itemModel: $itemModel)';
   }
 
   @override

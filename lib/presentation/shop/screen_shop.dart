@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/presentation/shop/widgets/new_item_popup_card.dart';
+import 'package:intl/intl.dart';
+import 'widgets/new_item_popup_card.dart';
 
 import '../../application/sales/sales_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
@@ -11,8 +12,6 @@ import '../../domain/models/shop.dart';
 import '../core/constants.dart';
 import '../core/styles.dart';
 import 'widgets/widgets.dart';
-
-num _subtotal = 0;
 
 class ScreenShop extends StatelessWidget {
   const ScreenShop({
@@ -65,7 +64,11 @@ class _Header extends StatelessWidget {
       child: BlocBuilder<ShopBloc, ShopState>(
         builder: (context, state) {
           final data = state.shopModel;
-          log(data.toString());
+          final isLoading = state.isLoading;
+
+          if (state.isError)
+            return const Center(
+                child: Text('Error in Getting data Plz Try Again'));
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -87,14 +90,14 @@ class _Header extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.name,
+                      isLoading ? 'Loading...' : data.name,
                       style: const TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      data.shop_id,
+                      isLoading ? 'Loading...' : data.shop_id,
                       style: const TextStyle(
                         color: AppColors.grey,
                         fontStyle: FontStyle.italic,
@@ -102,14 +105,16 @@ class _Header extends StatelessWidget {
                     ),
                     kHeight,
                     Text(
-                      data.email,
+                      isLoading ? 'Loading...' : data.email,
                       style: const TextStyle(
                         color: AppColors.grey,
                         fontStyle: FontStyle.italic,
                       ),
                     ),
                     Text(
-                      '+91 ' + data.contact_number.toString(),
+                      isLoading
+                          ? 'Loading...'
+                          : '+91 ' + data.contact_number.toString(),
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     kHeight,
@@ -144,8 +149,9 @@ class _Header extends StatelessWidget {
                         const WidgetSpan(
                             child: Icon(Icons.place, color: AppColors.red)),
                         TextSpan(
-                            text: data.townName,
-                            style: TextStyle(fontStyle: FontStyle.italic)),
+                            text: isLoading ? 'Loading...' : data.townName,
+                            style:
+                                const TextStyle(fontStyle: FontStyle.italic)),
                       ],
                     ),
                   ),
@@ -167,44 +173,59 @@ class _InvoiceCreation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var arguments = ModalRoute.of(context)?.settings.arguments as ShopModel;
     return BlocBuilder<SalesBloc, SalesState>(
       builder: (context, state) {
+        context.read<SalesBloc>().add(const SalesEvent.totalAmound());
+
         final itemCount = state.salesList.length;
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
-          child: ListView.separated(
-            itemBuilder: (context, index) {
-              if (index == itemCount) {
-                return Card(
-                  child: ElevatedButton.icon(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => NewItemPopup());
-                      },
-                      icon: const Icon(Icons.add),
-                      label: const Text('Add Item')),
-                );
-              }
-
-              final item = state.salesList[index];
-              _subtotal += item.totalprice;
-              if (state.salesList.isEmpty) {
-                return const Text("  The item list is empty");
-              }
-              return Card(
-                child: AddItemWidget(
-                  shop: item.shop,
-                  stock: item.stock,
-                  qty: item.qty,
-                  unitprice: item.unitprice,
-                  totalprice: item.totalprice,
-                  date: DateTime.now().toIso8601String(),
-                ),
-              );
+          child: RefreshIndicator(
+            onRefresh: () {
+              context.read<SalesBloc>().add(const SalesEvent.totalAmound());
+              context
+                  .read<SalesBloc>()
+                  .add(SalesEvent.getAllSalesByShopId(arguments.shop_id));
+              return Future.delayed(const Duration(seconds: 1));
             },
-            separatorBuilder: (context, index) => kHeight3,
-            itemCount: itemCount + 1,
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                if (index == itemCount) {
+                  return Card(
+                    child: ElevatedButton.icon(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const NewItemPopup(),
+                            routeSettings:
+                                RouteSettings(arguments: arguments.shop_id),
+                          );
+                        },
+                        icon: const Icon(Icons.add),
+                        label: const Text('Add Item')),
+                  );
+                }
+
+                final item = state.salesList[index];
+                if (state.salesList.isEmpty) {
+                  return const Text("  The item list is empty");
+                }
+                return Card(
+                  child: AddItemWidget(
+                    saleId: item.id,
+                    shop: item.shop,
+                    stock: item.stock,
+                    qty: item.qty,
+                    unitprice: item.unitprice,
+                    totalprice: item.totalprice,
+                    date: DateFormat('yyyy-mm-dd').format(DateTime.now()),
+                  ),
+                );
+              },
+              separatorBuilder: (context, index) => kHeight3,
+              itemCount: itemCount + 1,
+            ),
           ),
         );
       },
@@ -220,6 +241,9 @@ class _Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      context.read<SalesBloc>().add(const SalesEvent.totalAmound());
+    });
     return SizedBox(
       height: 80,
       child: Row(
@@ -234,19 +258,35 @@ class _Footer extends StatelessWidget {
               color: AppColors.red,
             ),
           ),
-          Flexible(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                'Subtotal : $_subtotal INR',
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              ElevatedButton(child: const Text('Pay'), onPressed: () {}),
-            ],
+          Flexible(child: BlocBuilder<SalesBloc, SalesState>(
+            builder: (context, state) {
+              final totalPayable = state.total;
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: (() {
+                      context
+                          .read<SalesBloc>()
+                          .add(const SalesEvent.totalAmound());
+                    }),
+                    child: Text(
+                      state.isLoading
+                          ? 'Loading...'
+                          : 'Subtotal : $totalPayable INR',
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    child: const Text('Pay'),
+                    onPressed: () {},
+                  ),
+                ],
+              );
+            },
           )),
         ],
       ),

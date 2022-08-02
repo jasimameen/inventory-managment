@@ -4,19 +4,19 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import '../../domain/models/sales.dart';
-import '../../domain/models/town.dart';
-import '../route/route_repo_impl.dart';
 
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';
+import '../../domain/models/sales.dart';
 import '../../domain/models/shop.dart';
+import '../../domain/models/town.dart';
 import '../../domain/shop/i_shop_repo.dart';
 import '../auth/auth_repo_impl.dart'
     show
         ACCESS_TOKEN,
         AuthRepoImpl,
         dio; // get the dio object from authorization repo
+import '../route/route_repo_impl.dart';
 
 @LazySingleton(as: IShopRepo)
 class ShopRepoImpl implements IShopRepo {

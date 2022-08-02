@@ -1,19 +1,19 @@
 import 'dart:convert';
 
 class SalesModel {
-  final int? id;
-  final String vehicle;
-  final String route;
-  final String shop;
-  final String stock;
-  final int qty;
-  final int unitprice;
-  final int totalprice;
-  final String date;
-  final String errand;
+  int id;
+  String vehicle;
+  String route;
+  String shop;
+  String stock;
+  int qty;
+  int unitprice;
+  int totalprice;
+  String date;
+  String errand;
 
   SalesModel({
-    this.id,
+    this.id = 0,
     required this.vehicle,
     required this.route,
     required this.shop,
@@ -53,7 +53,6 @@ class SalesModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'vehicle': vehicle,
       'route': route,
       'shop': shop,
@@ -83,7 +82,8 @@ class SalesModel {
 
   String toJson() => json.encode(toMap());
 
-  factory SalesModel.fromJson(String source) => SalesModel.fromMap(json.decode(source));
+  factory SalesModel.fromJson(String source) =>
+      SalesModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -93,31 +93,31 @@ class SalesModel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is SalesModel &&
-      other.id == id &&
-      other.vehicle == vehicle &&
-      other.route == route &&
-      other.shop == shop &&
-      other.stock == stock &&
-      other.qty == qty &&
-      other.unitprice == unitprice &&
-      other.totalprice == totalprice &&
-      other.date == date &&
-      other.errand == errand;
+        other.id == id &&
+        other.vehicle == vehicle &&
+        other.route == route &&
+        other.shop == shop &&
+        other.stock == stock &&
+        other.qty == qty &&
+        other.unitprice == unitprice &&
+        other.totalprice == totalprice &&
+        other.date == date &&
+        other.errand == errand;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      vehicle.hashCode ^
-      route.hashCode ^
-      shop.hashCode ^
-      stock.hashCode ^
-      qty.hashCode ^
-      unitprice.hashCode ^
-      totalprice.hashCode ^
-      date.hashCode ^
-      errand.hashCode;
+        vehicle.hashCode ^
+        route.hashCode ^
+        shop.hashCode ^
+        stock.hashCode ^
+        qty.hashCode ^
+        unitprice.hashCode ^
+        totalprice.hashCode ^
+        date.hashCode ^
+        errand.hashCode;
   }
 }

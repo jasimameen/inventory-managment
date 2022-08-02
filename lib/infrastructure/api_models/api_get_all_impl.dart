@@ -151,13 +151,14 @@ class ApiGetAllImpl implements IApiGetAll {
       final towns = await getTowns();
 
       final result = (resp.data as List<dynamic>).map<ShopModel>((e) {
-        final townName =
-            towns.firstWhereOrNull((element) => element.id == e['town'])?.name ??
-                '';
+        final townName = towns
+                .firstWhereOrNull((element) => element.id == e['town'])
+                ?.name ??
+            '';
         return ShopModel.fromMap(e).copyWith(townName: townName);
       }).toList();
 
-      log('getShops -> ' + result.toString());
+      // log('getShops -> ' + result.toString());
       return result;
     } catch (e) {
       if (flag <= 5) {
@@ -186,16 +187,16 @@ class ApiGetAllImpl implements IApiGetAll {
             .firstWhere((element) => element.id == e['warehouse'],
                 orElse: () => WarehouseModel.fromMap({}))
             .name;
-        final itemName = items
-            .firstWhere((element) => element.id == e['item'],
-                orElse: () => ItemModel.fromMap({}))
-            .name;
+        final itemModel = items.firstWhere((element) => element.id == e['item'],
+            orElse: () => ItemModel.fromMap({}));
 
         //
-        return StockModel.fromMap(e)
-            .copyWith(warehouseName: warehouseName, itemName: itemName);
+        return StockModel.fromMap(e).copyWith(
+            warehouseName: warehouseName,
+            itemModel: itemModel,
+            itemName: itemModel.name);
       }).toList();
-      log('getStocks -> ' + result.toString());
+      // log('getStocks -> ' + result.toString());
       return result;
     } on DioError catch (e) {
       if ((e.response?.statusCode == 401 &&
@@ -222,7 +223,7 @@ class ApiGetAllImpl implements IApiGetAll {
             .copyWith(districtName: districts[dIndex].name);
       }).toList();
 
-      log('get towns -> ' + result.toString());
+      // log('get towns -> ' + result.toString());
       return result;
     } on DioError catch (e) {
       if (e.response?.statusCode == 401 ||
@@ -260,9 +261,13 @@ class ApiGetAllImpl implements IApiGetAll {
   Future<List<WarehouseModel>> getWarehouses({int flag = 0}) async {
     try {
       final resp = await dio.get(ApiEndpoints.warehouse);
-      final result = (resp.data as List<dynamic>)
-          .map<WarehouseModel>((e) => WarehouseModel.fromMap(e))
-          .toList();
+      final towns = await getTowns();
+
+      final result = (resp.data as List<dynamic>).map<WarehouseModel>((e) {
+        TownModel? townModel =
+            towns.firstWhereOrNull((element) => element.id == e['town']);
+        return WarehouseModel.fromMap(e).copyWith(townModel: townModel);
+      }).toList();
       return result;
     } catch (e) {
       if (flag <= 5) {

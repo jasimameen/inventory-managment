@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/domain/models/models_exported.dart';
+import '../../domain/models/models_exported.dart';
 
 import '../../application/route/route_bloc.dart';
 import '../../application/shop/shop_bloc.dart';
@@ -37,13 +37,19 @@ class RegShopControllers {
 }
 
 class ScreenRegisterShop extends StatelessWidget {
-  const ScreenRegisterShop({Key? key}) : super(key: key);
+  ScreenRegisterShop({Key? key}) : super(key: key);
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController contactNoController = TextEditingController();
+  TextEditingController townController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       context.read<RouteBloc>().add(const RouteEvent.started());
     });
+
     return Scaffold(
       appBar: CupertinoNavigationBar(
         previousPageTitle: 'Shops',
@@ -55,7 +61,14 @@ class ScreenRegisterShop extends StatelessWidget {
           ),
           onPressed: () {
             // add the shop to db
-            // context.read<ShopBloc>().add(const ShopEvent.registerNewShop());
+            final shopData = ShopModel(
+              name: nameController.text.trim(),
+              shop_id: nameController.text.toLowerCase().trim(),
+              contact_number: int.parse(contactNoController.text.trim()),
+              email: emailController.text.trim(),
+              town: int.parse(townController.text.trim()),
+            );
+            context.read<ShopBloc>().add(ShopEvent.registerNewShop(shopData));
           },
         ),
       ),
@@ -69,67 +82,92 @@ class ScreenRegisterShop extends StatelessWidget {
             onClicked: () async {},
           ),
           kHeight,
+          BlocBuilder<RouteBloc, RouteState>(builder: (context, state) {
+            var towns = state.towns;
+            return Autocomplete<TownModel>(
+              displayStringForOption: (option) => option.name,
+              optionsBuilder: (TextEditingValue textEditingValue) {
+                if (textEditingValue.text == '') {
+                  return towns;
+                }
+                return towns.where((TownModel option) => option
+                    .toString()
+                    .contains(textEditingValue.text.toLowerCase()));
+              },
+              fieldViewBuilder: (BuildContext context,
+                  TextEditingController fieldTextEditingController,
+                  FocusNode fieldFocusNode,
+                  VoidCallback onFieldSubmitted) {
+                return TextFieldWidget(
+                  controller: fieldTextEditingController,
+                  focusNode: fieldFocusNode,
+                  keyboardType: TextInputType.streetAddress,
+                  label: 'Select Town',
+                  onChanged: (_) {},
+                );
+              },
+              optionsViewBuilder: (BuildContext context,
+                  AutocompleteOnSelected<TownModel> onSelected,
+                  Iterable<TownModel> options) {
+                return Align(
+                    alignment: Alignment.topLeft,
+                    child: Material(
+                      child: Container(
+                        width: 300,
+                        decoration: BoxDecoration(
+                          color: Colors.cyan,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: ListView.separated(
+                          padding: const EdgeInsets.all(10.0),
+                          itemCount: options.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final TownModel option = options.elementAt(index);
+
+                            return GestureDetector(
+                              onTap: () {
+                                onSelected(option);
+                              },
+                              child: ListTile(
+                                title: Text(option.name,
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                              ),
+                            );
+                          },
+                          separatorBuilder: (context, index) =>
+                             const Divider(color: Colors.white),
+                        ),
+                      ),
+                    ));
+              },
+              onSelected: (TownModel selection) =>
+                  townController.text = selection.id.toString(),
+            );
+          }),
+          kHeight,
           TextFieldWidget(
-            controller: RegShopControllers.shopName,
+            controller: nameController,
             label: 'Shop Name',
             onChanged: (name) {},
           ),
           kHeight,
           TextFieldWidget(
-            controller: RegShopControllers.email,
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             label: 'Email',
             onChanged: (email) {},
           ),
           kHeight,
           TextFieldWidget(
-            controller: RegShopControllers.contactNumber,
+            controller: contactNoController,
             keyboardType: TextInputType.phone,
             label: 'Contact No',
-            onChanged: (about) {},
+            onChanged: (contactNo) {},
           ),
-          kHeight,
-          BlocBuilder<RouteBloc, RouteState>(builder: (context, state) {
-            var towns = state.towns;
-            return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.grey),
-              ),
-              child: AutocompleteBasicUserExample(suggestionList: towns),
-            );
-          }),
           kHeight,
         ],
       ),
-    );
-  }
-}
-
-class AutocompleteBasicUserExample extends StatelessWidget {
-  const AutocompleteBasicUserExample({
-    Key? key,
-    required this.suggestionList,
-  }) : super(key: key);
-
-  final List<TownModel> suggestionList;
-
-  static String _displayStringForOption(TownModel option) => option.name;
-
-  @override
-  Widget build(BuildContext context) {
-    return Autocomplete<TownModel>(
-      displayStringForOption: _displayStringForOption,
-      optionsBuilder: (TextEditingValue textEditingValue) {
-        if (textEditingValue.text == '') {
-          return const Iterable<TownModel>.empty();
-        }
-        return suggestionList.where((TownModel option) =>
-            option.toString().contains(textEditingValue.text.toLowerCase()));
-      },
-      onSelected: (TownModel selection) =>
-          debugPrint('You just selected ${_displayStringForOption(selection)}'),
     );
   }
 }

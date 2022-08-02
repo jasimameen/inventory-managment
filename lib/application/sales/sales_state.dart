@@ -5,7 +5,7 @@ class SalesState with _$SalesState {
   const factory SalesState({
     required List<SalesModel> salesList,
     required List<StockModel> stocks,
-    required num total,
+    required int total,
     required bool isLoading,
     required bool isError,
   }) = _SalesStarted;

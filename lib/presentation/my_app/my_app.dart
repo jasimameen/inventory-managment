@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/bloc_export.dart';
 import '../../domain/core/sl/injection.dart';
 import '../core/navigation.dart';
+import '../core/styles.dart';
 import '../login/screen_sign_in.dart';
 
 class MyApp extends StatelessWidget {
@@ -25,9 +27,18 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: Navigation.navigatorKey,
         title: 'Inventory App',
+
         home: Scaffold(
           body: SafeArea(
             child: ScreenLogIn(),
+          ),
+        ),
+        theme: ThemeData(
+          primaryColor: AppColors.red,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: AppColors.red,
+            selectedItemColor: AppColors.white,
+            unselectedItemColor: AppColors.white.withOpacity(0.5),
           ),
         ),
       ),

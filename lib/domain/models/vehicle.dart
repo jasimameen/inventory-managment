@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 class VehicleModel {
-  final int id;
-  final String vehicle_number;
-  final String vehicle_type;
-  final int stock;
+   int id;
+   String vehicle_number;
+   String vehicle_type;
+   int stock;
   VehicleModel({
     required this.id,
     required this.vehicle_number,

@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class RouteModel {
-  final int id;
-  final String name;
-  final String route_id;
-  final List<int> towns;
-  final List<int> shops;
+   int id;
+   String name;
+   String route_id;
+   List<int> towns;
+   List<int> shops;
   RouteModel({
     required this.id,
     required this.name,

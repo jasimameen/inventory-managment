@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import '../../domain/models/item.dart';
 
 import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';
 import '../../domain/models/category.dart';
+import '../../domain/models/item.dart';
 import '../../domain/models/stock.dart';
 import '../../domain/stock/i_stock_repo.dart';
 import '../auth/auth_repo_impl.dart';

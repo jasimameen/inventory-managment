@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../application/sales/sales_bloc.dart';
-import '../../application/stock/stock_bloc.dart';
 import '../core/styles.dart';
 import '../stock/widgets/stock_card_widget.dart';
 

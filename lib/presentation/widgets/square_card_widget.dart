@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class SquareCardWidget extends StatelessWidget {
@@ -27,17 +25,19 @@ class SquareCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        // height: sqareWidth,
         width: sqareWidth,
-        constraints: BoxConstraints(minHeight: sqareWidth),
+        constraints: BoxConstraints(
+          minHeight: sqareWidth * .5,
+          maxHeight: sqareWidth,
+        ),
         margin: EdgeInsets.all(sqareMargin),
         child: PhysicalModel(
-          color: Color.fromARGB(255, 255, 255, 255),
+          color: const Color.fromARGB(255, 255, 255, 255),
           elevation: 8,
           shadowColor: Colors.blue,
           borderRadius: BorderRadius.circular(20),
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

@@ -1,16 +1,16 @@
 import 'dart:developer';
 
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import '../../domain/models/route.dart';
+
+import '../../domain/core/api_endpoints.dart';
 import '../../domain/core/failure.dart';
-import 'package:dartz/dartz.dart';
+import '../../domain/core/persisted_data.dart';
+import '../../domain/models/route.dart';
 import '../../domain/models/town.dart';
 import '../../domain/route/i_route_repo.dart';
 import '../auth/auth_repo_impl.dart';
-
-import '../../domain/core/api_endpoints.dart';
-import '../../domain/core/persisted_data.dart';
 
 @Injectable(as: IRouteRepo)
 class RouteRepoImpl implements IRouteRepo {

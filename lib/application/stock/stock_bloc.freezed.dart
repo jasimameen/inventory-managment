@@ -19,19 +19,19 @@ mixin _$StockEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getVehicleStocks,
-    required TResult Function() getWarehouseStock,
+    required TResult Function(int warehouseId) getWarehouseStock,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getVehicleStocks,
-    TResult Function()? getWarehouseStock,
+    TResult Function(int warehouseId)? getWarehouseStock,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getVehicleStocks,
-    TResult Function()? getWarehouseStock,
+    TResult Function(int warehouseId)? getWarehouseStock,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,7 +114,7 @@ class _$_GetVehicleStocks implements _GetVehicleStocks {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getVehicleStocks,
-    required TResult Function() getWarehouseStock,
+    required TResult Function(int warehouseId) getWarehouseStock,
   }) {
     return getVehicleStocks();
   }
@@ -123,7 +123,7 @@ class _$_GetVehicleStocks implements _GetVehicleStocks {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getVehicleStocks,
-    TResult Function()? getWarehouseStock,
+    TResult Function(int warehouseId)? getWarehouseStock,
   }) {
     return getVehicleStocks?.call();
   }
@@ -132,7 +132,7 @@ class _$_GetVehicleStocks implements _GetVehicleStocks {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getVehicleStocks,
-    TResult Function()? getWarehouseStock,
+    TResult Function(int warehouseId)? getWarehouseStock,
     required TResult orElse(),
   }) {
     if (getVehicleStocks != null) {
@@ -182,6 +182,7 @@ abstract class _$$_GetWarehouseStockCopyWith<$Res> {
   factory _$$_GetWarehouseStockCopyWith(_$_GetWarehouseStock value,
           $Res Function(_$_GetWarehouseStock) then) =
       __$$_GetWarehouseStockCopyWithImpl<$Res>;
+  $Res call({int warehouseId});
 }
 
 /// @nodoc
@@ -194,54 +195,79 @@ class __$$_GetWarehouseStockCopyWithImpl<$Res>
 
   @override
   _$_GetWarehouseStock get _value => super._value as _$_GetWarehouseStock;
+
+  @override
+  $Res call({
+    Object? warehouseId = freezed,
+  }) {
+    return _then(_$_GetWarehouseStock(
+      warehouseId == freezed
+          ? _value.warehouseId
+          : warehouseId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_GetWarehouseStock implements _GetWarehouseStock {
-  const _$_GetWarehouseStock();
+  const _$_GetWarehouseStock(this.warehouseId);
+
+  @override
+  final int warehouseId;
 
   @override
   String toString() {
-    return 'StockEvent.getWarehouseStock()';
+    return 'StockEvent.getWarehouseStock(warehouseId: $warehouseId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetWarehouseStock);
+        (other.runtimeType == runtimeType &&
+            other is _$_GetWarehouseStock &&
+            const DeepCollectionEquality()
+                .equals(other.warehouseId, warehouseId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(warehouseId));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_GetWarehouseStockCopyWith<_$_GetWarehouseStock> get copyWith =>
+      __$$_GetWarehouseStockCopyWithImpl<_$_GetWarehouseStock>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getVehicleStocks,
-    required TResult Function() getWarehouseStock,
+    required TResult Function(int warehouseId) getWarehouseStock,
   }) {
-    return getWarehouseStock();
+    return getWarehouseStock(warehouseId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getVehicleStocks,
-    TResult Function()? getWarehouseStock,
+    TResult Function(int warehouseId)? getWarehouseStock,
   }) {
-    return getWarehouseStock?.call();
+    return getWarehouseStock?.call(warehouseId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getVehicleStocks,
-    TResult Function()? getWarehouseStock,
+    TResult Function(int warehouseId)? getWarehouseStock,
     required TResult orElse(),
   }) {
     if (getWarehouseStock != null) {
-      return getWarehouseStock();
+      return getWarehouseStock(warehouseId);
     }
     return orElse();
   }
@@ -279,12 +305,19 @@ class _$_GetWarehouseStock implements _GetWarehouseStock {
 }
 
 abstract class _GetWarehouseStock implements StockEvent {
-  const factory _GetWarehouseStock() = _$_GetWarehouseStock;
+  const factory _GetWarehouseStock(final int warehouseId) =
+      _$_GetWarehouseStock;
+
+  int get warehouseId => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$$_GetWarehouseStockCopyWith<_$_GetWarehouseStock> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$StockState {
   List<StockModel> get stocks => throw _privateConstructorUsedError;
+  List<StockModel> get warehouseStocks => throw _privateConstructorUsedError;
   List<ItemModel> get items => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
@@ -301,6 +334,7 @@ abstract class $StockStateCopyWith<$Res> {
       _$StockStateCopyWithImpl<$Res>;
   $Res call(
       {List<StockModel> stocks,
+      List<StockModel> warehouseStocks,
       List<ItemModel> items,
       bool isLoading,
       bool isError});
@@ -317,6 +351,7 @@ class _$StockStateCopyWithImpl<$Res> implements $StockStateCopyWith<$Res> {
   @override
   $Res call({
     Object? stocks = freezed,
+    Object? warehouseStocks = freezed,
     Object? items = freezed,
     Object? isLoading = freezed,
     Object? isError = freezed,
@@ -325,6 +360,10 @@ class _$StockStateCopyWithImpl<$Res> implements $StockStateCopyWith<$Res> {
       stocks: stocks == freezed
           ? _value.stocks
           : stocks // ignore: cast_nullable_to_non_nullable
+              as List<StockModel>,
+      warehouseStocks: warehouseStocks == freezed
+          ? _value.warehouseStocks
+          : warehouseStocks // ignore: cast_nullable_to_non_nullable
               as List<StockModel>,
       items: items == freezed
           ? _value.items
@@ -351,6 +390,7 @@ abstract class _$$_StockStartedCopyWith<$Res>
   @override
   $Res call(
       {List<StockModel> stocks,
+      List<StockModel> warehouseStocks,
       List<ItemModel> items,
       bool isLoading,
       bool isError});
@@ -369,6 +409,7 @@ class __$$_StockStartedCopyWithImpl<$Res> extends _$StockStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? stocks = freezed,
+    Object? warehouseStocks = freezed,
     Object? items = freezed,
     Object? isLoading = freezed,
     Object? isError = freezed,
@@ -377,6 +418,10 @@ class __$$_StockStartedCopyWithImpl<$Res> extends _$StockStateCopyWithImpl<$Res>
       stocks: stocks == freezed
           ? _value._stocks
           : stocks // ignore: cast_nullable_to_non_nullable
+              as List<StockModel>,
+      warehouseStocks: warehouseStocks == freezed
+          ? _value._warehouseStocks
+          : warehouseStocks // ignore: cast_nullable_to_non_nullable
               as List<StockModel>,
       items: items == freezed
           ? _value._items
@@ -399,10 +444,12 @@ class __$$_StockStartedCopyWithImpl<$Res> extends _$StockStateCopyWithImpl<$Res>
 class _$_StockStarted implements _StockStarted {
   const _$_StockStarted(
       {required final List<StockModel> stocks,
+      required final List<StockModel> warehouseStocks,
       required final List<ItemModel> items,
       required this.isLoading,
       required this.isError})
       : _stocks = stocks,
+        _warehouseStocks = warehouseStocks,
         _items = items;
 
   final List<StockModel> _stocks;
@@ -410,6 +457,13 @@ class _$_StockStarted implements _StockStarted {
   List<StockModel> get stocks {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_stocks);
+  }
+
+  final List<StockModel> _warehouseStocks;
+  @override
+  List<StockModel> get warehouseStocks {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_warehouseStocks);
   }
 
   final List<ItemModel> _items;
@@ -426,7 +480,7 @@ class _$_StockStarted implements _StockStarted {
 
   @override
   String toString() {
-    return 'StockState(stocks: $stocks, items: $items, isLoading: $isLoading, isError: $isError)';
+    return 'StockState(stocks: $stocks, warehouseStocks: $warehouseStocks, items: $items, isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -435,6 +489,8 @@ class _$_StockStarted implements _StockStarted {
         (other.runtimeType == runtimeType &&
             other is _$_StockStarted &&
             const DeepCollectionEquality().equals(other._stocks, _stocks) &&
+            const DeepCollectionEquality()
+                .equals(other._warehouseStocks, _warehouseStocks) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.isError, isError));
@@ -444,6 +500,7 @@ class _$_StockStarted implements _StockStarted {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_stocks),
+      const DeepCollectionEquality().hash(_warehouseStocks),
       const DeepCollectionEquality().hash(_items),
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isError));
@@ -457,12 +514,15 @@ class _$_StockStarted implements _StockStarted {
 abstract class _StockStarted implements StockState {
   const factory _StockStarted(
       {required final List<StockModel> stocks,
+      required final List<StockModel> warehouseStocks,
       required final List<ItemModel> items,
       required final bool isLoading,
       required final bool isError}) = _$_StockStarted;
 
   @override
   List<StockModel> get stocks => throw _privateConstructorUsedError;
+  @override
+  List<StockModel> get warehouseStocks => throw _privateConstructorUsedError;
   @override
   List<ItemModel> get items => throw _privateConstructorUsedError;
   @override

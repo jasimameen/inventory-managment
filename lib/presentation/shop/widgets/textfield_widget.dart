@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
   final int maxLines;
   final String label;
   final ValueChanged<String> onChanged;
@@ -9,7 +10,8 @@ class TextFieldWidget extends StatelessWidget {
 
   const TextFieldWidget({
     Key? key,
-    required this.controller,
+    this.controller,
+    this.focusNode,
     this.keyboardType,
     this.maxLines = 1,
     required this.label,
@@ -19,6 +21,7 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => TextField(
         controller: controller,
+        focusNode: focusNode,
         keyboardType: keyboardType,
         decoration: InputDecoration(
           label: Text(

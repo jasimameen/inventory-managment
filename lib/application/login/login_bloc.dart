@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:invendory_managment/new_api/api.dart';
+import 'package:invendory_managment/presentation/dashboard/screen_home.dart';
+import '../../new_api/api.dart';
 
 import '../../infrastructure/errand/errand_repo_impl.dart';
 import '../../presentation/core/navigation.dart';
@@ -25,10 +26,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       // try to Login
       await ErrandRepoImpl().initialiazeErrand();
 
-
       log('navigatting ...');
       // Api integration
-      Navigation.pushAndRemoveUntil(const ScreenDasboard());
+      Navigation.pushAndRemoveUntil(const ScreenHome());
     });
   }
 }

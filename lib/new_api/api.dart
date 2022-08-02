@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:invendory_managment/core/strings.dart';
+import '../core/strings.dart';
 
 class Api {
   final Dio api = Dio();
@@ -42,8 +42,8 @@ class Api {
 
   Future<bool> refreshToken() async {
     final refreshToken = await _storage.read(key: 'refreshToken');
-    final response =
-        await api.post('api/token/refresh/', data: {'refreshToken': refreshToken});
+    final response = await api
+        .post('api/token/refresh/', data: {'refreshToken': refreshToken});
 
     if (response.statusCode == 201) {
       accessToken = response.data;
@@ -56,5 +56,3 @@ class Api {
     }
   }
 }
-
-Api app = Api();

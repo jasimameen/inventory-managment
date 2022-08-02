@@ -12,13 +12,13 @@ class ErrandState with _$ErrandState {
   }) = _started;
 
   factory ErrandState.initial() => ErrandState(
-        errandInfo: ErrandModel(id: 0, driver: 0, errand_id: '', route: 0),
+        errandInfo: ErrandModel(id: -1, driver: -1, errand_id: '', route: -1),
         vehicleInfo:
-            VehicleModel(id: 0, vehicle_number: '', vehicle_type: '', stock: 0),
+            VehicleModel(id: -1, vehicle_number: '', vehicle_type: '', stock: -1),
         driverInfo:
-            DriverModel(id: 0, name: '', contact: 1234567890, vehicle: 0),
+            DriverModel(id: -1, name: '', contact: 0, vehicle: -1),
         routeInfo:
-            RouteModel(id: 0, name: '', route_id: '', towns: [], shops: []),
+            RouteModel(id: -1, name: '', route_id: '', towns: [], shops: []),
         isLoading: false,
         isError: false,
       );

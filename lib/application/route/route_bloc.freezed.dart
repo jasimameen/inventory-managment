@@ -284,6 +284,7 @@ mixin _$RouteState {
   String get routeId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   List<TownModel> get towns => throw _privateConstructorUsedError;
+  List<ShopModel> get shops => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
 
@@ -301,6 +302,7 @@ abstract class $RouteStateCopyWith<$Res> {
       {String routeId,
       String name,
       List<TownModel> towns,
+      List<ShopModel> shops,
       bool isLoading,
       bool isError});
 }
@@ -318,6 +320,7 @@ class _$RouteStateCopyWithImpl<$Res> implements $RouteStateCopyWith<$Res> {
     Object? routeId = freezed,
     Object? name = freezed,
     Object? towns = freezed,
+    Object? shops = freezed,
     Object? isLoading = freezed,
     Object? isError = freezed,
   }) {
@@ -334,6 +337,10 @@ class _$RouteStateCopyWithImpl<$Res> implements $RouteStateCopyWith<$Res> {
           ? _value.towns
           : towns // ignore: cast_nullable_to_non_nullable
               as List<TownModel>,
+      shops: shops == freezed
+          ? _value.shops
+          : shops // ignore: cast_nullable_to_non_nullable
+              as List<ShopModel>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -356,6 +363,7 @@ abstract class _$$_InitialCopyWith<$Res> implements $RouteStateCopyWith<$Res> {
       {String routeId,
       String name,
       List<TownModel> towns,
+      List<ShopModel> shops,
       bool isLoading,
       bool isError});
 }
@@ -374,6 +382,7 @@ class __$$_InitialCopyWithImpl<$Res> extends _$RouteStateCopyWithImpl<$Res>
     Object? routeId = freezed,
     Object? name = freezed,
     Object? towns = freezed,
+    Object? shops = freezed,
     Object? isLoading = freezed,
     Object? isError = freezed,
   }) {
@@ -390,6 +399,10 @@ class __$$_InitialCopyWithImpl<$Res> extends _$RouteStateCopyWithImpl<$Res>
           ? _value._towns
           : towns // ignore: cast_nullable_to_non_nullable
               as List<TownModel>,
+      shops: shops == freezed
+          ? _value._shops
+          : shops // ignore: cast_nullable_to_non_nullable
+              as List<ShopModel>,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -409,9 +422,11 @@ class _$_Initial implements _Initial {
       {required this.routeId,
       required this.name,
       required final List<TownModel> towns,
+      required final List<ShopModel> shops,
       required this.isLoading,
       required this.isError})
-      : _towns = towns;
+      : _towns = towns,
+        _shops = shops;
 
   @override
   final String routeId;
@@ -424,6 +439,13 @@ class _$_Initial implements _Initial {
     return EqualUnmodifiableListView(_towns);
   }
 
+  final List<ShopModel> _shops;
+  @override
+  List<ShopModel> get shops {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_shops);
+  }
+
   @override
   final bool isLoading;
   @override
@@ -431,7 +453,7 @@ class _$_Initial implements _Initial {
 
   @override
   String toString() {
-    return 'RouteState(routeId: $routeId, name: $name, towns: $towns, isLoading: $isLoading, isError: $isError)';
+    return 'RouteState(routeId: $routeId, name: $name, towns: $towns, shops: $shops, isLoading: $isLoading, isError: $isError)';
   }
 
   @override
@@ -442,6 +464,7 @@ class _$_Initial implements _Initial {
             const DeepCollectionEquality().equals(other.routeId, routeId) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other._towns, _towns) &&
+            const DeepCollectionEquality().equals(other._shops, _shops) &&
             const DeepCollectionEquality().equals(other.isLoading, isLoading) &&
             const DeepCollectionEquality().equals(other.isError, isError));
   }
@@ -452,6 +475,7 @@ class _$_Initial implements _Initial {
       const DeepCollectionEquality().hash(routeId),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(_towns),
+      const DeepCollectionEquality().hash(_shops),
       const DeepCollectionEquality().hash(isLoading),
       const DeepCollectionEquality().hash(isError));
 
@@ -466,6 +490,7 @@ abstract class _Initial implements RouteState {
       {required final String routeId,
       required final String name,
       required final List<TownModel> towns,
+      required final List<ShopModel> shops,
       required final bool isLoading,
       required final bool isError}) = _$_Initial;
 
@@ -475,6 +500,8 @@ abstract class _Initial implements RouteState {
   String get name => throw _privateConstructorUsedError;
   @override
   List<TownModel> get towns => throw _privateConstructorUsedError;
+  @override
+  List<ShopModel> get shops => throw _privateConstructorUsedError;
   @override
   bool get isLoading => throw _privateConstructorUsedError;
   @override

@@ -6,6 +6,7 @@ class RouteState with _$RouteState {
     required String routeId,
     required String name,
     required List<TownModel> towns,
+    required List<ShopModel> shops,
     required bool isLoading,
     required bool isError,
   }) = _Initial;
@@ -14,6 +15,7 @@ class RouteState with _$RouteState {
         routeId: '',
         name: '',
         towns: [],
+        shops: [],
         isLoading: false,
         isError: false,
       );

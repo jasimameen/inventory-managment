@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 class DriverModel {
-  final int id;
-  final String name;
-  final int contact;
-  final int vehicle;
+   int id;
+   String name;
+   int contact;
+   int vehicle;
+   
   DriverModel({
     required this.id,
     required this.name,

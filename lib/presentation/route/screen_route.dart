@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:invendory_managment/presentation/core/constants.dart';
-import 'package:invendory_managment/presentation/core/styles.dart';
+import '../core/constants.dart';
+import '../core/styles.dart';
 
 import '../../application/route/route_bloc.dart';
 

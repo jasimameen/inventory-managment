@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 class ShopModel {
   int? id;
   String name;
@@ -18,7 +17,6 @@ class ShopModel {
     this.townName = '',
     required this.town,
   });
- 
 
   ShopModel copyWith({
     int? id,
@@ -42,7 +40,6 @@ class ShopModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'shop_id': shop_id,
       'contact_number': contact_number,
@@ -64,7 +61,8 @@ class ShopModel {
 
   String toJson() => json.encode(toMap());
 
-  factory ShopModel.fromJson(String source) => ShopModel.fromMap(json.decode(source));
+  factory ShopModel.fromJson(String source) =>
+      ShopModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -74,25 +72,25 @@ class ShopModel {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is ShopModel &&
-      other.id == id &&
-      other.name == name &&
-      other.shop_id == shop_id &&
-      other.contact_number == contact_number &&
-      other.email == email &&
-      other.townName == townName &&
-      other.town == town;
+        other.id == id &&
+        other.name == name &&
+        other.shop_id == shop_id &&
+        other.contact_number == contact_number &&
+        other.email == email &&
+        other.townName == townName &&
+        other.town == town;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      name.hashCode ^
-      shop_id.hashCode ^
-      contact_number.hashCode ^
-      email.hashCode ^
-      townName.hashCode ^
-      town.hashCode;
+        name.hashCode ^
+        shop_id.hashCode ^
+        contact_number.hashCode ^
+        email.hashCode ^
+        townName.hashCode ^
+        town.hashCode;
   }
 }

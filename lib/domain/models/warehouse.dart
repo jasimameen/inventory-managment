@@ -1,15 +1,20 @@
 import 'dart:convert';
 
+import 'package:invendory_managment/domain/models/town.dart';
+
 class WarehouseModel {
-  final int id;
-  final String name;
-  final String warehouse_id;
-  final int town;
+  int id;
+  String name;
+  String warehouse_id;
+  int town;
+  //
+  TownModel? townModel;
   WarehouseModel({
     required this.id,
     required this.name,
     required this.warehouse_id,
     required this.town,
+     this.townModel,
   });
 
   WarehouseModel copyWith({
@@ -17,12 +22,14 @@ class WarehouseModel {
     String? name,
     String? warehouse_id,
     int? town,
+    TownModel? townModel,
   }) {
     return WarehouseModel(
       id: id ?? this.id,
       name: name ?? this.name,
       warehouse_id: warehouse_id ?? this.warehouse_id,
       town: town ?? this.town,
+      townModel: townModel ?? this.townModel,
     );
   }
 
@@ -51,22 +58,27 @@ class WarehouseModel {
 
   @override
   String toString() {
-    return 'Warehousemodel(id: $id, name: $name, warehouse_id: $warehouse_id, town: $town)';
+    return 'WarehouseModel(id: $id, name: $name, warehouse_id: $warehouse_id, town: $town, townModel: $townModel)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
+  
     return other is WarehouseModel &&
-        other.id == id &&
-        other.name == name &&
-        other.warehouse_id == warehouse_id &&
-        other.town == town;
+      other.id == id &&
+      other.name == name &&
+      other.warehouse_id == warehouse_id &&
+      other.town == town &&
+      other.townModel == townModel;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ name.hashCode ^ warehouse_id.hashCode ^ town.hashCode;
+    return id.hashCode ^
+      name.hashCode ^
+      warehouse_id.hashCode ^
+      town.hashCode ^
+      townModel.hashCode;
   }
 }

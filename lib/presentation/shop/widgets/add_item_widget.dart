@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../application/sales/sales_bloc.dart';
 import '../../core/constants.dart';
 import '../../core/styles.dart';
 
 class AddItemWidget extends StatelessWidget {
+  final int saleId;
   final String shop;
   final String stock;
   final int qty;
@@ -13,6 +16,7 @@ class AddItemWidget extends StatelessWidget {
   final String date;
   const AddItemWidget({
     Key? key,
+    required this.saleId,
     required this.shop,
     required this.stock,
     required this.qty,
@@ -88,9 +92,14 @@ class AddItemWidget extends StatelessWidget {
           ),
 
           // Delete Button
-          const Icon(
-            CupertinoIcons.delete,
-            color: AppColors.red,
+          GestureDetector(
+            onTap: (() {
+              context.read<SalesBloc>().add(SalesEvent.deleteSale(saleId));
+            }),
+            child: const Icon(
+              CupertinoIcons.delete,
+              color: AppColors.red,
+            ),
           )
         ],
       ),

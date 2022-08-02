@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import '../../domain/api_models/i_api_post.dart';
 
 import '../../domain/api_models/i_api_get.dart';
 import '../../domain/api_models/i_api_get_all.dart';
@@ -21,9 +24,10 @@ part 'shop_state.dart';
 class ShopBloc extends Bloc<ShopEvent, ShopState> {
   final IShopRepo _shopRepo;
   //
-  final IApiGet _apiModelFromIdRepo;
-  final IApiGetAll _apiModelsRepo;
-  ShopBloc(this._shopRepo, this._apiModelFromIdRepo, this._apiModelsRepo)
+  final IApiGet _apiGet;
+  final IApiGetAll _apiGetAll;
+  final IApiPost _apiPost;
+  ShopBloc(this._shopRepo, this._apiGet, this._apiGetAll, this._apiPost)
       : super(ShopState.initial()) {
     // Get list of All Shops
     on<_GetAllShops>((event, emit) async {
@@ -31,7 +35,7 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
       emit(state.copyWith(isLoading: true));
 
       // get Data
-      final shops = await _apiModelsRepo.getShops();
+      final shops = await _apiGetAll.getShops();
 
       final _newState = state.copyWith(shopsList: shops, isLoading: false);
 
@@ -41,28 +45,16 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
 
     // Register New Shop
     on<_RegisterNewShop>((event, emit) async {
-      final shopData = ShopModel(
-        name: RegShopControllers.shopName.text,
-        shop_id: RegShopControllers.shopName.text,
-        contact_number: int.parse(RegShopControllers.contactNumber.text),
-        email: RegShopControllers.email.text,
-        town: int.parse(RegShopControllers.town.text),
-        // sales: [],
-      ).toMap();
-
-      final resp = await _shopRepo.registerNewShop(shopData);
-
-      resp.fold(
-        (l) => null,
-        (res) {
-          return Navigation.push(const ScreenShop(), arguments: res);
-        },
-      );
+      log(event.shopData.toString());
+      await _apiPost.registerShop(event.shopData).then((value) {
+        state.copyWith(shopsList: [...state.shopsList, value]);
+        Navigation.push(const ScreenShop(), arguments: value);
+      });
     });
 
     // sale
     on<_GetShop>((event, emit) async {
-      final resp = await _apiModelFromIdRepo.getShop(event.shopId);
+      final resp = await _apiGet.getShop(event.shopId);
       final _newState = state.copyWith(shopModel: resp);
       emit(_newState);
     });

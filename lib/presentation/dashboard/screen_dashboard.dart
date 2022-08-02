@@ -43,7 +43,7 @@ List<Color> dashTileColors = const [
   Color.fromARGB(255, 214, 26, 26),
 ];
 List<Widget> dashCardNavTo = const [
-  ScreeVehcle(),
+  ScreenVehcle(),
   ScreenRoute(),
   ScreenAnalytics(),
   ScreenAllShops(),

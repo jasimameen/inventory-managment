@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:invendory_managment/presentation/core/styles.dart';
+import '../../core/styles.dart';
 
 const _indexStyle = TextStyle(fontWeight: FontWeight.bold);
 const _titleStyle = TextStyle(fontWeight: FontWeight.bold);

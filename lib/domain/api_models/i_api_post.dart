@@ -1,5 +1,6 @@
 import '../models/models_exported.dart';
 
 abstract class IApiPost {
-  Future<bool> addSale(SalesModel salesModel);
+  Future<SalesModel> addSale(SalesModel salesModel);
+  Future<ShopModel> registerShop(ShopModel shopModel);
 }

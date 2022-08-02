@@ -1,12 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../domain/models/warehouse.dart';
 import '../../domain/warehouse/i_warehouse_repo.dart';
 
+part 'warehouse_bloc.freezed.dart';
 part 'warehouse_event.dart';
 part 'warehouse_state.dart';
-part 'warehouse_bloc.freezed.dart';
 
 @injectable
 class WarehouseBloc extends Bloc<WarehouseEvent, WarehouseState> {

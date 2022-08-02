@@ -19,11 +19,15 @@ class ErrandBloc extends Bloc<ErrandEvent, ErrandState> {
   ErrandBloc(this._vehicleRepo) : super(ErrandState.initial()) {
     // get ErrendInfo
     on<_GetErrandInfo>((event, emit) async {
+      // return if data is already loaded
+      if (state.errandInfo.id != -1) {
+        emit(state);
+        return;
+      }
       // send loading state
       emit(state.copyWith(isLoading: true));
       // fetch data from repository
-      final resp = await _vehicleRepo
-          .getErrentInfo(PersistedData.errandId!); 
+      final resp = await _vehicleRepo.getErrentInfo(PersistedData.errandId!);
       // fold the data
       final _newState = resp.fold(
         (failure) => state.copyWith(isError: true, isLoading: false),
@@ -40,9 +44,14 @@ class ErrandBloc extends Bloc<ErrandEvent, ErrandState> {
 
     // get Vehicle Info
     on<_GetVehicleInfo>((event, emit) async {
+      // return if data is already loaded
+      if (state.vehicleInfo.id != -1) {
+        emit(state);
+        return;
+      }
+
       // fetch data from repository
-      final resp =
-          await _vehicleRepo.getVehicleInfo(PersistedData.vehicleId!);
+      final resp = await _vehicleRepo.getVehicleInfo(PersistedData.vehicleId!);
       // fold the data
       final _newState = resp.fold(
         (failure) => state.copyWith(isError: true, isLoading: false),
@@ -59,9 +68,14 @@ class ErrandBloc extends Bloc<ErrandEvent, ErrandState> {
 
     // get driver Info
     on<_GetDriverInfo>((event, emit) async {
+      // return if data is already loaded
+      if (state.driverInfo.id != -1) {
+        emit(state);
+        return;
+      }
+
       // fetch data from repository
-      final resp = await _vehicleRepo
-          .getDriverInfo(PersistedData.driverId!); 
+      final resp = await _vehicleRepo.getDriverInfo(PersistedData.driverId!);
       // fold the data
       final _newState = resp.fold(
         (failure) => state.copyWith(isError: true, isLoading: false),
